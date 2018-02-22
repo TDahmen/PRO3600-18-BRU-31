@@ -5,10 +5,11 @@
 """
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import echecs
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
-        
+
         # Initialisation de la fenêtre
         Dialog.setObjectName("Dialog")
         Dialog.resize(772, 782)
@@ -574,42 +575,6 @@ class Ui_Dialog(object):
         self.vide_32.setIcon(QtGui.QIcon("vide.png"))
         self.vide_32.setIconSize(QtCore.QSize(60, 60))
 
-        self.vide_1.pressed.connect(lambda: self.chk(self.vide_1))
-        self.vide_2.pressed.connect(lambda: self.chk(self.vide_2))
-        self.vide_3.pressed.connect(lambda: self.chk(self.vide_3))
-        self.vide_4.pressed.connect(lambda: self.chk(self.vide_4))
-        self.vide_5.pressed.connect(lambda: self.chk(self.vide_5))
-        self.vide_6.pressed.connect(lambda: self.chk(self.vide_6))
-        self.vide_7.pressed.connect(lambda: self.chk(self.vide_7))
-        self.vide_8.pressed.connect(lambda: self.chk(self.vide_8))
-        self.vide_9.pressed.connect(lambda: self.chk(self.vide_9))
-        self.vide_10.pressed.connect(lambda: self.chk(self.vide_10))
-        self.vide_11.pressed.connect(lambda: self.chk(self.vide_11))
-        self.vide_12.pressed.connect(lambda: self.chk(self.vide_12))
-        self.vide_13.pressed.connect(lambda: self.chk(self.vide_13))
-        self.vide_14.pressed.connect(lambda: self.chk(self.vide_14))
-        self.vide_15.pressed.connect(lambda: self.chk(self.vide_15))
-        self.vide_16.pressed.connect(lambda: self.chk(self.vide_16))
-        self.vide_17.pressed.connect(lambda: self.chk(self.vide_17))
-        self.vide_18.pressed.connect(lambda: self.chk(self.vide_18))
-        self.vide_19.pressed.connect(lambda: self.chk(self.vide_19))
-        self.vide_20.pressed.connect(lambda: self.chk(self.vide_20))
-        self.vide_21.pressed.connect(lambda: self.chk(self.vide_21))
-        self.vide_22.pressed.connect(lambda: self.chk(self.vide_22))
-        self.vide_23.pressed.connect(lambda: self.chk(self.vide_23))
-        self.vide_24.pressed.connect(lambda: self.chk(self.vide_24))
-        self.vide_25.pressed.connect(lambda: self.chk(self.vide_25))
-        self.vide_26.pressed.connect(lambda: self.chk(self.vide_26))
-        self.vide_27.pressed.connect(lambda: self.chk(self.vide_27))
-        self.vide_28.pressed.connect(lambda: self.chk(self.vide_28))
-        self.vide_29.pressed.connect(lambda: self.chk(self.vide_29))
-        self.vide_30.pressed.connect(lambda: self.chk(self.vide_30))
-        self.vide_31.pressed.connect(lambda: self.chk(self.vide_31))
-        self.vide_32.pressed.connect(lambda: self.chk(self.vide_32))
-
-        # Création du dictionnaire (correspondance avec le tableau du moteur de jeu)
-
-        dict = {'tour1B': (9,2), 'cavalier1B': (9,3), 'fou1B': (9,4), 'reineB': (9,5), 'roiB': (9,6), 'fou2B': (9,7), 'cavalier2B': (9,8), 'tour2B': (9,9), }
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -618,51 +583,136 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
 
+        # Création du dictionnaire (correspondance avec le tableau du moteur de jeu)
+
+        dict1 = {self.tour1B: (9,2), self.cavalier1B: (9,3), self.fou1B: (9,4), self.reineB: (9,5),
+         self.roiB: (9,6), self.fou2B: (9,7), self.cavalier2B: (9,8), self.tour2B: (9,9), self.pion1B: (8,2),
+         self.pion2B: (8,3), self.pion3B: (8,4), self.pion4B: (8,5), self.pion5B: (8,6), self.pion6B: (8,7),
+         self.pion7B: (8,8), self.pion8B: (8,9), self.vide_25: (4,2),
+         self.vide_26: (4,3),
+         self.vide_27: (4,4),
+         self.vide_28: (4,5),
+         self.vide_29: (4,6),
+         self.vide_30: (4,7),
+         self.vide_31: (4,8),
+         self.vide_32: (4,9),
+         self.vide_17: (5,2),
+         self.vide_18: (5,3),
+         self.vide_19: (5,4),
+         self.vide_20: (5,5),
+         self.vide_21: (5,6),
+         self.vide_22: (5,7),
+         self.vide_23: (5,8),
+         self.vide_24: (5,9),
+         self.vide_9: (6,2),
+         self.vide_10: (6,3),
+         self.vide_11: (6,4),
+         self.vide_12: (6,5),
+         self.vide_13: (6,6),
+         self.vide_14: (6,7),
+         self.vide_15: (6,8),
+         self.vide_16: (6,9),
+         self.vide_1: (7,2),
+         self.vide_2: (7,3),
+         self.vide_3: (7,4),
+         self.vide_4: (7,5),
+         self.vide_5: (7,6),
+         self.vide_6: (7,7),
+         self.vide_7: (7,8),
+         self.vide_8: (7,9),}
+
+        dict2 = dict()
+
+        for cle,valeur in dict1.items():
+             dict2[valeur] = cle
+
         # On connecte les boutons à l'action chk (pour "checked")
         # On doit les connecter à une fonction, mais on veut passer en argument
         # le sender
         # Donc on utilise une fonction anonyme (qui renvoie le résultat de
         # chk(pièce)
 
-        self.tour1B.pressed.connect(lambda: self.chk(self.tour1B))
-        self.cavalier1B.pressed.connect(lambda: self.chk(self.cavalier1B))
-        self.fou1B.pressed.connect(lambda: self.chk(self.fou1B))
-        self.reineB.pressed.connect(lambda: self.chk(self.reineB))
-        self.roiB.pressed.connect(lambda: self.chk(self.roiB))
-        self.tour2B.pressed.connect(lambda: self.chk(self.tour2B))
-        self.cavalier2B.pressed.connect(lambda: self.chk(self.cavalier2B))
-        self.fou2B.pressed.connect(lambda: self.chk(self.fou2B))
-        self.pion1B.pressed.connect(lambda: self.chk(self.pion1B))
-        self.pion2B.pressed.connect(lambda: self.chk(self.pion2B))
-        self.pion3B.pressed.connect(lambda: self.chk(self.pion3B))
-        self.pion4B.pressed.connect(lambda: self.chk(self.pion4B))
-        self.pion5B.pressed.connect(lambda: self.chk(self.pion5B))
-        self.pion6B.pressed.connect(lambda: self.chk(self.pion6B))
-        self.pion7B.pressed.connect(lambda: self.chk(self.pion7B))
-        self.pion8B.pressed.connect(lambda: self.chk(self.pion8B))
+        self.tour1B.pressed.connect(lambda: self.chk(self.tour1B,dict1, dict2))
+        self.cavalier1B.pressed.connect(lambda: self.chk(self.cavalier1B,dict1, dict2))
+        self.fou1B.pressed.connect(lambda: self.chk(self.fou1B,dict1, dict2))
+        self.reineB.pressed.connect(lambda: self.chk(self.reineB,dict1, dict2))
+        self.roiB.pressed.connect(lambda: self.chk(self.roiB,dict1, dict2))
+        self.tour2B.pressed.connect(lambda: self.chk(self.tour2B,dict1, dict2))
+        self.cavalier2B.pressed.connect(lambda: self.chk(self.cavalier2B,dict1, dict2))
+        self.fou2B.pressed.connect(lambda: self.chk(self.fou2B,dict1, dict2))
+        self.pion1B.pressed.connect(lambda: self.chk(self.pion1B,dict1, dict2))
+        self.pion2B.pressed.connect(lambda: self.chk(self.pion2B,dict1, dict2))
+        self.pion3B.pressed.connect(lambda: self.chk(self.pion3B,dict1, dict2))
+        self.pion4B.pressed.connect(lambda: self.chk(self.pion4B,dict1, dict2))
+        self.pion5B.pressed.connect(lambda: self.chk(self.pion5B,dict1, dict2))
+        self.pion6B.pressed.connect(lambda: self.chk(self.pion6B,dict1, dict2))
+        self.pion7B.pressed.connect(lambda: self.chk(self.pion7B,dict1, dict2))
+        self.pion8B.pressed.connect(lambda: self.chk(self.pion8B,dict1, dict2))
 
-        self.tour1N.pressed.connect(lambda: self.chk(self.tour1N))
-        self.cavalier1N.pressed.connect(lambda: self.chk(self.cavalier1N))
-        self.fou1N.pressed.connect(lambda: self.chk(self.fou1N))
-        self.reineN.pressed.connect(lambda: self.chk(self.reineN))
-        self.roiN.pressed.connect(lambda: self.chk(self.roiN))
-        self.tour2N.pressed.connect(lambda: self.chk(self.tour2N))
-        self.cavalier2N.pressed.connect(lambda: self.chk(self.cavalier2N))
-        self.fou2N.pressed.connect(lambda: self.chk(self.fou2N))
-        self.pion1N.pressed.connect(lambda: self.chk(self.pion1N))
-        self.pion2N.pressed.connect(lambda: self.chk(self.pion2N))
-        self.pion3N.pressed.connect(lambda: self.chk(self.pion3N))
-        self.pion4N.pressed.connect(lambda: self.chk(self.pion4N))
-        self.pion5N.pressed.connect(lambda: self.chk(self.pion5N))
-        self.pion6N.pressed.connect(lambda: self.chk(self.pion6N))
-        self.pion7N.pressed.connect(lambda: self.chk(self.pion7N))
-        self.pion8N.pressed.connect(lambda: self.chk(self.pion8N))
+        self.tour1N.pressed.connect(lambda: self.chk(self.tour1N,dict1, dict2))
+        self.cavalier1N.pressed.connect(lambda: self.chk(self.cavalier1N,dict1, dict2))
+        self.fou1N.pressed.connect(lambda: self.chk(self.fou1N,dict1, dict2))
+        self.reineN.pressed.connect(lambda: self.chk(self.reineN,dict1, dict2))
+        self.roiN.pressed.connect(lambda: self.chk(self.roiN,dict1, dict2))
+        self.tour2N.pressed.connect(lambda: self.chk(self.tour2N,dict1, dict2))
+        self.cavalier2N.pressed.connect(lambda: self.chk(self.cavalier2N,dict1, dict2))
+        self.fou2N.pressed.connect(lambda: self.chk(self.fou2N,dict1, dict2))
+        self.pion1N.pressed.connect(lambda: self.chk(self.pion1N,dict1, dict2))
+        self.pion2N.pressed.connect(lambda: self.chk(self.pion2N,dict1, dict2))
+        self.pion3N.pressed.connect(lambda: self.chk(self.pion3N,dict1, dict2))
+        self.pion4N.pressed.connect(lambda: self.chk(self.pion4N,dict1, dict2))
+        self.pion5N.pressed.connect(lambda: self.chk(self.pion5N,dict1, dict2))
+        self.pion6N.pressed.connect(lambda: self.chk(self.pion6N,dict1, dict2))
+        self.pion7N.pressed.connect(lambda: self.chk(self.pion7N,dict1, dict2))
+        self.pion8N.pressed.connect(lambda: self.chk(self.pion8N,dict1, dict2))
+
+        self.vide_1.pressed.connect(lambda: self.chk(self.vide_1,dict1, dict2))
+        self.vide_2.pressed.connect(lambda: self.chk(self.vide_2,dict1, dict2))
+        self.vide_3.pressed.connect(lambda: self.chk(self.vide_3,dict1, dict2))
+        self.vide_4.pressed.connect(lambda: self.chk(self.vide_4,dict1, dict2))
+        self.vide_5.pressed.connect(lambda: self.chk(self.vide_5,dict1, dict2))
+        self.vide_6.pressed.connect(lambda: self.chk(self.vide_6,dict1, dict2))
+        self.vide_7.pressed.connect(lambda: self.chk(self.vide_7,dict1, dict2))
+        self.vide_8.pressed.connect(lambda: self.chk(self.vide_8,dict1, dict2))
+        self.vide_9.pressed.connect(lambda: self.chk(self.vide_9,dict1, dict2))
+        self.vide_10.pressed.connect(lambda: self.chk(self.vide_10,dict1, dict2))
+        self.vide_11.pressed.connect(lambda: self.chk(self.vide_11,dict1, dict2))
+        self.vide_12.pressed.connect(lambda: self.chk(self.vide_12,dict1, dict2))
+        self.vide_13.pressed.connect(lambda: self.chk(self.vide_13,dict1, dict2))
+        self.vide_14.pressed.connect(lambda: self.chk(self.vide_14,dict1, dict2))
+        self.vide_15.pressed.connect(lambda: self.chk(self.vide_15,dict1, dict2))
+        self.vide_16.pressed.connect(lambda: self.chk(self.vide_16,dict1, dict2))
+        self.vide_17.pressed.connect(lambda: self.chk(self.vide_17,dict1, dict2))
+        self.vide_18.pressed.connect(lambda: self.chk(self.vide_18,dict1, dict2))
+        self.vide_19.pressed.connect(lambda: self.chk(self.vide_19,dict1, dict2))
+        self.vide_20.pressed.connect(lambda: self.chk(self.vide_20,dict1, dict2))
+        self.vide_21.pressed.connect(lambda: self.chk(self.vide_21,dict1, dict2))
+        self.vide_22.pressed.connect(lambda: self.chk(self.vide_22,dict1, dict2))
+        self.vide_23.pressed.connect(lambda: self.chk(self.vide_23,dict1, dict2))
+        self.vide_24.pressed.connect(lambda: self.chk(self.vide_24,dict1, dict2))
+        self.vide_25.pressed.connect(lambda: self.chk(self.vide_25,dict1, dict2))
+        self.vide_26.pressed.connect(lambda: self.chk(self.vide_26,dict1, dict2))
+        self.vide_27.pressed.connect(lambda: self.chk(self.vide_27,dict1, dict2))
+        self.vide_28.pressed.connect(lambda: self.chk(self.vide_28,dict1, dict2))
+        self.vide_29.pressed.connect(lambda: self.chk(self.vide_29,dict1, dict2))
+        self.vide_30.pressed.connect(lambda: self.chk(self.vide_30,dict1, dict2))
+        self.vide_31.pressed.connect(lambda: self.chk(self.vide_31,dict1, dict2))
+        self.vide_32.pressed.connect(lambda: self.chk(self.vide_32,dict1, dict2))
+
+
 
     # Fonction d'action lorsqu'une pièce est sélectionnée
 
-    def chk(self, button): # on passe en argument le sender
+    def chk(self, button, dict1, dict2): # on passe en argument le sender
         global pChecked
         global nbVide
+        global listeAcc
+        for bitonio in listeAcc:
+            if "vide" in bitonio.objectName():
+                bitonio.setIcon(QtGui.QIcon("vide.png"))
+            else:
+                bitonio.setIcon(QtGui.QIcon(bitonio.objectName() + ".png"))
+            print(bitonio.objectName())
         joueur = "B" # Joueur à récupérer depuis le moteur
         name = button.objectName()
         if joueur in name or "vide" in name or (pChecked != "" and joueur in pChecked.objectName()):
@@ -670,6 +720,23 @@ class Ui_Dialog(object):
                 if not("vide" in name):
                     print(name + " sélectionné")
                     button.setIcon(QtGui.QIcon(name + "sel.png"))
+                    ## Interaction avec echecs.py
+                    coord = dict1[button]
+                    print(coord)
+
+                    (x,y) = coord
+                    l = echecs.valeurs_accessibles(x,y)
+
+                    for (m,n) in l:
+                        butt = dict2[(m,n)]
+                        listeAcc.append(butt)
+                        buttName = butt.objectName()
+                        if "vide" in buttName:
+                            butt.setIcon(QtGui.QIcon("videsel.png"))
+                        else:
+                            butt.setIcon(QtGui.QIcon(buttName + "sel.png"))
+
+                    ##
                     pChecked = button
             else: # Une pièce est déjà sélectionnée
                 if button == pChecked: # On a sélectionné la pièce déjà sélectionnée
@@ -690,6 +757,23 @@ class Ui_Dialog(object):
                             print(pChecked.objectName() + " dé-sélectionné")
                             print(name + " sélectionné")
                             pChecked.setIcon(QtGui.QIcon(pChecked.objectName() + ".png"))
+                            ## Interaction avec echecs.py
+                            coord = dict1[button]
+                            print(coord)
+
+                            (x,y) = coord
+                            l = echecs.valeurs_accessibles(x,y)
+
+                            for (m,n) in l:
+                                butt = dict2[(m,n)]
+                                listeAcc.append(butt)
+                                buttName = butt.objectName()
+                                if "vide" in buttName:
+                                    butt.setIcon(QtGui.QIcon("videsel.png"))
+                                else:
+                                    butt.setIcon(QtGui.QIcon(buttName + "sel.png"))
+
+                            ##
                             pChecked = button
                             namePChecked = pChecked.objectName()
                             pChecked.setIcon(QtGui.QIcon(namePChecked + "sel.png"))
@@ -703,9 +787,11 @@ class Ui_Dialog(object):
                             pChecked = ""
 
 if __name__ == "__main__":
+    global tour1B
     import sys
     pChecked = "" # Variable contenant la pièce sélectionnée
     nbVide = 32 # Nombre de cases vides
+    listeAcc = []
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
