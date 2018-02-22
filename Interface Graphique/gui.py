@@ -588,7 +588,10 @@ class Ui_Dialog(object):
         dict1 = {self.tour1B: (9,2), self.cavalier1B: (9,3), self.fou1B: (9,4), self.reineB: (9,5),
          self.roiB: (9,6), self.fou2B: (9,7), self.cavalier2B: (9,8), self.tour2B: (9,9), self.pion1B: (8,2),
          self.pion2B: (8,3), self.pion3B: (8,4), self.pion4B: (8,5), self.pion5B: (8,6), self.pion6B: (8,7),
-         self.pion7B: (8,8), self.pion8B: (8,9), self.vide_25: (4,2),
+         self.pion7B: (8,8), self.pion8B: (8,9), self.vide_25: (4,2), self.tour1N: (2,2), self.cavalier1N: (2,3), self.fou1N: (2,4), self.reineN: (2,5),
+          self.roiN: (2,6), self.fou2N: (2,7), self.cavalier2N: (2,8), self.tour2N: (2,9), self.pion1N: (3,2),
+          self.pion2N: (3,3), self.pion3N: (3,4), self.pion4N: (3,5), self.pion5N: (3,6), self.pion6N: (3,7),
+          self.pion7N: (3,8), self.pion8N: (3,9), self.vide_25: (4,2),
          self.vide_26: (4,3),
          self.vide_27: (4,4),
          self.vide_28: (4,5),
@@ -744,8 +747,17 @@ class Ui_Dialog(object):
                     button.setIcon(QtGui.QIcon(name + ".png"))
                     pChecked = ""
                 else: # On a sélectionné une autre pièce
-                    if "vide" in name:
-                        print("Déplaçons la pièce vers la case vide !")
+                    if "vide" in name and button in listeAcc: # Déplacement d'une pièce
+                        ## On répercute le mouvement dans le moteur de jeu en appelant "move"
+                        (a,b) = dict1[pChecked]
+                        (c,d) = dict1[button]
+                        echecs.move(a,b,c,d)
+                        ##
+                        ## On change les valeurs des dictionnaires
+                        positionFinale = dict1[button]
+                        dict1[pChecked] = positionFinale
+                        dict2[positionFinale] = pChecked
+                        ##
                         strButtonName = button.objectName()
                         button.setObjectName(pChecked.objectName())
                         pChecked.setObjectName(strButtonName)
@@ -777,8 +789,22 @@ class Ui_Dialog(object):
                             pChecked = button
                             namePChecked = pChecked.objectName()
                             pChecked.setIcon(QtGui.QIcon(namePChecked + "sel.png"))
-                        if not(joueur in name): # on a sélectionné une pièce adverse
+                        if not(joueur in name) and button in listeAcc: # on a sélectionné une pièce adverse
                             print("Mangeons la pièce adverse !")
+                            ## On répercute le mouvement dans le moteur de jeu en appelant "move"
+                            (a,b) = dict1[pChecked]
+                            (c,d) = dict1[button]
+                            echecs.move(a,b,c,d)
+                            ##
+                            ## On change les valeurs des dictionnaires
+                            positionFinale = dict1[button]
+                            dict1[pChecked] = positionFinale
+                            dict2[positionFinale] = pChecked
+                            ## On répercute le mouvement dans le moteur de jeu en appelant "move"
+                            (a,b) = dict1[pChecked]
+                            (c,d) = dict1[button]
+                            echecs.move(a,b,c,d)
+                            ##
                             nbVide += 1 # on incrémente le nombre de cases vides
                             button.setObjectName(pChecked.objectName())
                             pChecked.setObjectName("vide_" + str(nbVide))
