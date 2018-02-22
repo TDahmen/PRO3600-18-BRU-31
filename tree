@@ -1,0 +1,287 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Feb 12 11:26:46 2018
+
+@author: oscarbouvier
+"""
+
+#import echecs
+import math
+from anytree import Node,RenderTree
+#import graphviz
+import random
+#from anytree.exporter import DotExporter
+
+def random_quint(v):
+    a=(random.randint(0,10),random.randint(0,10),random.randint(0,10),random.randint(0,10),v)
+    return a
+
+#root = Node((0,0,0,0,0))
+#node2 = Node(random_quint(0),parent=root)
+#node3 = Node(random_quint(0),parent=root)
+#nodeprime1= Node(random_quint(0),parent=node2)
+#nodeprime2 = Node(random_quint(0),parent=node3)
+#nodeprime3=Node(random_quint(3),node2)
+#nodeprime4=Node(random_quint(2),node3)
+#node4 = Node(random_quint(4),parent=nodeprime1)
+#node5 = Node(random_quint(5),parent=nodeprime1)
+#node6 = Node(random_quint(6),parent=nodeprime2)
+#node7 = Node(random_quint(7),parent=nodeprime2)
+#node8 = Node(random_quint(8),parent=nodeprime2)
+
+root = Node(0)
+node2 = Node(0,parent=root)
+node3 = Node(0,parent=root)
+node4 = Node(0,parent=node2)
+node5 = Node(0,parent=node2)
+node6 = Node(0,parent=node3)
+node7 = Node(0,node3)
+node8 = Node(4,parent=node4)
+node9 = Node(5,parent=node4)
+node10 = Node(6,parent=node5)
+node11 = Node(7,parent=node5)
+node12 = Node(2,parent=node6)
+node13 = Node(4,parent=node6)
+node14 = Node(2,parent=node7)
+node15 = Node(3,parent=node7)
+
+root_2 = Node((0,0,0,0,0))
+node2 = Node(random_quint(0),parent=root_2)
+node3 = Node(random_quint(0),parent=root_2)
+node4 = Node(random_quint(0),parent=node2)
+node5 = Node(random_quint(0),parent=node2)
+node6 = Node(random_quint(0),parent=node3)
+node7 = Node(random_quint(0),node3)
+node8 = Node(random_quint(-4),parent=node4)
+node9 = Node(random_quint(-5),parent=node4)
+node10 = Node(random_quint(-6),parent=node5)
+node11 = Node(random_quint(-7),parent=node5)
+node12 = Node(random_quint(-2),parent=node6)
+node13 = Node(random_quint(-4),parent=node6)
+node14 = Node(random_quint(-2),parent=node7)
+node15 = Node(random_quint(-3),parent=node7)
+
+
+for pre, fill, node in RenderTree(root_2):
+    print("%s%s" % (pre, node.name))
+
+#Codage de la fonction minimax
+    
+def is_max_W(arb):
+    if arb.is_root:
+        return True
+    else:
+        n=(arb.ancestors[0]).height
+        return ((n-arb.height)%2==0)
+    
+def is_min_B(arb):
+     if arb.is_root:
+        return True
+     else:
+        n=(arb.ancestors[0]).height
+        return ((n-arb.height)%2==0)
+
+#print(node2==root.children[0])
+#print(root.is_leaf)
+#print(root.height)
+#print(node4.height)
+
+#def minimax(arb,profondeur):
+#    if arb.is_leaf:
+#        valeur_de_la_position=arb.name #à changer par la valeur de la fonction d'évaluation
+#        return valeur_de_la_position
+#    for node in arb.children:
+#        valeur_du_fils_courant=minimax(node,profondeur+1)
+#        if is_max(arb): #c'est un noeud max
+#            if (valeur_du_fils_courant[4]> arb.name[4]) or (node==arb.children[0]):
+#                arb.name=valeur_du_fils_courant
+#        else: #c'est un noeud min
+#            if (valeur_du_fils_courant[4] < arb.name[4]) or (node==arb.children[0]):
+#                arb.name=valeur_du_fils_courant
+#    valeur_de_la_position=arb.name
+#    return valeur_de_la_position
+
+#def minimax(arb,profondeur):
+#    if arb.is_leaf:
+#        valeur_de_la_position=arb.name
+#        return valeur_de_la_position
+#    for node in arb.children:
+#        valeur_du_fils_courant=minimax(node,profondeur+1)
+#        if is_max(arb): #c'est un noeud max
+#            if (valeur_du_fils_courant> arb.name) or (node==arb.children[0]):
+#                arb.name=valeur_du_fils_courant
+#        else: #c'est un noeud min
+#            if (valeur_du_fils_courant < arb.name) or (node==arb.children[0]):
+#                arb.name=valeur_du_fils_courant
+#    valeur_de_la_position=arb.name
+#    return valeur_de_la_position
+
+def minimax(arb,profondeur): #Minimax pour les arbres à quintuplet-> 4 premières valeurs pour le move
+                                                                 #-> 5ème : valeur de la fonction d'éval
+    if arb.is_leaf:
+        valeur_de_la_position=arb.name #à changer par la valeur de la fonction d'évaluation
+        return valeur_de_la_position
+    for node in arb.children:
+        valeur_du_fils_courant=minimax(node,profondeur+1)
+        if is_max_W(arb): #c'est un noeud max
+            if (valeur_du_fils_courant[4]> arb.name[4]) or (node==arb.children[0]):
+                arb.name=valeur_du_fils_courant
+        else: #c'est un noeud min
+            if (valeur_du_fils_courant[4] < arb.name[4]) or (node==arb.children[0]):
+                arb.name=valeur_du_fils_courant
+    valeur_de_la_position=arb.name
+    return valeur_de_la_position
+
+def minimax_B(arb,profondeur): #Minimax pour les arbres à quintuplet-> 4 premières valeurs pour le move
+                                                                 #-> 5ème : valeur de la fonction d'éval
+    if arb.is_leaf:
+        valeur_de_la_position=arb.name #à changer par la valeur de la fonction d'évaluation
+        return valeur_de_la_position
+    for node in arb.children:
+        valeur_du_fils_courant=minimax_B(node,profondeur+1)
+        if not(is_min_B(arb)): #c'est un noeud max
+            if (valeur_du_fils_courant[4]> arb.name[4]) or (node==arb.children[0]):
+                arb.name=valeur_du_fils_courant
+        else: #c'est un noeud min
+            if (valeur_du_fils_courant[4] < arb.name[4]) or (node==arb.children[0]):
+                arb.name=valeur_du_fils_courant
+    valeur_de_la_position=arb.name
+    return valeur_de_la_position
+
+def get_minimax_B():
+    return minimax_B(root_2,0)[0:4]
+
+#def alpha_beta(arb,profondeur,alpha,beta):
+#    if arb.is_leaf:
+#        valeur_de_la_position=arb.name
+#        return valeur_de_la_position
+#    else:
+#        if is_max_W(arb):
+#            for node in arb.children:
+#                if alpha<beta:
+#                    valeur_du_fils_courant=alpha_beta(node,profondeur+1,alpha,beta)
+#                    alpha=max(alpha,valeur_du_fils_courant) 
+#            valeur_de_la_position=alpha
+#            print(valeur_de_la_position)
+#        else:
+#            for node in arb.children:
+#                if alpha<beta:
+#                    valeur_du_fils_courant=alpha_beta(node,profondeur+1,alpha,beta)
+#                    beta=min(beta,valeur_du_fils_courant)
+#            valeur_de_la_position=beta
+#    return valeur_de_la_position
+
+#def alpha_beta(arb,profondeur,alpha,beta):
+#    if arb.is_leaf:
+#        valeur_de_la_position=arb.name
+#        return valeur_de_la_position
+#    else:
+#        if not(is_min_B(arb)):
+#            for node in arb.children:
+#                if alpha<beta:
+#                    valeur_du_fils_courant=alpha_beta(node,profondeur+1,alpha,beta)
+#                    alpha=max(alpha,valeur_du_fils_courant) 
+#            valeur_de_la_position=alpha
+#            print(valeur_de_la_position)
+#        else:
+#            for node in arb.children:
+#                if alpha<beta:
+#                    valeur_du_fils_courant=alpha_beta(node,profondeur+1,alpha,beta)
+#                    beta=min(beta,valeur_du_fils_courant)
+#            valeur_de_la_position=beta
+#    return valeur_de_la_position
+
+def alpha_beta_W(arb,profondeur,alpha,beta):
+    global m2
+    global n2
+    global o2
+    global p2
+    global mp2
+    global np2
+    global op2
+    global qp2
+    if arb.is_leaf:
+        valeur_de_la_position=arb.name
+        return valeur_de_la_position
+    else:
+        if is_max_W(arb):
+            for node in arb.children:
+                if alpha<beta:
+                    valeur_du_fils_courant=alpha_beta_W(node,profondeur+1,alpha,beta)
+                    if alpha < valeur_du_fils_courant[4]:
+                        alpha=valeur_du_fils_courant[4]
+                        m2,n2,o2,p2 =valeur_du_fils_courant[0:4]
+            valeur_de_la_position=(m2,n2,o2,p2,alpha)
+        else:
+            for node in arb.children:
+                if alpha<beta:
+                    valeur_du_fils_courant=alpha_beta_W(node,profondeur+1,alpha,beta)
+                    if beta > valeur_du_fils_courant[4]:
+                        beta=valeur_du_fils_courant[4]
+                        mp2,np2,op2,qp2 =valeur_du_fils_courant[0:4]
+            valeur_de_la_position=(mp2,np2,op2,qp2,beta)
+    return valeur_de_la_position
+
+
+
+def alpha_beta_B(arb,profondeur,alpha,beta):
+    global m1
+    global n1
+    global o1
+    global p1
+    global mp1
+    global np1
+    global op1
+    global qp1
+    if arb.is_leaf:
+        valeur_de_la_position=arb.name
+        return valeur_de_la_position
+    else:
+        if not(is_min_B(arb)):
+            for node in arb.children:
+                if alpha<beta:
+                    valeur_du_fils_courant=alpha_beta_B(node,profondeur+1,alpha,beta)
+                    if alpha < valeur_du_fils_courant[4]:
+                        alpha=valeur_du_fils_courant[4]
+                        m1,n1,o1,p1 =valeur_du_fils_courant[0:4]
+            valeur_de_la_position=(m1,n1,o1,p1,alpha)
+        else:
+            for node in arb.children:
+                if alpha<beta:
+                    valeur_du_fils_courant=alpha_beta_B(node,profondeur+1,alpha,beta)
+                    if beta > valeur_du_fils_courant[4]:
+                        beta=valeur_du_fils_courant[4]
+                        mp1,np1,op1,qp1 =valeur_du_fils_courant[0:4]
+            valeur_de_la_position=(mp1,np1,op1,qp1,beta)
+    return valeur_de_la_position
+
+def get_alpha_beta_W():
+    return alpha_beta_W(root_2,0,-math.inf,math.inf)[0:4]
+
+def get_alpha_beta_B():
+    return alpha_beta_B(root_2,0,-math.inf,math.inf)[0:4]
+
+
+#print(alpha_beta(root_2,0,-math.inf,math.inf))
+#print(get_alpha_beta_B())
+#print(get_alpha_beta_W())
+#print(get_minimax_B())
+
+
+#del root_2
+#root_2=Node((0,0,0,0,0))
+ 
+
+for pre, fill, node in RenderTree(root_2):
+    print("%s%s" % (pre, node.name))
+
+print(get_alpha_beta_B())
+    
+
+#nytree.exporter.DotExporter(root_2).to_picture("udo.png")
+        
+    
+    
+    
+    
