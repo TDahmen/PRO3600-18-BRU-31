@@ -8,8 +8,11 @@ Created on Tue Jan 30 14:44:38 2018
 
 import numpy as np
 import math
-from tkinter import *
 from anytree import Node,RenderTree
+
+#Variable pour savoir à qui est le tour
+
+tour_blanc = True
 
 # Création du plateau de jeu
 
@@ -186,6 +189,7 @@ def movetest(a,b,c,d):
             del dico_position_W[(a,b)]
 
 def move(a,b,c,d):
+    global tour_blanc
     l = valeurs_accessibles(a,b)
     if plateau[a][b] == 0:
         print("On ne peut pas jouer avec une case vide !")
@@ -222,9 +226,10 @@ def move(a,b,c,d):
         plateau[a][b] = 0
     else:
         return ("Cette case n'est pas accessible")
+    tour_blanc=not(tour_blanc)
 
 def move_chess(a,b,c,d):
-    l = valeurs_accessibles(a,b)
+    l = valeurs_accessibles_test(a,b)
     #if plateau[a][b] == 0:
         #print("On ne peut pas jouer avec une case vide !")
     if plateau[c][d] != 0 and (c,d) in l :
@@ -267,33 +272,33 @@ def move_chess(a,b,c,d):
 def ensemble_valeurs_accessibles_W():
     res=[]
     for (k,l) in dico_position_W.keys():
-        res+=valeurs_accessibles(k,l)
+        res+=valeurs_accessibles_test(k,l)
     return res
 
 def ensemble_valeurs_accessibles_B():
     res=[]
     for (k,l) in dico_position_B.keys():
-        res+=valeurs_accessibles(k,l)
+        res+=valeurs_accessibles_test(k,l)
     return res
 
 def ensemble_move_possible_W():
     res=[]
     for (k,l) in dico_position_W.keys():
-        for x,y in valeurs_accessibles(k,l):
+        for x,y in valeurs_accessibles_test(k,l):
             res+=[(k,l,x,y)]
     return res
 
 def ensemble_move_possible_B():
     res=[]
     for (k,l) in dico_position_B.keys():
-        for x,y in valeurs_accessibles(k,l):
+        for x,y in valeurs_accessibles_test(k,l):
             res+=[(k,l,x,y)]
     return res
 #position du roi en 4ème position dans la liste des positions des pièces blanches
 #retour de la fonction : mise en échec ou pas
 
 def chess_W():
-    return (position_B[4] in (ensemble_valeurs_accessibles_B()))
+    return (position_W[4] in (ensemble_valeurs_accessibles_B()))
 
 def chess_B():
     return (position_B[4] in (ensemble_valeurs_accessibles_W()))
@@ -313,7 +318,7 @@ def chess_Mate_B():
     for i in dico_position_B.values():
         x,y=position_B[i]
         #print(position_B[i])
-        poss=valeurs_accessibles(x,y)
+        poss=valeurs_accessibles_test(x,y)
         #print(poss)
         for (k,l) in poss:
             move_chess(x,y,k,l)
@@ -342,7 +347,7 @@ def mouv_possible_chess_B():
     temp5=dico_position_W.copy()
     for i in dico_position_B.values():
         x,y=position_B[i]
-        poss=valeurs_accessibles(x,y)
+        poss=valeurs_accessibles_test(x,y)
         for (k,l) in poss:
             chess_mate=True
             move_chess(x,y,k,l)
@@ -372,7 +377,7 @@ def chess_Mate_W():
     for i in dico_position_W.values():
         x,y=position_W[i]
         #print(position_W[i])
-        poss=valeurs_accessibles(x,y)
+        poss=valeurs_accessibles_test(x,y)
         #print(poss)
         for (k,l) in poss:
             move_chess(x,y,k,l)
@@ -401,7 +406,7 @@ def mouv_possible_chess_W():
     temp5=dico_position_W.copy()
     for i in dico_position_W.values():
         x,y=position_W[i]
-        poss=valeurs_accessibles(x,y)
+        poss=valeurs_accessibles_test(x,y)
         for (k,l) in poss:
             chess_mate=True
             move_chess(x,y,k,l)
@@ -424,6 +429,195 @@ def valide(a):
 
 
 def valeurs_accessibles(x,y):
+    res=[]
+    piece_depart=plateau[x][y]
+    print(chess_W())
+    if tour_blanc and chess_W():
+        l = mouv_possible_chess_W()
+        for (a, b, c, d) in l:
+            if x == a and y == b:
+                res.append((c,d))
+        return res
+
+    if not(tour_blanc) and chess_B():
+        l = mouv_possible_chess_B()
+        for (a, b, c, d) in l:
+            if x == a and y == b:
+                res.append((c,d))
+        return res
+
+    if (plateau[x][y]==1): #piece_depart=pion positif
+        if (plateau[x-1][y]==0) and valide(plateau[x-1][y]): #mouvement basique
+            res.append((x-1,y))
+        if (x==8) and  (plateau[x-2][y]==0) and valide(plateau[x-2][y]):
+            res.append((x-2,y))
+        if opponent(plateau[x-1][y+1],piece_depart) and valide (plateau[x-1][y+1]):#manger à droite
+            res.append((x-1,y+1))
+        if opponent(plateau[x-1][y-1],piece_depart) and valide (plateau[x-1][y-1]): #manger à gauche
+            res.append((x-1,y-1))
+
+    if (plateau[x][y]==-1): #piece_depart=pion_negatif
+        if (plateau[x+1][y]==0) and valide(plateau[x+1][y]): #mouvement basique
+            res.append((x+1,y))
+        if (x==3) and  (plateau[x+2][y]==0) and valide(plateau[x+2][y]):
+            res.append((x+2,y))
+        if opponent(plateau[x+1][y+1],piece_depart) and valide (plateau[x+1][y+1]):#manger à droite
+            res.append((x+1,y+1))
+        if opponent(plateau[x+1][y-1],piece_depart) and valide (plateau[x+1][y-1]): #manger à gauche
+            res.append((x+1,y-1))
+
+    if (abs(plateau[x][y])==2): #piece_depart=cavalier
+
+        if (plateau[x-1][y+2]==0 or opponent(piece_depart,plateau[x-1][y+2])) and valide(plateau[x-1][y+2]): #mouvement basique
+            res+=[(x-1,y+2)]
+        if (plateau[x+1][y+2]==0 or opponent(piece_depart,plateau[x+1][y+2])) and valide(plateau[x+1][y+2]): #mouvement basique
+            res+=[(x+1,y+2)]
+        if (plateau[x-2][y+1]==0 or opponent(piece_depart,plateau[x-2][y+1])) and valide(plateau[x-2][y+1]): #mouvement basique
+            res+=[(x-2,y+1)]
+        if (plateau[x+2][y+1]==0 or opponent(piece_depart,plateau[x+2][y+1])) and valide(plateau[x+2][y+1]): #mouvement basique
+            res+=[(x+2,y+1)]
+        if (plateau[x-2][y-1]==0 or opponent(piece_depart,plateau[x-2][y-1])) and valide(plateau[x-2][y-1]): #mouvement basique
+            res+=[(x-2,y-1)]
+        if (plateau[x+2][y-1]==0 or opponent(piece_depart,plateau[x+2][y-1]))and valide(plateau[x+2][y-1]): #mouvement basique
+            res+=[(x+2,y-1)]
+        if (plateau[x-1][y-2]==0 or opponent(piece_depart,plateau[x-1][y-2]))and valide(plateau[x-1][y-2]): #mouvement basique
+            res+=[(x-1,y-2)]
+        if (plateau[x+1][y-2]==0 or opponent(piece_depart,plateau[x+1][y-2]))and valide(plateau[x+1][y-2]): #mouvement basique
+            res+=[(x+1,y-2)]
+
+    if (abs(plateau[x][y])==3): #piece_depart=fou
+        k=1
+        while (plateau[x+k,y+k]==0 and valide(plateau[x+k,y+k])):
+            res+=[(x+k,y+k)]
+            k+=1
+        if opponent(piece_depart,plateau[x+k,y+k]) and valide(plateau[x+k,y+k]):
+            res+=[(x+k,y+k)]
+        i=1
+        while (plateau[x-i,y+i]==0 and valide(plateau[x-i,y+i])):
+            res+=[(x-i,y+i)]
+            i+=1
+        if opponent(piece_depart,plateau[x-i,y+i]) and valide(plateau[x-i,y+i]):
+            res+=[(x-i,y+i)]
+        k=1
+        while (plateau[x+k,y-k]==0) and valide(plateau[x+k,y-k]):
+            res+=[(x+k,y-k)]
+            k+=1
+        if opponent(piece_depart,plateau[x+k,y-k]) and valide(plateau[x+k,y-k]):
+            res+=[(x+k,y-k)]
+        i=1
+        while (plateau[x-i,y-i]==0 and valide(plateau[x-i,y-i])):
+            res+=[(x-i,y-i)]
+            i+=1
+        if opponent(piece_depart,plateau[x-i,y-i]) and valide(plateau[x-i,y-i]):
+            res+=[(x-i,y-i)]
+
+    if (abs(plateau[x][y])==4): #piece_depart=tour
+        k=1
+        while (plateau[x+k,y]==0) and valide(plateau[x+k,y]):
+            res+=[(x+k,y)]
+            k+=1
+        if opponent(piece_depart,plateau[x+k,y]) and valide(plateau[x+k,y]):
+            res+=[(x+k,y)]
+        i=1
+        while (plateau[x-i,y]==0 and valide(plateau[x-i,y])):
+            res+=[(x-i,y)]
+            i+=1
+        if opponent(piece_depart,plateau[x-i,y]) and valide(plateau[x-i,y]):
+            res+=[(x-i,y)]
+        k=1
+        while (plateau[x,y+k]==0 and valide(plateau[x,y+k])):
+            res+=[(x,y+k)]
+            k+=1
+        if opponent(piece_depart,plateau[x,y+k]) and valide(plateau[x,y+k]):
+            res+=[(x,y+k)]
+        i=1
+        while (plateau[x,y-i]==0 and valide(plateau[x,y-i])):
+            res+=[(x,y-i)]
+            i+=1
+        if opponent(piece_depart,plateau[x,y-i])and valide(plateau[x,y-i]):
+            res+=[(x,y-i)]
+
+    if (abs(plateau[x][y])==5): #piece_depart=dame
+        k=1
+        while (plateau[x+k,y]==0 and valide(plateau[x+k,y])):
+            res+=[(x+k,y)]
+            k+=1
+        if (opponent(piece_depart,plateau[x+k,y]) and valide(plateau[x+k,y])):
+            res+=[(x+k,y)]
+        i=1
+        while (plateau[x-i,y]==0 and valide(plateau[x-i,y])):
+            res+=[(x-i,y)]
+            i+=1
+        if opponent(piece_depart,plateau[x-i,y]) and valide(plateau[x-i,y]):
+            res+=[(x-i,y)]
+        k=1
+        while (plateau[x,y+k]==0 and valide(plateau[x,y+k])):
+            res+=[(x,y+k)]
+            k+=1
+        if opponent(piece_depart,plateau[x,y+k]) and valide(plateau[x,y+k]):
+            res+=[(x,y+k)]
+        i=1
+        while (plateau[x,y-i]==0 and valide(plateau[x,y-i])):
+            res+=[(x,y-i)]
+            i+=1
+        if opponent(piece_depart,plateau[x,y-i])and valide(plateau[x,y-i]):
+            res+=[(x,y-i)]
+        k=1
+        while (plateau[x+k,y+k]==0) and valide(plateau[x+k,y+k]):
+            res+=[(x+k,y+k)]
+            k+=1
+        if opponent(piece_depart,plateau[x+k,y+k]) and valide(plateau[x+k,y+k]):
+            res+=[(x+k,y+k)]
+        i=1
+        while (plateau[x-i,y+i]==0) and valide(plateau[x-i,y+i]):
+            res+=[(x-i,y+i)]
+            i+=1
+        if opponent(piece_depart,plateau[x-i,y+i]) and valide(plateau[x-i,y+i]):
+            res+=[(x-i,y+i)]
+        k=1
+        while (plateau[x+k,y-k]==0 and valide(plateau[x+k,y-k])):
+            res+=[(x+k,y-k)]
+            k+=1
+        if opponent(piece_depart,plateau[x+k,y-k]) and valide(plateau[x+k,y-k]):
+            res+=[(x+k,y-k)]
+        i=1
+        while (plateau[x-i,y-i]==0 and valide(plateau[x-i,y-i])):
+            res+=[(x-i,y-i)]
+            i+=1
+        if opponent(piece_depart,plateau[x-i,y-i]) and valide(plateau[x-i,y-i]):
+            res+=[(x-i,y-i)]
+
+    if (abs(plateau[x][y])==6): #piece_depart=roi
+
+        if ((plateau[x][y+1]==0) or opponent(plateau[x][y+1],piece_depart)) and valide(plateau[x][y+1]): #mouvement basique
+            res+=[(x,y+1)]
+
+        if ((plateau[x][y-1]==0) or opponent(plateau[x][y-1],piece_depart)) and valide(plateau[x][y-1]): #mouvement basique
+            res+=[(x,y-1)]
+
+        if ((plateau[x+1][y]==0)or opponent(plateau[x+1][y],piece_depart)) and valide(plateau[x+1][y]): #mouvement basique
+            res+=[(x+1,y)]
+
+        if ((plateau[x-1][y]==0)or opponent(plateau[x-1][y],piece_depart)) and valide(plateau[x-1][y]):#mouvement basique
+            res+=[(x-1,y)]
+
+        if ((plateau[x+1][y+1]==0) or opponent(plateau[x+1][y+1],piece_depart)) and valide(plateau[x+1][y+1]): #mouvement basique
+            res+=[(x+1,y+1)]
+
+        if ((plateau[x+1][y-1]==0) or opponent(plateau[x+1][y-1],piece_depart)) and valide(plateau[x+1][y-1]): #mouvement basique
+            res+=[(x+1,y-1)]
+
+        if ((plateau[x-1][y+1]==0)or opponent(plateau[x-1][y+1],piece_depart)) and valide(plateau[x-1][y+1]): #mouvement basique
+            res+=[(x-1,y+1)]
+
+        if ((plateau[x-1][y-1]==0)or opponent(plateau[x-1][y-1],piece_depart)) and valide(plateau[x-1][y-1]):#mouvement basique
+            res+=[(x-1,y-1)]
+
+   # if (plateau[x][y]==0):
+       # return("Case vide")
+    return res
+
+def valeurs_accessibles_test(x,y):
     res=[]
     piece_depart=plateau[x][y]
 
@@ -626,6 +820,8 @@ def eval_denombrement():
         if (wonB[k]==6):
             res+=0 #à vérifier, les sources ne sont pas concordantes (0 ou +infini)
     return res
+
+
 
 #Création de l'arbre de jeu
 
@@ -986,11 +1182,13 @@ def get_alpha_beta_B():
 
 #Configuration jeu
 
-#move(9,3,7,4)
-#move(3,4,4,4)
-#move(9,2,9,3)
-#print(valeurs_accessibles(2,5))
+def tour_Blanc(x):
+    return x
 
+
+
+####print(valeurs_accessibles(2,5))
+#print(valeurs_accessibles(3,3))
 #k=0
 #while not(chess_Mate_W() or chess_Mate_B()) and k<15:
 #    del root_tree_W
@@ -1007,6 +1205,9 @@ def get_alpha_beta_B():
 #    move(a,b,c,d)
 #    k+=1
 
+
+#for pre, fill, node in RenderTree(root_tree_B):
+#    print("%s%s" % (pre, node.name))
 
 """
 fenetre = Tk()

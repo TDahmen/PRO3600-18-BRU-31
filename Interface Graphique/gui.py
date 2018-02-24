@@ -710,13 +710,16 @@ class Ui_Dialog(object):
         global pChecked
         global nbVide
         global listeAcc
+        if echecs.tour_blanc: # Joueur récupéré du moteur
+            joueur = "B"
+        else:
+            joueur = "N"
         for bitonio in listeAcc:
             if "vide" in bitonio.objectName():
                 bitonio.setIcon(QtGui.QIcon("vide.png"))
             else:
                 bitonio.setIcon(QtGui.QIcon(bitonio.objectName() + ".png"))
             print(bitonio.objectName())
-        joueur = "B" # Joueur à récupérer depuis le moteur
         name = button.objectName()
         if joueur in name or "vide" in name or (pChecked != "" and joueur in pChecked.objectName()):
             if pChecked == "": # Aucune pièce sélectionnée
@@ -748,7 +751,7 @@ class Ui_Dialog(object):
                     pChecked = ""
                 else: # On a sélectionné une autre pièce
                     (u,v) = dict1[pChecked]
-                    if "vide" in name and dict1[button] in echecs.valeurs_accessibles(u,v): # Déplacement d'une pièce
+                    if "vide" in name and dict1[button] in echecs.valeurs_accessibles(u,v): # Déplacement d'une pièce sur une case vide
                         ## Interaction avec echecs.py
                         coord = dict1[button]
                         print(coord)
@@ -773,15 +776,14 @@ class Ui_Dialog(object):
                         ##
                         ## On change les valeurs des dictionnaires
                         positionFinale = dict1[button]
-                        #positionInitiale = dict1[pChecked]
-                        dict1[pChecked] = positionFinale
-                        dict2[positionFinale] = pChecked
-                        #dict1[button] = positionInitiale
-                        #dict2[positionInitiale] = button
+                        positionInitiale = dict1[pChecked]
+                        print("position initiale : " + str(positionInitiale))
+                        print("position finale : " + str(positionFinale))
+                        dict1[pChecked] = positionInitiale
+                        dict2[positionInitiale] = pChecked
+                        dict1[button] = positionFinale
+                        dict2[positionFinale] = button
                         ##
-
-
-
                         strButtonName = button.objectName()
                         button.setObjectName(pChecked.objectName())
                         pChecked.setObjectName(strButtonName)
@@ -790,6 +792,21 @@ class Ui_Dialog(object):
                         pChecked = ""
 
                         print("blabla" + str(dict1[button]))
+
+                        """
+
+                        # On a déplacé la pièce
+
+                        if joueur == "B":
+                            if echecs.chess_B():
+                                print("chess")
+                                error_dialog.showMessage('Oh no!')
+                        if joueur == "N":
+                            if echecs.chess_W():
+                                print("chess")
+                                error_dialog.showMessage('Oh no!')
+                        """
+
                     else:
 
                         if joueur in name: # on a sélectionné une autre pièce de la même couleur
@@ -826,8 +843,14 @@ class Ui_Dialog(object):
                             ##
                             ## On change les valeurs des dictionnaires
                             positionFinale = dict1[button]
-                            dict1[pChecked] = positionFinale
-                            dict2[positionFinale] = pChecked
+                            positionInitiale = dict1[pChecked]
+                            print("position initiale : " + str(positionInitiale))
+                            print("position finale : " + str(positionFinale))
+                            dict1[pChecked] = positionInitiale
+                            dict2[positionInitiale] = pChecked
+                            dict1[button] = positionFinale
+                            dict2[positionFinale] = button
+                            ##
                             ## On répercute le mouvement dans le moteur de jeu en appelant "move"
                             (a,b) = dict1[pChecked]
                             (c,d) = dict1[button]
@@ -839,6 +862,18 @@ class Ui_Dialog(object):
                             pChecked.setIcon(QtGui.QIcon("vide.png"))
                             button.setIcon(QtGui.QIcon(button.objectName() + ".png"))
                             pChecked = ""
+
+                            # Verif chess
+                            """
+                            if joueur == "B":
+                                if echecs.chess_B():
+                                    print("chess")
+                                    error_dialog.showMessage('Oh no!')
+                            if joueur == "N":
+                                if echecs.chess_W():
+                                    print("chess")
+                                    error_dialog.showMessage('Oh no!')
+                            """
 
 if __name__ == "__main__":
     global tour1B
