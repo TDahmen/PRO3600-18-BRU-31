@@ -10,6 +10,9 @@ import numpy as np
 import math
 from anytree import Node,RenderTree
 
+def multiply(a,b):
+    return a*b
+
 #Variable pour savoir à qui est le tour
 
 tour_blanc = True
@@ -224,8 +227,6 @@ def move(a,b,c,d):
             dico_position_W[(c,d)]=pos
             del dico_position_W[(a,b)]
         plateau[a][b] = 0
-    else:
-        return ("Cette case n'est pas accessible")
     tour_blanc=not(tour_blanc)
 
 def move_chess(a,b,c,d):
@@ -431,7 +432,7 @@ def valide(a):
 def valeurs_accessibles(x,y):
     res=[]
     piece_depart=plateau[x][y]
-    print(chess_W())
+    #print(chess_W())
     if tour_blanc and chess_W():
         l = mouv_possible_chess_W()
         for (a, b, c, d) in l:
@@ -1185,9 +1186,15 @@ def get_alpha_beta_B():
 def tour_Blanc(x):
     return x
 
+root_tree_B=Node((0,0,0,0,0))
 
+def move_IA_black():
+    # del root_tree_B
+    root_tree_B=Node((0,0,0,0,0))
+    create_tree_B()
+    return get_alpha_beta_B()
 
-####print(valeurs_accessibles(2,5))
+#print(valeurs_accessibles(2,5))
 #print(valeurs_accessibles(3,3))
 #k=0
 #while not(chess_Mate_W() or chess_Mate_B()) and k<15:
@@ -1209,18 +1216,3 @@ def tour_Blanc(x):
 #for pre, fill, node in RenderTree(root_tree_B):
 #    print("%s%s" % (pre, node.name))
 
-"""
-fenetre = Tk()
-
-
-for ligne in range(5):
-    for colonne in range(5):
-        Button(fenetre, text='L%s-C%s' % (ligne, colonne), borderwidth=1).grid(row=ligne, column=colonne)
-        Button(fenetre, text='L1-C1', borderwidth=1).grid(row=1, column=1)
-        Button(fenetre, text='L1-C2', borderwidth=1).grid(row=1, column=2)
-        Button(fenetre, text='L2-C3', borderwidth=1).grid(row=2, column=3)
-        Button(fenetre, text='L2-C4', borderwidth=1).grid(row=2, column=4)
-        Button(fenetre, text='L3-C3', borderwidth=1).grid(row=3, column=3)
-
-fenetre.mainloop()
-"""

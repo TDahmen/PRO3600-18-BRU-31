@@ -5,6 +5,8 @@
 """
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from anytree import Node,RenderTree
+from line_profiler import LineProfiler
 import echecs
 
 class Ui_Dialog(object):
@@ -710,11 +712,7 @@ class Ui_Dialog(object):
         global pChecked
         global nbVide
         global listeAcc
-        if echecs.tour_blanc: # Joueur récupéré du moteur
-            joueur = "B"
-        else:
-            joueur = "N"
-        print(joueur)
+        joueur = "B"
         for bitonio in listeAcc:
             if "vide" in bitonio.objectName():
                 bitonio.setIcon(QtGui.QIcon("vide.png"))
@@ -792,6 +790,66 @@ class Ui_Dialog(object):
                         button.setIcon(QtGui.QIcon(button.objectName() + ".png"))
                         pChecked = ""
 
+                        # L'IA joue
+
+                        a,b,c,d = echecs.move_IA_black()
+                        print(a,b,c,d)
+
+                        pChecked = dict2[(a,b)]
+                        button = dict2[(c,d)]
+
+                        if "vide" in button.objectName():
+                            ##
+                            ## On répercute le mouvement dans le moteur de jeu en appelant "move"
+                            (a,b) = dict1[pChecked]
+                            (c,d) = dict1[button]
+                            echecs.move(a,b,c,d)
+                            ##
+                            ## On change les valeurs des dictionnaires
+                            positionFinale = dict1[button]
+                            positionInitiale = dict1[pChecked]
+                            print("position initiale : " + str(positionInitiale))
+                            print("position finale : " + str(positionFinale))
+                            dict1[pChecked] = positionInitiale
+                            dict2[positionInitiale] = pChecked
+                            dict1[button] = positionFinale
+                            dict2[positionFinale] = button
+                            ##
+                            strButtonName = button.objectName()
+                            button.setObjectName(pChecked.objectName())
+                            pChecked.setObjectName(strButtonName)
+                            pChecked.setIcon(QtGui.QIcon("vide.png"))
+                            button.setIcon(QtGui.QIcon(button.objectName() + ".png"))
+                            pChecked = ""
+                        else:
+                            ## On répercute le mouvement dans le moteur de jeu en appelant "move"
+                            (a,b) = dict1[pChecked]
+                            (c,d) = dict1[button]
+                            echecs.move(a,b,c,d)
+                            ##
+                            ## On change les valeurs des dictionnaires
+                            positionFinale = dict1[button]
+                            positionInitiale = dict1[pChecked]
+                            print("position initiale : " + str(positionInitiale))
+                            print("position finale : " + str(positionFinale))
+                            dict1[pChecked] = positionInitiale
+                            dict2[positionInitiale] = pChecked
+                            dict1[button] = positionFinale
+                            dict2[positionFinale] = button
+                            ##
+                            ## On répercute le mouvement dans le moteur de jeu en appelant "move"
+                            ##(a,b) = dict1[pChecked]
+                            ##(c,d) = dict1[button]
+                            ##echecs.move(a,b,c,d)
+                            ##
+                            nbVide += 1 # on incrémente le nombre de cases vides
+                            button.setObjectName(pChecked.objectName())
+                            pChecked.setObjectName("vide_" + str(nbVide))
+                            pChecked.setIcon(QtGui.QIcon("vide.png"))
+                            button.setIcon(QtGui.QIcon(button.objectName() + ".png"))
+                            pChecked = ""
+
+
                         print("blabla" + str(dict1[button]))
 
                         """
@@ -839,10 +897,10 @@ class Ui_Dialog(object):
                             print("Mangeons la pièce adverse !")
                             ## On répercute le mouvement dans le moteur de jeu en appelant "move"
                             (a,b) = dict1[pChecked]
+                            print("(a,b) = " + str((a,b)))
                             (c,d) = dict1[button]
-                            print("avant move, joueur = "+ joueur)
+                            print("(c,d) = " + str((c,d)))
                             echecs.move(a,b,c,d)
-                            print("après move, joueur = "+ joueur)
                             ##
                             ## On change les valeurs des dictionnaires
                             positionFinale = dict1[button]
@@ -855,9 +913,9 @@ class Ui_Dialog(object):
                             dict2[positionFinale] = button
                             ##
                             ## On répercute le mouvement dans le moteur de jeu en appelant "move"
-                            #(a,b) = dict1[pChecked]
-                            #(c,d) = dict1[button]
-                            #echecs.move(a,b,c,d)
+                            ##(a,b) = dict1[pChecked]
+                            ##(c,d) = dict1[button]
+                            ##echecs.move(a,b,c,d)
                             ##
                             nbVide += 1 # on incrémente le nombre de cases vides
                             button.setObjectName(pChecked.objectName())
@@ -865,6 +923,66 @@ class Ui_Dialog(object):
                             pChecked.setIcon(QtGui.QIcon("vide.png"))
                             button.setIcon(QtGui.QIcon(button.objectName() + ".png"))
                             pChecked = ""
+
+                            # L'IA joue
+
+                            a,b,c,d = echecs.move_IA_black()
+                            print(a,b,c,d)
+
+                            pChecked = dict2[(a,b)]
+                            button = dict2[(c,d)]
+
+                            if "vide" in button.objectName():
+                                ##
+                                ## On répercute le mouvement dans le moteur de jeu en appelant "move"
+                                (a,b) = dict1[pChecked]
+                                (c,d) = dict1[button]
+                                echecs.move(a,b,c,d)
+                                ##
+                                ## On change les valeurs des dictionnaires
+                                positionFinale = dict1[button]
+                                positionInitiale = dict1[pChecked]
+                                print("position initiale : " + str(positionInitiale))
+                                print("position finale : " + str(positionFinale))
+                                dict1[pChecked] = positionInitiale
+                                dict2[positionInitiale] = pChecked
+                                dict1[button] = positionFinale
+                                dict2[positionFinale] = button
+                                ##
+                                strButtonName = button.objectName()
+                                button.setObjectName(pChecked.objectName())
+                                pChecked.setObjectName(strButtonName)
+                                pChecked.setIcon(QtGui.QIcon("vide.png"))
+                                button.setIcon(QtGui.QIcon(button.objectName() + ".png"))
+                                pChecked = ""
+                            else:
+                                ## On répercute le mouvement dans le moteur de jeu en appelant "move"
+                                (a,b) = dict1[pChecked]
+                                (c,d) = dict1[button]
+                                echecs.move(a,b,c,d)
+                                ##
+                                ## On change les valeurs des dictionnaires
+                                positionFinale = dict1[button]
+                                positionInitiale = dict1[pChecked]
+                                print("position initiale : " + str(positionInitiale))
+                                print("position finale : " + str(positionFinale))
+                                dict1[pChecked] = positionInitiale
+                                dict2[positionInitiale] = pChecked
+                                dict1[button] = positionFinale
+                                dict2[positionFinale] = button
+                                ##
+                                ## On répercute le mouvement dans le moteur de jeu en appelant "move"
+                                ##(a,b) = dict1[pChecked]
+                                ##(c,d) = dict1[button]
+                                ##echecs.move(a,b,c,d)
+                                ##
+                                nbVide += 1 # on incrémente le nombre de cases vides
+                                button.setObjectName(pChecked.objectName())
+                                pChecked.setObjectName("vide_" + str(nbVide))
+                                pChecked.setIcon(QtGui.QIcon("vide.png"))
+                                button.setIcon(QtGui.QIcon(button.objectName() + ".png"))
+                                pChecked = ""
+
 
                             # Verif chess
                             """
@@ -889,4 +1007,8 @@ if __name__ == "__main__":
     ui = Ui_Dialog()
     ui.setupUi(Dialog)
     Dialog.show()
+    lp = LineProfiler()
+    lp.add_function(echecs.move_IA_black)   # add additional function to profile
+    lp_wrapper = lp(echecs.move_IA_black)
+    lp.print_stats()
     sys.exit(app.exec_())
