@@ -157,6 +157,20 @@ dico_position_B[(3,9)]=15
 #move -> mouvements réel du joueur respectant les règles
 
 def movetest(a,b,c,d):
+    """
+        Adds two numbers and returns the result.
+ 
+        This add two real numbers and return a real result. You will want to
+        use this function in any place you would usually use the ``+`` operator
+        but requires a functional equivalent.
+ 
+        :param a: The first number to add
+        :param b: The second number to add
+        :type a: int
+        :type b: int
+        :return: The result of the addition
+        :rtype: int
+    """
     if plateau[a][b] == 0:
         print("On ne peut pas jouer avec une case vide !")
     if plateau[c][d] != 0 :
