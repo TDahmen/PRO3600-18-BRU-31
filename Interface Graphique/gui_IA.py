@@ -6,7 +6,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from anytree import Node,RenderTree
-from line_profiler import LineProfiler
 import echecs
 
 class Ui_Dialog(object):
@@ -707,12 +706,14 @@ class Ui_Dialog(object):
 
 
     # Fonction d'action lorsqu'une pièce est sélectionnée
+    # Button est la case sélectionnée par le joueur
+    # elle peut jouer deux rôle : la case de départ (pChecked) ou d'arrivée (button)
 
     def chk(self, button, dict1, dict2): # on passe en argument le sender
-        global pChecked
-        global nbVide
-        global listeAcc
-        joueur = "B"
+        global pChecked # pièce sélectionnée à bouger
+        global nbVide # nombre de cases vides
+        global listeAcc # liste des cases accessibles pour une pièce donnée
+        joueur = "B" # Couleur du joueur actuel. Toujours blanc car on joue contre l'IA
         for bitonio in listeAcc:
             if "vide" in bitonio.objectName():
                 bitonio.setIcon(QtGui.QIcon("vide.png"))
@@ -724,6 +725,7 @@ class Ui_Dialog(object):
             if pChecked == "": # Aucune pièce sélectionnée
                 if not("vide" in name):
                     print(name + " sélectionné")
+                    # On change l'icône pour mettre celle en surbrillance obtenue en ajoutant "sel" au nom du fichier
                     button.setIcon(QtGui.QIcon(name + "sel.png"))
                     ## Interaction avec echecs.py
                     coord = dict1[button]
@@ -741,7 +743,6 @@ class Ui_Dialog(object):
                         else:
                             butt.setIcon(QtGui.QIcon(buttName + "sel.png"))
 
-                    ##
                     pChecked = button
             else: # Une pièce est déjà sélectionnée
                 if button == pChecked: # On a sélectionné la pièce déjà sélectionnée
@@ -836,35 +837,13 @@ class Ui_Dialog(object):
                             dict2[positionInitiale] = pChecked
                             dict1[button] = positionFinale
                             dict2[positionFinale] = button
-                            ##
-                            ## On répercute le mouvement dans le moteur de jeu en appelant "move"
-                            ##(a,b) = dict1[pChecked]
-                            ##(c,d) = dict1[button]
-                            ##echecs.move(a,b,c,d)
-                            ##
+
                             nbVide += 1 # on incrémente le nombre de cases vides
                             button.setObjectName(pChecked.objectName())
                             pChecked.setObjectName("vide_" + str(nbVide))
                             pChecked.setIcon(QtGui.QIcon("vide.png"))
                             button.setIcon(QtGui.QIcon(button.objectName() + ".png"))
                             pChecked = ""
-
-
-                        print("blabla" + str(dict1[button]))
-
-                        """
-
-                        # On a déplacé la pièce
-
-                        if joueur == "B":
-                            if echecs.chess_B():
-                                print("chess")
-                                error_dialog.showMessage('Oh no!')
-                        if joueur == "N":
-                            if echecs.chess_W():
-                                print("chess")
-                                error_dialog.showMessage('Oh no!')
-                        """
 
                     else:
 
@@ -911,12 +890,7 @@ class Ui_Dialog(object):
                             dict2[positionInitiale] = pChecked
                             dict1[button] = positionFinale
                             dict2[positionFinale] = button
-                            ##
-                            ## On répercute le mouvement dans le moteur de jeu en appelant "move"
-                            ##(a,b) = dict1[pChecked]
-                            ##(c,d) = dict1[button]
-                            ##echecs.move(a,b,c,d)
-                            ##
+
                             nbVide += 1 # on incrémente le nombre de cases vides
                             button.setObjectName(pChecked.objectName())
                             pChecked.setObjectName("vide_" + str(nbVide))
@@ -970,12 +944,7 @@ class Ui_Dialog(object):
                                 dict2[positionInitiale] = pChecked
                                 dict1[button] = positionFinale
                                 dict2[positionFinale] = button
-                                ##
-                                ## On répercute le mouvement dans le moteur de jeu en appelant "move"
-                                ##(a,b) = dict1[pChecked]
-                                ##(c,d) = dict1[button]
-                                ##echecs.move(a,b,c,d)
-                                ##
+
                                 nbVide += 1 # on incrémente le nombre de cases vides
                                 button.setObjectName(pChecked.objectName())
                                 pChecked.setObjectName("vide_" + str(nbVide))
@@ -984,31 +953,14 @@ class Ui_Dialog(object):
                                 pChecked = ""
 
 
-                            # Verif chess
-                            """
-                            if joueur == "B":
-                                if echecs.chess_B():
-                                    print("chess")
-                                    error_dialog.showMessage('Oh no!')
-                            if joueur == "N":
-                                if echecs.chess_W():
-                                    print("chess")
-                                    error_dialog.showMessage('Oh no!')
-                            """
-
 if __name__ == "__main__":
-    global tour1B
     import sys
     pChecked = "" # Variable contenant la pièce sélectionnée
     nbVide = 32 # Nombre de cases vides
-    listeAcc = []
+    listeAcc = [] # Liste des cases accessibles pour une pièce donnée
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
     ui.setupUi(Dialog)
     Dialog.show()
-    lp = LineProfiler()
-    lp.add_function(echecs.move_IA_black)   # add additional function to profile
-    lp_wrapper = lp(echecs.move_IA_black)
-    lp.print_stats()
     sys.exit(app.exec_())

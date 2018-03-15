@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # ChessMate documentation build configuration file, created by
-# sphinx-quickstart on Tue Mar 13 16:26:22 2018.
+# sphinx-quickstart on Tue Mar 13 17:11:07 2018.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -17,9 +17,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
-sys.path.insert(0, os.path.abspath('/users/Thomas/PRO3600-18-BRU-31/Interface-Graphique/'))
+#import os
+#import sys
+#sys.path.insert(0, os.path.abspath('.'))
 
 
 # -- General configuration ------------------------------------------------
@@ -34,7 +34,7 @@ sys.path.insert(0, os.path.abspath('/users/Thomas/PRO3600-18-BRU-31/Interface-Gr
 extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
+    'sphinx.ext.imgmath',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages']
@@ -46,7 +46,7 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.txt'
+source_suffix = '.rst'
 
 # The master toctree document.
 master_doc = 'index'
@@ -173,25 +173,3 @@ texinfo_documents = [
      author, 'ChessMate', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-
-# -- Options for Epub output ----------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-epub_author = author
-epub_publisher = author
-epub_copyright = copyright
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']

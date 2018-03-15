@@ -1,0 +1,150 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Page d’autodocumentation &#8212; documentation ChessMate 1</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="prev" title="Bienvenue sur cette documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="page-d-autodocumentation">
+<h1>Page d’autodocumentation<a class="headerlink" href="#page-d-autodocumentation" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="echecs-py">
+<h2>echecs.py<a class="headerlink" href="#echecs-py" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Voici l’autodocumentation d’une simple fonction de module</p>
+<dl class="function">
+<dt id="echecs.move">
+<code class="descclassname">echecs.</code><code class="descname">move</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.move" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Move a piece located on (a,b) to (c,d) if the movement is allowed by changing the values of plateau
+Update dico_position_W, dico_position_B, position_W, position_B,wonW,wonB to make algorithm be coherent
+Inverse the boolean value of tour_blanc to simulate an alternative gameplay</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> (<em>int</em>) – X axis of the piece we want to move</li>
+<li><strong>b</strong> (<em>int</em>) – Y axis of the piece we want to move</li>
+<li><strong>c</strong> (<em>int</em>) – X axis of the position we want to move the piece on</li>
+<li><strong>d</strong> (<em>int</em>) – Y axis of the position we want to move the piece on</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Retourne:</th><td class="field-body"><p class="first">None</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type retourné:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="gui.Ui_Dialog">
+<em class="property">class </em><code class="descclassname">gui.</code><code class="descname">Ui_Dialog</code><a class="reference internal" href="_modules/gui.html#Ui_Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gui.Ui_Dialog" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Classe contenant la fenêtre de l’interface graphique
+Dans celle-ci, les cases sont des boutons
+Déplacer une pièce revient simplement à changer les images de ces boutons
+L’association entre un bouton, la valeur de la pièce qu’il contient et la position sur l’échiquier
+est gérée à l’aide de deux dictionnaires utilisés dans la fonction</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Page d’autodocumentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#echecs-py">echecs.py</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="Chapitre précédent">Bienvenue sur cette documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/autodoc.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

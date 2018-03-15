@@ -1,0 +1,11 @@
+************************
+Page d'autodocumentation
+************************
+
+echecs.py
+=======
+
+Voici l'autodocumentation d'une simple fonction de module
+
+.. autofunction:: echecs.move
+.. autoclass:: gui.Ui_Dialog
