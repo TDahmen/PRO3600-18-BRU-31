@@ -2,10 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>gui &#8212; documentation ChessMate 1</title>
+    <title>gui &#8212; ChessMate 1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -21,9 +21,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/translations.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="search" title="Search" href="../search.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -39,7 +38,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Code source de gui</h1><div class="highlight"><pre>
+  <h1>Source code for gui</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -49,15 +48,14 @@
 <span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
 <span class="kn">import</span> <span class="nn">echecs</span>
 
-<div class="viewcode-block" id="Ui_Dialog"><a class="viewcode-back" href="../autodoc.html#gui.Ui_Dialog">[docs]</a><span class="k">class</span> <span class="nc">Ui_Dialog</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Ui_Dialog"><a class="viewcode-back" href="../gui.html#gui.Ui_Dialog">[docs]</a><span class="k">class</span> <span class="nc">Ui_Dialog</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Classe contenant la fenêtre de l&#39;interface graphique</span>
-<span class="sd">        Dans celle-ci, les cases sont des boutons</span>
-<span class="sd">        Déplacer une pièce revient simplement à changer les images de ces boutons</span>
-<span class="sd">        L&#39;association entre un bouton, la valeur de la pièce qu&#39;il contient et la position sur l&#39;échiquier</span>
-<span class="sd">        est gérée à l&#39;aide de deux dictionnaires utilisés dans la fonction</span>
+<span class="sd">        This class contains the GUI&#39;s window, in which pieces&#39; locations are buttons</span>
+<span class="sd">        Moving a piece is achieved by changing buttons&#39; images</span>
+<span class="sd">        The association between a button, the value of its piece and the piece&#39;s position on the chessboard</span>
+<span class="sd">        is managed with two dictionaries, which are declared in retranslateUi</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="Ui_Dialog.setupUi"><a class="viewcode-back" href="../autodoc.html#gui.Ui_Dialog.setupUi">[docs]</a>    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Dialog</span><span class="p">):</span>
+<div class="viewcode-block" id="Ui_Dialog.setupUi"><a class="viewcode-back" href="../gui.html#gui.Ui_Dialog.setupUi">[docs]</a>    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Dialog</span><span class="p">):</span>
 
         <span class="c1"># Initialisation de la fenêtre</span>
         <span class="n">Dialog</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;Dialog&quot;</span><span class="p">)</span>
@@ -628,7 +626,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">retranslateUi</span><span class="p">(</span><span class="n">Dialog</span><span class="p">)</span>
         <span class="n">QtCore</span><span class="o">.</span><span class="n">QMetaObject</span><span class="o">.</span><span class="n">connectSlotsByName</span><span class="p">(</span><span class="n">Dialog</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Ui_Dialog.retranslateUi"><a class="viewcode-back" href="../autodoc.html#gui.Ui_Dialog.retranslateUi">[docs]</a>    <span class="k">def</span> <span class="nf">retranslateUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Dialog</span><span class="p">):</span>
+<div class="viewcode-block" id="Ui_Dialog.retranslateUi"><a class="viewcode-back" href="../gui.html#gui.Ui_Dialog.retranslateUi">[docs]</a>    <span class="k">def</span> <span class="nf">retranslateUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Dialog</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            This function connects the GUI to user&#39;s actions. In this specific function,</span>
+<span class="sd">            we define two dictionaries that are necessary to link the GUI to the game engine:</span>
+
+<span class="sd">            - dict1</span>
+<span class="sd">                * key: a button of the GUI</span>
+<span class="sd">                * value: the position of the piece in the game engine&#39;s chessboard</span>
+<span class="sd">            - dict1</span>
+<span class="sd">                * key: the position of the piece in the game engine&#39;s chessboard</span>
+<span class="sd">                * value: a button of the GUI</span>
+
+<span class="sd">            This enables the GUI and the game engine to interact with each other</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">_translate</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span>
         <span class="n">Dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">_translate</span><span class="p">(</span><span class="s2">&quot;Dialog&quot;</span><span class="p">,</span> <span class="s2">&quot;Dialog&quot;</span><span class="p">))</span>
@@ -760,7 +773,7 @@
 
     <span class="c1"># Fonction d&#39;action lorsqu&#39;une pièce est sélectionnée</span>
 
-<div class="viewcode-block" id="Ui_Dialog.chk"><a class="viewcode-back" href="../autodoc.html#gui.Ui_Dialog.chk">[docs]</a>    <span class="k">def</span> <span class="nf">chk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button</span><span class="p">,</span> <span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">):</span> <span class="c1"># on passe en argument le sender</span>
+<div class="viewcode-block" id="Ui_Dialog.chk"><a class="viewcode-back" href="../gui.html#gui.Ui_Dialog.chk">[docs]</a>    <span class="k">def</span> <span class="nf">chk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button</span><span class="p">,</span> <span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">):</span> <span class="c1"># on passe en argument le sender</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            This is the action function called when a piece is selected. It interacts</span>
 <span class="sd">            with the game engine echecs.py</span>
@@ -785,16 +798,25 @@
 <span class="sd">                  waiting for another call of the function)</span>
 
 <span class="sd">            * if we choose a black piece</span>
-<span class="sd">                - if it is not accessible, nothing hap</span>
+<span class="sd">                - if it is not accessible, the selected white piece becomes unselected</span>
+<span class="sd">                - if it is accessible, the selected white piece takes its place and the change</span>
+<span class="sd">                  is sent to the game engine</span>
+<span class="sd">                - a new blank case is created</span>
+<span class="sd">                - the next turn begins: blacks must play</span>
 
+<span class="sd">            * if we choose a blank case</span>
+<span class="sd">                - if it is not accessible, the selected white piece becomes unselected</span>
+<span class="sd">                - if it is accessible, the selected white piece takes the blank place and the change</span>
+<span class="sd">                  is sent to the game engine</span>
 
-
-<span class="sd">            :param a: The first number to add</span>
-<span class="sd">            :param b: The second number to add</span>
-<span class="sd">            :type a: int</span>
-<span class="sd">            :type b: int</span>
-<span class="sd">            :return: The result of the addition</span>
-<span class="sd">            :rtype: int</span>
+<span class="sd">            :param button: The sender (user selected button)</span>
+<span class="sd">            :param dict1: Dictionary button -&gt; position on the chessboard</span>
+<span class="sd">            :param dict2: Dictionary position on the chessboard -&gt; button</span>
+<span class="sd">            :type button: QtWidgets.QPushButton</span>
+<span class="sd">            :type dict1: dict</span>
+<span class="sd">            :type dict2: dict</span>
+<span class="sd">            :return: None</span>
+<span class="sd">            :rtype: None</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">pChecked</span>
@@ -884,20 +906,6 @@
 
                         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;blabla&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict1</span><span class="p">[</span><span class="n">button</span><span class="p">]))</span>
 
-                        <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">                        # On a déplacé la pièce</span>
-
-<span class="sd">                        if joueur == &quot;B&quot;:</span>
-<span class="sd">                            if echecs.chess_B():</span>
-<span class="sd">                                print(&quot;chess&quot;)</span>
-<span class="sd">                                error_dialog.showMessage(&#39;Oh no!&#39;)</span>
-<span class="sd">                        if joueur == &quot;N&quot;:</span>
-<span class="sd">                            if echecs.chess_W():</span>
-<span class="sd">                                print(&quot;chess&quot;)</span>
-<span class="sd">                                error_dialog.showMessage(&#39;Oh no!&#39;)</span>
-<span class="sd">                        &quot;&quot;&quot;</span>
-
                     <span class="k">else</span><span class="p">:</span>
 
                         <span class="k">if</span> <span class="n">joueur</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span> <span class="c1"># on a sélectionné une autre pièce de la même couleur</span>
@@ -954,19 +962,8 @@
                             <span class="n">pChecked</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;vide_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nbVide</span><span class="p">))</span>
                             <span class="n">pChecked</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;vide.png&quot;</span><span class="p">))</span>
                             <span class="n">button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">button</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">))</span>
-                            <span class="n">pChecked</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                            <span class="n">pChecked</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div></div>
 
-                            <span class="c1"># Verif chess</span>
-                            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                            if joueur == &quot;B&quot;:</span>
-<span class="sd">                                if echecs.chess_B():</span>
-<span class="sd">                                    print(&quot;chess&quot;)</span>
-<span class="sd">                                    error_dialog.showMessage(&#39;Oh no!&#39;)</span>
-<span class="sd">                            if joueur == &quot;N&quot;:</span>
-<span class="sd">                                if echecs.chess_W():</span>
-<span class="sd">                                    print(&quot;chess&quot;)</span>
-<span class="sd">                                    error_dialog.showMessage(&#39;Oh no!&#39;)</span>
-<span class="sd">                            &quot;&quot;&quot;</span></div></div>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="k">global</span> <span class="n">tour1B</span>
@@ -998,20 +995,21 @@
 
 <h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../autodoc.html">Page d’autodocumentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">Graphical User Interface</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Code du module</a><ul>
+  <li><a href="index.html">Module code</a><ul>
   </ul></li>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Recherche rapide</h3>
+  <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <div><input type="text" name="q" /></div>
       <div><input type="submit" value="Go" /></div>

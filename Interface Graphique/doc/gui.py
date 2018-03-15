@@ -9,11 +9,10 @@ import echecs
 
 class Ui_Dialog(object):
     """
-        Classe contenant la fenêtre de l'interface graphique
-        Dans celle-ci, les cases sont des boutons
-        Déplacer une pièce revient simplement à changer les images de ces boutons
-        L'association entre un bouton, la valeur de la pièce qu'il contient et la position sur l'échiquier
-        est gérée à l'aide de deux dictionnaires utilisés dans la fonction
+        This class contains the GUI's window, in which pieces' locations are buttons
+        Moving a piece is achieved by changing buttons' images
+        The association between a button, the value of its piece and the piece's position on the chessboard
+        is managed with two dictionaries, which are declared in retranslateUi
     """
     def setupUi(self, Dialog):
 
@@ -588,6 +587,21 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
 
+        """
+            This function connects the GUI to user's actions. In this specific function,
+            we define two dictionaries that are necessary to link the GUI to the game engine:
+
+            - dict1
+                * key: a button of the GUI
+                * value: the position of the piece in the game engine's chessboard
+            - dict1
+                * key: the position of the piece in the game engine's chessboard
+                * value: a button of the GUI
+
+            This enables the GUI and the game engine to interact with each other
+
+        """
+
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
 
@@ -743,16 +757,25 @@ class Ui_Dialog(object):
                   waiting for another call of the function)
 
             * if we choose a black piece
-                - if it is not accessible, nothing hap
+                - if it is not accessible, the selected white piece becomes unselected
+                - if it is accessible, the selected white piece takes its place and the change
+                  is sent to the game engine
+                - a new blank case is created
+                - the next turn begins: blacks must play
 
+            * if we choose a blank case
+                - if it is not accessible, the selected white piece becomes unselected
+                - if it is accessible, the selected white piece takes the blank place and the change
+                  is sent to the game engine
 
-
-            :param a: The first number to add
-            :param b: The second number to add
-            :type a: int
-            :type b: int
-            :return: The result of the addition
-            :rtype: int
+            :param button: The sender (user selected button)
+            :param dict1: Dictionary button -> position on the chessboard
+            :param dict2: Dictionary position on the chessboard -> button
+            :type button: QtWidgets.QPushButton
+            :type dict1: dict
+            :type dict2: dict
+            :return: None
+            :rtype: None
 
         """
         global pChecked
@@ -842,20 +865,6 @@ class Ui_Dialog(object):
 
                         print("blabla" + str(dict1[button]))
 
-                        """
-
-                        # On a déplacé la pièce
-
-                        if joueur == "B":
-                            if echecs.chess_B():
-                                print("chess")
-                                error_dialog.showMessage('Oh no!')
-                        if joueur == "N":
-                            if echecs.chess_W():
-                                print("chess")
-                                error_dialog.showMessage('Oh no!')
-                        """
-
                     else:
 
                         if joueur in name: # on a sélectionné une autre pièce de la même couleur
@@ -914,17 +923,6 @@ class Ui_Dialog(object):
                             button.setIcon(QtGui.QIcon(button.objectName() + ".png"))
                             pChecked = ""
 
-                            # Verif chess
-                            """
-                            if joueur == "B":
-                                if echecs.chess_B():
-                                    print("chess")
-                                    error_dialog.showMessage('Oh no!')
-                            if joueur == "N":
-                                if echecs.chess_W():
-                                    print("chess")
-                                    error_dialog.showMessage('Oh no!')
-                            """
 
 if __name__ == "__main__":
     global tour1B

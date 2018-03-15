@@ -3,7 +3,6 @@
 """
 Created on Tue Jan 30 14:44:38 2018
 
-@author: thomas
 """
 
 import numpy as np
@@ -158,10 +157,10 @@ dico_position_B[(3,9)]=15
 
 def move(a,b,c,d):
     """
-        Move a piece located on (a,b) to (c,d) if the movement is allowed by changing the values of plateau.
-        Update dico_position_W, dico_position_B, position_W, position_B,wonW,wonB to make algorithm be coherent.
-        Inverse the boolean value of tour_blanc to simulate an alternative gameplay.
- 
+        Moves a piece located on (a,b) to (c,d) if the movement is allowed by changing the values of plateau.
+        Updates dico_position_W, dico_position_B, position_W, position_B,wonW,wonB
+        Reverses the boolean value of tour_blanc to allow next player to play
+
         :param a: X axis of the piece we want to move
         :param b: Y axis of the piece we want to move
         :param c: X axis of the position we want to move the piece on
@@ -211,9 +210,9 @@ def move(a,b,c,d):
     tour_blanc=not(tour_blanc)
 def movetest(a,b,c,d):
     """
-        Same role than move(a,b,c,d) but doesn't take care about rules (moving positions allowed, tour)
-        Also update dico_position_W, dico_position_B, position_W, position_B,wonW,wonB
-        Essentially useful for tests 
+        Same goal as move(a,b,c,d) but doesn't take care about rules (moving positions allowed, tour)
+        Also updates dico_position_W, dico_position_B, position_W, position_B,wonW,wonB
+        Essentially useful for tests
     """
     if plateau[a][b] == 0:
         print("On ne peut pas jouer avec une case vide !")
@@ -251,8 +250,8 @@ def movetest(a,b,c,d):
 
 def move_chess(a,b,c,d):
     """
-        Special role of move(a,b,c,d) useful for chess_mate functions which don't take care about taken pieces.
-        Don't update wonW,wonB
+        Special goal of move(a,b,c,d) useful for chess_mate functions which doesn't take care about taken pieces.
+        Doesn't update wonW,wonB
     """
     l = valeurs_accessibles_test(a,b)
     #if plateau[a][b] == 0:
@@ -296,9 +295,9 @@ def move_chess(a,b,c,d):
 
 def ensemble_valeurs_accessibles_W():
     """
-        Concatenate the accessible values of each white pieces.
-        
-        :return: all the accessibles values of white pieces
+        Concatenates the accessible values of each white pieces.
+
+        :return: all accessibles values of white pieces
         :rtype: tuple array
     """
     res=[]
@@ -308,8 +307,8 @@ def ensemble_valeurs_accessibles_W():
 
 def ensemble_valeurs_accessibles_B():
     """
-        Concatenate the accessible values of each black pieces
-        
+        Concatenates the accessible values of each black pieces
+
         :return: all the accessibles values of black pieces
         :rtype: tuple array
     """
@@ -320,8 +319,8 @@ def ensemble_valeurs_accessibles_B():
 
 def ensemble_move_possible_W():
     """
-        Concatenate the possible moves of each white pieces
-        
+        Concatenates the possible moves of each white pieces
+
         :return: all the possible moves of white pieces
         :rtype: tuple array
     """
@@ -333,8 +332,8 @@ def ensemble_move_possible_W():
 
 def ensemble_move_possible_B():
     """
-        Concatenate the possible moves of each black piece
-        
+        Concatenates the possible moves of each black piece
+
         :return: all the possible moves of black pieces
         :rtype: tuple list
     """
@@ -347,9 +346,9 @@ def ensemble_move_possible_B():
 #retour de la fonction : mise en échec ou pas
 
 def chess_W():
-    """ 
-        Inform if the white king is in a chess situation
-        
+    """
+        Tells if the white king is in a chess situation
+
         :return: True -> Chess situation : the white king belongs to ensemble_move_possible_B
                  False -> Not a chess situation
         :rtype: boolean
@@ -357,9 +356,9 @@ def chess_W():
     return (position_W[4] in (ensemble_valeurs_accessibles_B()))
 
 def chess_B():
-    """ 
-        Inform if the black king is in a chess situation
-        
+    """
+        Tells if the black king is in a chess situation
+
         :return: True -> Chess situation : the black king belongs to ensemble_move_possible_W
                  False -> Not a chess situation
         :rtype: boolean
@@ -368,8 +367,8 @@ def chess_B():
 
 def chess_Mate_B():
     """
-        Inform if the black king is in a chessmate situation
-        
+        Tells if the black king is in a chessmate situation
+
         :return: True -> White player wins
         :rtype: boolean
     """
@@ -404,8 +403,8 @@ def chess_Mate_B():
 
 def mouv_possible_chess_B():
     """
-        Concatenate the possible moves of black pieces to avoid a chess situation
-        
+        Concatenates the possible moves of black piece to avoid a chess situation
+
         :return: list of possible moves (x,y,k,l) to avoid chess situation
                  x,y : initial position of a black piece
                  k,l : final position that avoid chess situation
@@ -441,8 +440,8 @@ def mouv_possible_chess_B():
 
 def chess_Mate_W():
     """
-        Inform if the white king is in a chessmate situation
-        
+        Tells if the white king is in a chessmate situation
+
         :return: True -> Black player wins
         :rtype: boolean
     """
@@ -477,8 +476,8 @@ def chess_Mate_W():
 
 def mouv_possible_chess_W():
     """
-        Concatenate the possible moves of white pieces to avoid a chess situation
-        
+        Concatenates the possible moves of white pieces to avoid a chess situation
+
         :return: list of possible moves (x,y,k,l) to avoid chess situation
                  x,y : initial position of a white piece
                  k,l : final position that avoid chess situation
@@ -513,8 +512,8 @@ def mouv_possible_chess_W():
 
 def opponent(a,b):
     """
-        Inform if piece a is an opponent of piece b.
-        
+        Tells if piece a is an opponent of piece b.
+
         :param a: piece a (which could be a relative integer between -6 and 6 and couldn't be 0 , 0=empty piece)
         :param b: piece b (which could be a relative integer between -6 and 6 and couldn't be 0, 0=empty piece)
         :type a: int
@@ -526,8 +525,8 @@ def opponent(a,b):
 
 def valide(a):
     """
-        Inform if a piece is valid, that is to say belongs to the 8*8 square gamezone.
-        
+        Tells if a piece is valid, that is to say belongs to the 8*8 square gamezone.
+
         :param a: exists x,y -> a=plateau[x][y]
         :type a: int
         :return: True -> piece is valid
@@ -539,8 +538,8 @@ def valide(a):
 
 def valeurs_accessibles(x,y):
     """
-        Return the array of accessible plateau positions of a piece located on (x,y).
-        
+        Returns the array of accessible chessboard positions of a piece located on (x,y).
+
         :param x: X axis of initial piece's position
         :param y: Y axis of initial piece's position
         :type x: int
@@ -917,10 +916,10 @@ def eval_denombrement():
     """
         Part of the evaluation function useful for minimax and alpha-beta, that only considers
         taken pieces by each times (stored in wonB and wonW)
-        
+
         :return: gain of the current plateau configuration
         :rtype: int
-        
+
     """
     res=0
     for k in range(len(wonW)):
@@ -1021,9 +1020,9 @@ def create_tree_W_viz():
 def create_tree_W(): #arbre non-lisible mais seulement utile pour alpha_beta et min-max
     """
         If white player has to play, create a 3-height tree of all playing configurations (considering W-B-W)
-        , each one is associated with an evaluation of the plateau configuration (evaluation function)
+        , each one is associated with an evaluation of the chessboard configuration (evaluation function)
         . This tree will then be crossed by minimax and alpha-beta algorithms.
-        
+
     """
    # t=0
     global plateau
@@ -1093,7 +1092,7 @@ root_tree_B=Node((0,0,0,0,0))
 def create_tree_B(): #arbre non-lisible mais seulement utile pour alpha_beta et min-max
     """
         If black player has to play, create a 3-height tree of all playing configurations (considering B-W-B)
-        , each one is associated with an evaluation of the final plateau configuration (evaluation function)
+        , each one is associated with an evaluation of the final chessboard configuration (evaluation function)
         . This tree will then be crossed by minimax and alpha-beta algorithms.
     """
    # t=0
@@ -1210,7 +1209,7 @@ def minimax_W(arb,profondeur): #Minimax pour les arbres à quintuplet-> 4 premi�
        * Recursive algorithm which is supposed to cross a tree previously constructed by create_tree_W.
        * Represents the best way to modelize zero sum games such as chess.
        * It returns the tuple (x,y,k,l) that corresponds to the best move for white player considering the minimax algorithm
-       
+
        :return: tuple (x,y,k,l) to implement in a move function so as to simulate IA
        :rtype: tuple
     """                                                             #-> 5ème : valeur de la fonction d'éval
@@ -1359,4 +1358,3 @@ def move_IA_black():
 
 #for pre, fill, node in RenderTree(root_tree_B):
 #    print("%s%s" % (pre, node.name))
-

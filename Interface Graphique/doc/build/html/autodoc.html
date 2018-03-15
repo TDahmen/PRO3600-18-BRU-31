@@ -60,15 +60,15 @@
 <dl class="function">
 <dt id="echecs.chess_B">
 <code class="descclassname">echecs.</code><code class="descname">chess_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#chess_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.chess_B" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Inform if the black king is in a chess situation
-:return: True -&gt; Chess situation : the black king belongs to ensemble_move_possible_W</p>
-<blockquote>
-<div>False -&gt; Not a chess situation</div></blockquote>
+<dd><p>Inform if the black king is in a chess situation</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type retourné:</th><td class="field-body">boolean</td>
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">True -&gt; Chess situation : the black king belongs to ensemble_move_possible_W
+False -&gt; Not a chess situation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">boolean</td>
 </tr>
 </tbody>
 </table>
@@ -77,31 +77,47 @@
 <dl class="function">
 <dt id="echecs.chess_Mate_B">
 <code class="descclassname">echecs.</code><code class="descname">chess_Mate_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#chess_Mate_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.chess_Mate_B" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Inform if the black king is in a chessmate situation
-:return: True -&gt; White player wins
-:rtype: boolean</p>
+<dd><p>Inform if the black king is in a chessmate situation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">True -&gt; White player wins</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="echecs.chess_Mate_W">
 <code class="descclassname">echecs.</code><code class="descname">chess_Mate_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#chess_Mate_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.chess_Mate_W" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Inform if the white king is in a chessmate situation
-:return: True -&gt; Black player wins
-:rtype: boolean</p>
+<dd><p>Inform if the white king is in a chessmate situation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">True -&gt; Black player wins</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="echecs.chess_W">
 <code class="descclassname">echecs.</code><code class="descname">chess_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#chess_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.chess_W" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Inform if the white king is in a chess situation
-:return: True -&gt; Chess situation : the white king belongs to ensemble_move_possible_B</p>
-<blockquote>
-<div>False -&gt; Not a chess situation</div></blockquote>
+<dd><p>Inform if the white king is in a chess situation</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type retourné:</th><td class="field-body">boolean</td>
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">True -&gt; Chess situation : the white king belongs to ensemble_move_possible_B
+False -&gt; Not a chess situation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">boolean</td>
 </tr>
 </tbody>
 </table>
@@ -136,42 +152,82 @@
 <dl class="function">
 <dt id="echecs.ensemble_move_possible_B">
 <code class="descclassname">echecs.</code><code class="descname">ensemble_move_possible_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#ensemble_move_possible_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.ensemble_move_possible_B" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Concatenate the possible moves of each black pieces
-:return: all the possible moves of black pieces
-:rtype: tuple list</p>
+<dd><p>Concatenate the possible moves of each black piece</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">all the possible moves of black pieces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">tuple list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="echecs.ensemble_move_possible_W">
 <code class="descclassname">echecs.</code><code class="descname">ensemble_move_possible_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#ensemble_move_possible_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.ensemble_move_possible_W" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Concatenate the possible moves of each white pieces
-:return: all the possible moves of white pieces
-:rtype: tuple array</p>
+<dd><p>Concatenate the possible moves of each white pieces</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">all the possible moves of white pieces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">tuple array</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="echecs.ensemble_valeurs_accessibles_B">
 <code class="descclassname">echecs.</code><code class="descname">ensemble_valeurs_accessibles_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#ensemble_valeurs_accessibles_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.ensemble_valeurs_accessibles_B" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Concatenate the accessible values of each black pieces
-:return: all the accessibles values of black pieces
-:rtype: tuple array</p>
+<dd><p>Concatenate the accessible values of each black pieces</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">all the accessibles values of black pieces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">tuple array</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="echecs.ensemble_valeurs_accessibles_W">
 <code class="descclassname">echecs.</code><code class="descname">ensemble_valeurs_accessibles_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#ensemble_valeurs_accessibles_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.ensemble_valeurs_accessibles_W" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Concatenate the accessible values of each white pieces
-:return: all the accessibles values of white pieces
-:rtype: tuple array</p>
+<dd><p>Concatenate the accessible values of each white pieces.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">all the accessibles values of white pieces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">tuple array</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="echecs.eval_denombrement">
 <code class="descclassname">echecs.</code><code class="descname">eval_denombrement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#eval_denombrement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.eval_denombrement" title="Lien permanent vers cette définition">¶</a></dt>
 <dd><p>Part of the evaluation function useful for minimax and alpha-beta, that only considers
-taken pieces by each times (stored in wonB and wonW)
-:return: gain of the current plateau configuration
-:rtype: int</p>
+taken pieces by each times (stored in wonB and wonW)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">gain of the current plateau configuration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -212,21 +268,36 @@ taken pieces by each times (stored in wonB and wonW)
 <dl class="function">
 <dt id="echecs.minimax_W">
 <code class="descclassname">echecs.</code><code class="descname">minimax_W</code><span class="sig-paren">(</span><em>arb</em>, <em>profondeur</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#minimax_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.minimax_W" title="Lien permanent vers cette définition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="echecs.mouv_possible_chess_B">
-<code class="descclassname">echecs.</code><code class="descname">mouv_possible_chess_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#mouv_possible_chess_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.mouv_possible_chess_B" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Concatenate the possible moves of black pieces to avoid a chess situation
-:return: list of possible moves (x,y,k,l) to avoid chess situation</p>
-<blockquote>
-<div>x,y : initial position of a black piece
-k,l : final position that avoid chess situation</div></blockquote>
+<dd><ul class="simple">
+<li>Recursive algorithm which is supposed to cross a tree previously constructed by create_tree_W.</li>
+<li>Represents the best way to modelize zero sum games such as chess.</li>
+<li>It returns the tuple (x,y,k,l) that corresponds to the best move for white player considering the minimax algorithm</li>
+</ul>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type retourné:</th><td class="field-body">tuple array</td>
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">tuple (x,y,k,l) to implement in a move function so as to simulate IA</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.mouv_possible_chess_B">
+<code class="descclassname">echecs.</code><code class="descname">mouv_possible_chess_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#mouv_possible_chess_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.mouv_possible_chess_B" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Concatenate the possible moves of black pieces to avoid a chess situation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">list of possible moves (x,y,k,l) to avoid chess situation
+x,y : initial position of a black piece
+k,l : final position that avoid chess situation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">tuple array</td>
 </tr>
 </tbody>
 </table>
@@ -235,16 +306,16 @@ k,l : final position that avoid chess situation</div></blockquote>
 <dl class="function">
 <dt id="echecs.mouv_possible_chess_W">
 <code class="descclassname">echecs.</code><code class="descname">mouv_possible_chess_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#mouv_possible_chess_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.mouv_possible_chess_W" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Concatenate the possible moves of white pieces to avoid a chess situation
-:return: list of possible moves (x,y,k,l) to avoid chess situation</p>
-<blockquote>
-<div>x,y : initial position of a white piece
-k,l : final position that avoid chess situation</div></blockquote>
+<dd><p>Concatenate the possible moves of white pieces to avoid a chess situation</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type retourné:</th><td class="field-body">tuple array</td>
+<tr class="field-odd field"><th class="field-name">Retourne:</th><td class="field-body">list of possible moves (x,y,k,l) to avoid chess situation
+x,y : initial position of a white piece
+k,l : final position that avoid chess situation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type retourné:</th><td class="field-body">tuple array</td>
 </tr>
 </tbody>
 </table>
@@ -253,26 +324,29 @@ k,l : final position that avoid chess situation</div></blockquote>
 <dl class="function">
 <dt id="echecs.move">
 <code class="descclassname">echecs.</code><code class="descname">move</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.move" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Move a piece located on (a,b) to (c,d) if the movement is allowed by changing the values of plateau
-Update dico_position_W, dico_position_B, position_W, position_B,wonW,wonB to make algorithm be coherent
-Inverse the boolean value of tour_blanc to simulate an alternative gameplay</p>
+<dd><p>Move a piece located on (a,b) to (c,d) if the movement is allowed by changing the values of plateau.
+Update dico_position_W, dico_position_B, position_W, position_B,wonW,wonB to make algorithm be coherent.
+Inverse the boolean value of tour_blanc to simulate an alternative gameplay.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
 <li><strong>a</strong> (<em>int</em>) – X axis of the piece we want to move</li>
 <li><strong>b</strong> (<em>int</em>) – Y axis of the piece we want to move</li>
 <li><strong>c</strong> (<em>int</em>) – X axis of the position we want to move the piece on</li>
-<li><strong>d</strong> – Y axis of the position we want to move the piece on</li>
+<li><strong>d</strong> (<em>int</em>) – Y axis of the position we want to move the piece on</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Retourne:</th><td class="field-body"><p class="first">None</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type retourné:</th><td class="field-body"><p class="first last">None</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>:type d; int
-:return: None
-:rtype: None</p>
 </dd></dl>
 
 <dl class="function">
@@ -283,7 +357,7 @@ Inverse the boolean value of tour_blanc to simulate an alternative gameplay</p>
 <dl class="function">
 <dt id="echecs.move_chess">
 <code class="descclassname">echecs.</code><code class="descname">move_chess</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#move_chess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.move_chess" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Special role of move(a,b,c,d) useful for chess_mate functions which don’t take care about taken pieces
+<dd><p>Special role of move(a,b,c,d) useful for chess_mate functions which don’t take care about taken pieces.
 Don’t update wonW,wonB</p>
 </dd></dl>
 
@@ -303,7 +377,7 @@ Essentially useful for tests</p>
 <dl class="function">
 <dt id="echecs.opponent">
 <code class="descclassname">echecs.</code><code class="descname">opponent</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#opponent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.opponent" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Inform if piece a is an opponent of piece b</p>
+<dd><p>Inform if piece a is an opponent of piece b.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -332,13 +406,25 @@ Essentially useful for tests</p>
 <dl class="function">
 <dt id="echecs.valeurs_accessibles">
 <code class="descclassname">echecs.</code><code class="descname">valeurs_accessibles</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#valeurs_accessibles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.valeurs_accessibles" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Return the array of accessible plateau positions of a piece located on (x,y)
-:param x: X axis of initial piece’s position
-:param y: Y axis of initial piece’s position
-:type x: int
-:type y: int
-:return: array of accessible plateau positions of a piece located on (x,y)
-:rtype: tuple array</p>
+<dd><p>Return the array of accessible plateau positions of a piece located on (x,y).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>int</em>) – X axis of initial piece’s position</li>
+<li><strong>y</strong> (<em>int</em>) – Y axis of initial piece’s position</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Retourne:</th><td class="field-body"><p class="first">array of accessible plateau positions of a piece located on (x,y)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type retourné:</th><td class="field-body"><p class="first last">tuple array</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -349,11 +435,19 @@ Essentially useful for tests</p>
 <dl class="function">
 <dt id="echecs.valide">
 <code class="descclassname">echecs.</code><code class="descname">valide</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#valide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.valide" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Inform if a piece is valid, that is to say belongs to the 8*8 square gamezone
-:param a: exists x,y -&gt; a=plateau[x][y]
-:type a: int
-:return: True -&gt; piece is valid
-:rtype: boolean</p>
+<dd><p>Inform if a piece is valid, that is to say belongs to the 8*8 square gamezone.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>a</strong> (<em>int</em>) – exists x,y -&gt; a=plateau[x][y]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Retourne:</th><td class="field-body">True -&gt; piece is valid</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type retourné:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

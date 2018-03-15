@@ -1,4 +1,4 @@
-Bienvenue sur cette documentation
+Welcome on ChessMate documentation
 =================================
 
 Contents:
@@ -6,4 +6,5 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   autodoc
+   engine
+   gui
