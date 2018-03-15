@@ -7,13 +7,21 @@ echecs.py
 
 Documentation du moteur de jeu
 
-.. autofunction:: echecs.move
+.. automodule:: echecs
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:
 
 
 
-echecs.py
+gui.py
 =======
 
 Documentation de l'interface graphique
 
-.. autoclass:: gui.Ui_Dialog
+.. automodule:: gui
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:

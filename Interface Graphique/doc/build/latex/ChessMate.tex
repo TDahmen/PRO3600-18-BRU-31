@@ -54,7 +54,7 @@
 
 
 \title{ChessMate Documentation}
-\date{mars 13, 2018}
+\date{mars 15, 2018}
 \release{1}
 \author{Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -76,7 +76,248 @@ Contents:
 
 \section{echecs.py}
 \label{\detokenize{autodoc:echecs-py}}
-Voici l’autodocumentation d’une simple fonction de module
+Documentation du moteur de jeu
+\phantomsection\label{\detokenize{autodoc:module-echecs}}\index{echecs (module)}
+Created on Tue Jan 30 14:44:38 2018
+
+@author: thomas
+\index{alpha\_beta\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.alpha_beta_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{alpha\_beta\_B}}{\emph{arb}, \emph{profondeur}, \emph{alpha}, \emph{beta}}{}
+\end{fulllineitems}
+
+\index{alpha\_beta\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.alpha_beta_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{alpha\_beta\_W}}{\emph{arb}, \emph{profondeur}, \emph{alpha}, \emph{beta}}{}
+\end{fulllineitems}
+
+\index{chess\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.chess_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{chess\_B}}{}{}
+Inform if the black king is in a chess situation
+:return: True -\textgreater{} Chess situation : the black king belongs to ensemble\_move\_possible\_W
+\begin{quote}
+
+False -\textgreater{} Not a chess situation
+\end{quote}
+\begin{quote}\begin{description}
+\item[{Type retourné}] \leavevmode
+boolean
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{chess\_Mate\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.chess_Mate_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{chess\_Mate\_B}}{}{}
+Inform if the black king is in a chessmate situation
+:return: True -\textgreater{} White player wins
+:rtype: boolean
+
+\end{fulllineitems}
+
+\index{chess\_Mate\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.chess_Mate_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{chess\_Mate\_W}}{}{}
+Inform if the white king is in a chessmate situation
+:return: True -\textgreater{} Black player wins
+:rtype: boolean
+
+\end{fulllineitems}
+
+\index{chess\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.chess_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{chess\_W}}{}{}
+Inform if the white king is in a chess situation
+:return: True -\textgreater{} Chess situation : the white king belongs to ensemble\_move\_possible\_B
+\begin{quote}
+
+False -\textgreater{} Not a chess situation
+\end{quote}
+\begin{quote}\begin{description}
+\item[{Type retourné}] \leavevmode
+boolean
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{copy() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.copy}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{copy}}{\emph{tab}}{}
+\end{fulllineitems}
+
+\index{create\_tree\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.create_tree_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{create\_tree\_B}}{}{}
+If black player has to play, create a 3-height tree of all playing configurations (considering B-W-B)
+, each one is associated with an evaluation of the final plateau configuration (evaluation function)
+. This tree will then be crossed by minimax and alpha-beta algorithms.
+
+\end{fulllineitems}
+
+\index{create\_tree\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.create_tree_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{create\_tree\_W}}{}{}
+If white player has to play, create a 3-height tree of all playing configurations (considering W-B-W)
+, each one is associated with an evaluation of the plateau configuration (evaluation function)
+. This tree will then be crossed by minimax and alpha-beta algorithms.
+
+\end{fulllineitems}
+
+\index{create\_tree\_W\_viz() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.create_tree_W_viz}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{create\_tree\_W\_viz}}{}{}
+\end{fulllineitems}
+
+\index{ensemble\_move\_possible\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.ensemble_move_possible_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{ensemble\_move\_possible\_B}}{}{}
+Concatenate the possible moves of each black pieces
+:return: all the possible moves of black pieces
+:rtype: tuple list
+
+\end{fulllineitems}
+
+\index{ensemble\_move\_possible\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.ensemble_move_possible_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{ensemble\_move\_possible\_W}}{}{}
+Concatenate the possible moves of each white pieces
+:return: all the possible moves of white pieces
+:rtype: tuple array
+
+\end{fulllineitems}
+
+\index{ensemble\_valeurs\_accessibles\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.ensemble_valeurs_accessibles_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{ensemble\_valeurs\_accessibles\_B}}{}{}
+Concatenate the accessible values of each black pieces
+:return: all the accessibles values of black pieces
+:rtype: tuple array
+
+\end{fulllineitems}
+
+\index{ensemble\_valeurs\_accessibles\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.ensemble_valeurs_accessibles_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{ensemble\_valeurs\_accessibles\_W}}{}{}
+Concatenate the accessible values of each white pieces
+:return: all the accessibles values of white pieces
+:rtype: tuple array
+
+\end{fulllineitems}
+
+\index{eval\_denombrement() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.eval_denombrement}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{eval\_denombrement}}{}{}
+Part of the evaluation function useful for minimax and alpha-beta, that only considers
+taken pieces by each times (stored in wonB and wonW)
+:return: gain of the current plateau configuration
+:rtype: int
+
+\end{fulllineitems}
+
+\index{get\_alpha\_beta\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.get_alpha_beta_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{get\_alpha\_beta\_B}}{}{}
+\end{fulllineitems}
+
+\index{get\_alpha\_beta\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.get_alpha_beta_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{get\_alpha\_beta\_W}}{}{}
+\end{fulllineitems}
+
+\index{get\_minimax\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.get_minimax_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{get\_minimax\_B}}{}{}
+\end{fulllineitems}
+
+\index{get\_minimax\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.get_minimax_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{get\_minimax\_W}}{}{}
+\end{fulllineitems}
+
+\index{is\_max\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.is_max_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{is\_max\_W}}{\emph{arb}}{}
+\end{fulllineitems}
+
+\index{is\_min\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.is_min_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{is\_min\_B}}{\emph{arb}}{}
+\end{fulllineitems}
+
+\index{minimax\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.minimax_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{minimax\_B}}{\emph{arb}, \emph{profondeur}}{}
+\end{fulllineitems}
+
+\index{minimax\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.minimax_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{minimax\_W}}{\emph{arb}, \emph{profondeur}}{}
+\end{fulllineitems}
+
+\index{mouv\_possible\_chess\_B() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.mouv_possible_chess_B}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{mouv\_possible\_chess\_B}}{}{}
+Concatenate the possible moves of black pieces to avoid a chess situation
+:return: list of possible moves (x,y,k,l) to avoid chess situation
+\begin{quote}
+
+x,y : initial position of a black piece
+k,l : final position that avoid chess situation
+\end{quote}
+\begin{quote}\begin{description}
+\item[{Type retourné}] \leavevmode
+tuple array
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{mouv\_possible\_chess\_W() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.mouv_possible_chess_W}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{mouv\_possible\_chess\_W}}{}{}
+Concatenate the possible moves of white pieces to avoid a chess situation
+:return: list of possible moves (x,y,k,l) to avoid chess situation
+\begin{quote}
+
+x,y : initial position of a white piece
+k,l : final position that avoid chess situation
+\end{quote}
+\begin{quote}\begin{description}
+\item[{Type retourné}] \leavevmode
+tuple array
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
 \index{move() (dans le module echecs)}
 
 \begin{fulllineitems}
@@ -96,53 +337,231 @@ Inverse the boolean value of tour\_blanc to simulate an alternative gameplay
 \sphinxstyleliteralstrong{c} (\sphinxstyleliteralemphasis{int}) \textendash{} X axis of the position we want to move the piece on
 
 \item {} 
-\sphinxstyleliteralstrong{d} (\sphinxstyleliteralemphasis{int}) \textendash{} Y axis of the position we want to move the piece on
+\sphinxstyleliteralstrong{d} \textendash{} Y axis of the position we want to move the piece on
 
 \end{itemize}
 
-\item[{Retourne}] \leavevmode
-None
-
-\item[{Type retourné}] \leavevmode
-None
-
 \end{description}\end{quote}
+
+:type d; int
+:return: None
+:rtype: None
 
 \end{fulllineitems}
 
-
-
-\chapter{Complement}
-\label{\detokenize{index:complement}}
-Comme promis voici un petit exemple de documentation manuelle
-\index{ma\_fonction() (fonction de base)}
+\index{move\_IA\_black() (dans le module echecs)}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{index:ma_fonction}}\pysiglinewithargsret{\sphinxbfcode{ma\_fonction}}{\emph{arg00}, \emph{arg01}, \emph{arg03='4'}}{}~\begin{quote}\begin{description}
+\phantomsection\label{\detokenize{autodoc:echecs.move_IA_black}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{move\_IA\_black}}{}{}
+\end{fulllineitems}
+
+\index{move\_chess() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.move_chess}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{move\_chess}}{\emph{a}, \emph{b}, \emph{c}, \emph{d}}{}
+Special role of move(a,b,c,d) useful for chess\_mate functions which don’t take care about taken pieces
+Don’t update wonW,wonB
+
+\end{fulllineitems}
+
+\index{movetest() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.movetest}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{movetest}}{\emph{a}, \emph{b}, \emph{c}, \emph{d}}{}
+Same role than move(a,b,c,d) but doesn’t take care about rules (moving positions allowed, tour)
+Also update dico\_position\_W, dico\_position\_B, position\_W, position\_B,wonW,wonB
+Essentially useful for tests
+
+\end{fulllineitems}
+
+\index{multiply() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.multiply}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{multiply}}{\emph{a}, \emph{b}}{}
+\end{fulllineitems}
+
+\index{opponent() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.opponent}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{opponent}}{\emph{a}, \emph{b}}{}
+Inform if piece a is an opponent of piece b
+\begin{quote}\begin{description}
 \item[{Paramètres}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxstyleliteralstrong{arg00} (\sphinxstyleliteralemphasis{int}) \textendash{} premier argument
+\sphinxstyleliteralstrong{a} (\sphinxstyleliteralemphasis{int}) \textendash{} piece a (which could be a relative integer between -6 and 6 and couldn’t be 0 , 0=empty piece)
 
 \item {} 
-\sphinxstyleliteralstrong{arg01} (\sphinxstyleliteralemphasis{dict}) \textendash{} second argument
-
-\item {} 
-\sphinxstyleliteralstrong{arg02} (\sphinxstyleliteralemphasis{str}) \textendash{} troisieme argument
+\sphinxstyleliteralstrong{b} (\sphinxstyleliteralemphasis{int}) \textendash{} piece b (which could be a relative integer between -6 and 6 and couldn’t be 0, 0=empty piece)
 
 \end{itemize}
 
 \item[{Retourne}] \leavevmode
-l’ensemble des elements demandes
+True -\textgreater{} a is an opponent of b
 
 \item[{Type retourné}] \leavevmode
-list
+boolean
 
 \end{description}\end{quote}
 
 \end{fulllineitems}
 
+\index{tour\_Blanc() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.tour_Blanc}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{tour\_Blanc}}{\emph{x}}{}
+\end{fulllineitems}
+
+\index{valeurs\_accessibles() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.valeurs_accessibles}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{valeurs\_accessibles}}{\emph{x}, \emph{y}}{}
+Return the array of accessible plateau positions of a piece located on (x,y)
+:param x: X axis of initial piece’s position
+:param y: Y axis of initial piece’s position
+:type x: int
+:type y: int
+:return: array of accessible plateau positions of a piece located on (x,y)
+:rtype: tuple array
+
+\end{fulllineitems}
+
+\index{valeurs\_accessibles\_test() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.valeurs_accessibles_test}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{valeurs\_accessibles\_test}}{\emph{x}, \emph{y}}{}
+\end{fulllineitems}
+
+\index{valide() (dans le module echecs)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:echecs.valide}}\pysiglinewithargsret{\sphinxcode{echecs.}\sphinxbfcode{valide}}{\emph{a}}{}
+Inform if a piece is valid, that is to say belongs to the 8*8 square gamezone
+:param a: exists x,y -\textgreater{} a=plateau{[}x{]}{[}y{]}
+:type a: int
+:return: True -\textgreater{} piece is valid
+:rtype: boolean
+
+\end{fulllineitems}
 
 
+
+\section{gui.py}
+\label{\detokenize{autodoc:gui-py}}
+Documentation de l’interface graphique
+\phantomsection\label{\detokenize{autodoc:module-gui}}\index{gui (module)}
+@author: Thomas Dahmen
+\index{Ui\_Dialog (classe dans gui)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:gui.Ui_Dialog}}\pysigline{\sphinxbfcode{class }\sphinxcode{gui.}\sphinxbfcode{Ui\_Dialog}}
+Bases : \sphinxcode{object}
+
+Classe contenant la fenêtre de l’interface graphique
+Dans celle-ci, les cases sont des boutons
+Déplacer une pièce revient simplement à changer les images de ces boutons
+L’association entre un bouton, la valeur de la pièce qu’il contient et la position sur l’échiquier
+est gérée à l’aide de deux dictionnaires utilisés dans la fonction
+\index{chk() (méthode gui.Ui\_Dialog)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:gui.Ui_Dialog.chk}}\pysiglinewithargsret{\sphinxbfcode{chk}}{\emph{button}, \emph{dict1}, \emph{dict2}}{}
+This is the action function called when a piece is selected. It interacts
+with the game engine echecs.py
+
+Multiple cases must be managed:
+
+Let’s assume we play with whites, and it is the first time the player selects
+a piece
+\begin{itemize}
+\item {} \begin{description}
+\item[{if we choose a white piece}] \leavevmode\begin{itemize}
+\item {} 
+it is highlighted
+
+\item {} 
+the selected button is stored in pChecked, waiting for the second call
+of the function
+
+\item {} 
+the game engine is called in order to highlight accessible cases
+
+\end{itemize}
+
+\end{description}
+
+\item {} 
+if we do anything else (choosing a black piece…), nothing happens
+
+\end{itemize}
+
+Let’s now assume a white piece was previously selected (stil playing with whites)
+\begin{itemize}
+\item {} \begin{description}
+\item[{if we choose a white piece}] \leavevmode\begin{itemize}
+\item {} 
+the selection changes (new piece highlighted and stored in pChecked,
+waiting for another call of the function)
+
+\end{itemize}
+
+\end{description}
+
+\item {} \begin{description}
+\item[{if we choose a black piece}] \leavevmode\begin{itemize}
+\item {} 
+if it is not accessible, nothing hap
+
+\end{itemize}
+
+\end{description}
+
+\end{itemize}
+\begin{quote}\begin{description}
+\item[{Paramètres}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{a} (\sphinxstyleliteralemphasis{int}) \textendash{} The first number to add
+
+\item {} 
+\sphinxstyleliteralstrong{b} (\sphinxstyleliteralemphasis{int}) \textendash{} The second number to add
+
+\end{itemize}
+
+\item[{Retourne}] \leavevmode
+The result of the addition
+
+\item[{Type retourné}] \leavevmode
+int
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{retranslateUi() (méthode gui.Ui\_Dialog)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:gui.Ui_Dialog.retranslateUi}}\pysiglinewithargsret{\sphinxbfcode{retranslateUi}}{\emph{Dialog}}{}
+\end{fulllineitems}
+
+\index{setupUi() (méthode gui.Ui\_Dialog)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{autodoc:gui.Ui_Dialog.setupUi}}\pysiglinewithargsret{\sphinxbfcode{setupUi}}{\emph{Dialog}}{}
+\end{fulllineitems}
+
+
+\end{fulllineitems}
+
+
+
+\renewcommand{\indexname}{Index des modules Python}
+\begin{sphinxtheindex}
+\def\bigletter#1{{\Large\sffamily#1}\nopagebreak\vspace{1mm}}
+\bigletter{e}
+\item {\sphinxstyleindexentry{echecs}}\sphinxstyleindexpageref{autodoc:\detokenize{module-echecs}}
+\indexspace
+\bigletter{g}
+\item {\sphinxstyleindexentry{gui}}\sphinxstyleindexpageref{autodoc:\detokenize{module-gui}}
+\end{sphinxtheindex}
 
 \renewcommand{\indexname}{Index}
 \printindex

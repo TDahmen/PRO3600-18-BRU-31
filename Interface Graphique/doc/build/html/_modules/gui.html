@@ -57,7 +57,7 @@
 <span class="sd">        L&#39;association entre un bouton, la valeur de la pièce qu&#39;il contient et la position sur l&#39;échiquier</span>
 <span class="sd">        est gérée à l&#39;aide de deux dictionnaires utilisés dans la fonction</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Dialog</span><span class="p">):</span>
+<div class="viewcode-block" id="Ui_Dialog.setupUi"><a class="viewcode-back" href="../autodoc.html#gui.Ui_Dialog.setupUi">[docs]</a>    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Dialog</span><span class="p">):</span>
 
         <span class="c1"># Initialisation de la fenêtre</span>
         <span class="n">Dialog</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;Dialog&quot;</span><span class="p">)</span>
@@ -626,9 +626,9 @@
 
 
         <span class="bp">self</span><span class="o">.</span><span class="n">retranslateUi</span><span class="p">(</span><span class="n">Dialog</span><span class="p">)</span>
-        <span class="n">QtCore</span><span class="o">.</span><span class="n">QMetaObject</span><span class="o">.</span><span class="n">connectSlotsByName</span><span class="p">(</span><span class="n">Dialog</span><span class="p">)</span>
+        <span class="n">QtCore</span><span class="o">.</span><span class="n">QMetaObject</span><span class="o">.</span><span class="n">connectSlotsByName</span><span class="p">(</span><span class="n">Dialog</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">retranslateUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Dialog</span><span class="p">):</span>
+<div class="viewcode-block" id="Ui_Dialog.retranslateUi"><a class="viewcode-back" href="../autodoc.html#gui.Ui_Dialog.retranslateUi">[docs]</a>    <span class="k">def</span> <span class="nf">retranslateUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Dialog</span><span class="p">):</span>
 
         <span class="n">_translate</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span>
         <span class="n">Dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">_translate</span><span class="p">(</span><span class="s2">&quot;Dialog&quot;</span><span class="p">,</span> <span class="s2">&quot;Dialog&quot;</span><span class="p">))</span>
@@ -754,13 +754,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">vide_29</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vide_29</span><span class="p">,</span><span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vide_30</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vide_30</span><span class="p">,</span><span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vide_31</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vide_31</span><span class="p">,</span><span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vide_32</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vide_32</span><span class="p">,</span><span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vide_32</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vide_32</span><span class="p">,</span><span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">))</span></div>
 
 
 
     <span class="c1"># Fonction d&#39;action lorsqu&#39;une pièce est sélectionnée</span>
 
-    <span class="k">def</span> <span class="nf">chk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button</span><span class="p">,</span> <span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">):</span> <span class="c1"># on passe en argument le sender</span>
+<div class="viewcode-block" id="Ui_Dialog.chk"><a class="viewcode-back" href="../autodoc.html#gui.Ui_Dialog.chk">[docs]</a>    <span class="k">def</span> <span class="nf">chk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button</span><span class="p">,</span> <span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">):</span> <span class="c1"># on passe en argument le sender</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            This is the action function called when a piece is selected. It interacts</span>
 <span class="sd">            with the game engine echecs.py</span>
@@ -966,7 +966,7 @@
 <span class="sd">                                if echecs.chess_W():</span>
 <span class="sd">                                    print(&quot;chess&quot;)</span>
 <span class="sd">                                    error_dialog.showMessage(&#39;Oh no!&#39;)</span>
-<span class="sd">                            &quot;&quot;&quot;</span></div>
+<span class="sd">                            &quot;&quot;&quot;</span></div></div>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="k">global</span> <span class="n">tour1B</span>
