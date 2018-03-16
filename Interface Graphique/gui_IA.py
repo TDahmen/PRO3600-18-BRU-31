@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 
-"""
-@author: Thomas Dahmen
-"""
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from anytree import Node,RenderTree
 import echecs
 
 class Ui_Dialog(object):
+    """
+        This class contains the GUI's window, in which pieces' locations are buttons
+        Moving a piece is achieved by changing buttons' images
+        The association between a button, the value of its piece and the piece's position on the chessboard
+        is managed with two dictionaries, which are declared in retranslateUi
+    """
     def setupUi(self, Dialog):
 
         # Initialisation de la fenêtre
@@ -581,6 +584,22 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
+
+        """
+            This function connects the GUI to user's actions. In this specific function,
+            we define two dictionaries that are necessary to link the GUI to the game engine:
+
+            - dict1
+                * key: a button of the GUI
+                * value: the position of the piece in the game engine's chessboard
+            - dict1
+                * key: the position of the piece in the game engine's chessboard
+                * value: a button of the GUI
+
+            This enables the GUI and the game engine to interact with each other
+
+        """
+
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
 
@@ -710,6 +729,54 @@ class Ui_Dialog(object):
     # elle peut jouer deux rôle : la case de départ (pChecked) ou d'arrivée (button)
 
     def chk(self, button, dict1, dict2): # on passe en argument le sender
+        """
+            This is the action function called when a piece is selected. It interacts
+            with the game engine echecs.py and its artificial intelligence.
+
+            In this script (gui_IA.py), the user plays against an AI. The player has the whites
+            and the AI the blacks.
+
+            When the users selects a button (a box on the chessboard), multiple cases must be managed:
+
+            * if we choose a white piece
+                - it is highlighted
+                - the selected button is stored in pChecked, waiting for the second call
+                  of the function
+                - the game engine is called in order to highlight accessible cases
+
+            * if we do anything else (choosing a black piece...), nothing happens
+
+            Let's now assume a white piece was previously selected
+
+            * if we choose a white piece
+                - the selection changes (new piece highlighted and stored in pChecked,
+                  waiting for another call of the function)
+
+            * if we choose a black piece
+                - if it is not accessible, the selected white piece becomes unselected
+                - if it is accessible, the selected white piece takes its place and the change
+                  is sent to the game engine
+                - a new blank case is created
+                - the game engine returns the AI move and the GUI represents it
+                - the player (whites) can play again
+
+            * if we choose a blank case
+                - if it is not accessible, the selected white piece becomes unselected
+                - if it is accessible, the selected white piece takes the blank place and the change
+                  is sent to the game engine
+                - the game engine returns the AI move and the GUI represents it
+                - the player (whites) can play again
+
+            :param button: The sender (user selected button)
+            :param dict1: Dictionary button -> position on the chessboard
+            :param dict2: Dictionary position on the chessboard -> button
+            :type button: QtWidgets.QPushButton
+            :type dict1: dict
+            :type dict2: dict
+            :return: None
+            :rtype: None
+
+        """
         global pChecked # pièce sélectionnée à bouger
         global nbVide # nombre de cases vides
         global listeAcc # liste des cases accessibles pour une pièce donnée

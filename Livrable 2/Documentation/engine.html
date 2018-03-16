@@ -1,0 +1,721 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Game engine &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Graphical User Interface without Artificial Intelligence" href="gui.html" />
+    <link rel="prev" title="Welcome to ChessMate documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="game-engine">
+<h1>Game engine<a class="headerlink" href="#game-engine" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="echecs-py">
+<h2>echecs.py<a class="headerlink" href="#echecs-py" title="Permalink to this headline">¶</a></h2>
+<p>Game engine documentation</p>
+<span class="target" id="module-echecs"></span><p>Created on Tue Jan 30 14:44:38 2018</p>
+<dl class="function">
+<dt id="echecs.alpha_beta_B">
+<code class="descclassname">echecs.</code><code class="descname">alpha_beta_B</code><span class="sig-paren">(</span><em>arb</em>, <em>profondeur</em>, <em>alpha</em>, <em>beta</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#alpha_beta_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.alpha_beta_B" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimized minimax reccursive algorithm which doesn’t consider useless branchs thanks to alpha and beta parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arb</strong> (<em>node</em>) – node algorithm is executing on</li>
+<li><strong>profondeur</strong> (<em>int</em>) – height of the node algorithm is executing on</li>
+<li><strong>alpha</strong> (<em>int</em>) – inferior value of cutting interval (initially negative infinite)</li>
+<li><strong>beta</strong> (<em>int</em>) – superior value of cutting interval(initially positive infinite)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><ul class="simple">
+<li>tuple (x,k,l,g) - (x,y,k,l) is associated with the future move to do</li>
+</ul>
+<ul class="simple">
+<li>g is the result of the evaluation function of the chessboard configuration</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.alpha_beta_W">
+<code class="descclassname">echecs.</code><code class="descname">alpha_beta_W</code><span class="sig-paren">(</span><em>arb</em>, <em>profondeur</em>, <em>alpha</em>, <em>beta</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#alpha_beta_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.alpha_beta_W" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimized minimax reccursive algorithm which doesn’t consider useless branchs thanks to alpha and beta parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arb</strong> (<em>node</em>) – node algorithm is executing on</li>
+<li><strong>profondeur</strong> (<em>int</em>) – height of the node algorithm is executing on</li>
+<li><strong>alpha</strong> (<em>int</em>) – inferior value of cutting interval (initially negative infinite)</li>
+<li><strong>beta</strong> (<em>int</em>) – superior value of cutting interval(initially positive infinite)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><ul class="simple">
+<li>tuple (x,k,l,g) - (x,y,k,l) is associated with the future move to do</li>
+</ul>
+<ul class="simple">
+<li>g is the result of the evaluation function of the chessboard configuration</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.chess_B">
+<code class="descclassname">echecs.</code><code class="descname">chess_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#chess_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.chess_B" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells if the black king is in a chess situation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li>True -&gt; Chess situation : the black king belongs to ensemble_move_possible_W</li>
+<li>False -&gt; Not a chess situation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.chess_Mate_B">
+<code class="descclassname">echecs.</code><code class="descname">chess_Mate_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#chess_Mate_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.chess_Mate_B" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells if the black king is in a chessmate situation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True -&gt; White player wins</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.chess_Mate_W">
+<code class="descclassname">echecs.</code><code class="descname">chess_Mate_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#chess_Mate_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.chess_Mate_W" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells if the white king is in a chessmate situation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True -&gt; Black player wins</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.chess_W">
+<code class="descclassname">echecs.</code><code class="descname">chess_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#chess_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.chess_W" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells if the white king is in a chess situation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li>True -&gt; Chess situation : the white king belongs to ensemble_move_possible_B</li>
+<li>False -&gt; Not a chess situation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.copy">
+<code class="descclassname">echecs.</code><code class="descname">copy</code><span class="sig-paren">(</span><em>tab</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="echecs.create_tree_B">
+<code class="descclassname">echecs.</code><code class="descname">create_tree_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#create_tree_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.create_tree_B" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>If black player has to play, create a 3-height tree of all playing configurations (considering B-W-B)</li>
+<li>Each one is associated with an evaluation of the final chessboard configuration (evaluation function)</li>
+<li>This tree will then be crossed by minimax and alpha-beta algorithms.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.create_tree_W">
+<code class="descclassname">echecs.</code><code class="descname">create_tree_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#create_tree_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.create_tree_W" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>If white player has to play, create a 3-height tree of all playing configurations (considering W-B-W)</li>
+<li>Each one is associated with an evaluation of the chessboard configuration (evaluation function)</li>
+<li>This tree will then be crossed by minimax and alpha-beta algorithms.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.create_tree_W_viz">
+<code class="descclassname">echecs.</code><code class="descname">create_tree_W_viz</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#create_tree_W_viz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.create_tree_W_viz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="echecs.ensemble_move_possible_B">
+<code class="descclassname">echecs.</code><code class="descname">ensemble_move_possible_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#ensemble_move_possible_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.ensemble_move_possible_B" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenates the possible moves of each black piece</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">all the possible moves of black pieces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.ensemble_move_possible_W">
+<code class="descclassname">echecs.</code><code class="descname">ensemble_move_possible_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#ensemble_move_possible_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.ensemble_move_possible_W" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenates the possible moves of each white pieces</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">all the possible moves of white pieces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.ensemble_valeurs_accessibles_B">
+<code class="descclassname">echecs.</code><code class="descname">ensemble_valeurs_accessibles_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#ensemble_valeurs_accessibles_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.ensemble_valeurs_accessibles_B" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenates the accessible values of each black pieces</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">all the accessibles values of black pieces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.ensemble_valeurs_accessibles_W">
+<code class="descclassname">echecs.</code><code class="descname">ensemble_valeurs_accessibles_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#ensemble_valeurs_accessibles_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.ensemble_valeurs_accessibles_W" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenates the accessible values of each white pieces.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">all accessibles values of white pieces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.eval_denombrement">
+<code class="descclassname">echecs.</code><code class="descname">eval_denombrement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#eval_denombrement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.eval_denombrement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Part of the evaluation function useful for minimax and alpha-beta, that only considers
+taken pieces by each times (stored in wonB and wonW)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">gain of the current chessboard configuration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.get_alpha_beta_B">
+<code class="descclassname">echecs.</code><code class="descname">get_alpha_beta_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#get_alpha_beta_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.get_alpha_beta_B" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the tuple (x,y,k,l) that corresponds to the best move for black player considering the minimax algorithm optimized with alpha-beta method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple (x,y,k,l) to implement in the move function which will finally simulate IA</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.get_alpha_beta_W">
+<code class="descclassname">echecs.</code><code class="descname">get_alpha_beta_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#get_alpha_beta_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.get_alpha_beta_W" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the tuple (x,y,k,l) that corresponds to the best move for white player considering the minimax algorithm optimized with alpha-beta method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple (x,y,k,l) to implement in the move function which will finally simulate IA</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.get_minimax_B">
+<code class="descclassname">echecs.</code><code class="descname">get_minimax_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#get_minimax_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.get_minimax_B" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the tuple (x,y,k,l) that corresponds to the best move for black player considering the minimax algorithm</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple (x,y,k,l) to implement in the move function which will finally simulate IA</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.get_minimax_W">
+<code class="descclassname">echecs.</code><code class="descname">get_minimax_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#get_minimax_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.get_minimax_W" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the tuple (x,y,k,l) that corresponds to the best move for white player considering the minimax algorithm</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple (x,y,k,l) to implement in the move function which will finally simulate IA</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.is_max_W">
+<code class="descclassname">echecs.</code><code class="descname">is_max_W</code><span class="sig-paren">(</span><em>arb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#is_max_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.is_max_W" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Epecially used by minimax and alpha-beta algorithms</li>
+<li>Tells if a node is a “max-node”</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arb</strong> (<em>node</em>) – node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.is_min_B">
+<code class="descclassname">echecs.</code><code class="descname">is_min_B</code><span class="sig-paren">(</span><em>arb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#is_min_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.is_min_B" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Epecially used by minimax and alpha-beta algorithms</li>
+<li>Tells if a node is a “max-node”</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arb</strong> (<em>node</em>) – node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.minimax_B">
+<code class="descclassname">echecs.</code><code class="descname">minimax_B</code><span class="sig-paren">(</span><em>arb</em>, <em>profondeur</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#minimax_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.minimax_B" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Recursive algorithm which is supposed to cross a tree previously constructed by create_tree_W.</li>
+<li>Represents the best way to modelize zero sum games such as chess.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li>tuple (x,k,l,g) - (x,y,k,l) is associated with the future move to do</li>
+</ul>
+<ul class="simple">
+<li>g is the result of the evaluation function of the chessboard configuration</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.minimax_W">
+<code class="descclassname">echecs.</code><code class="descname">minimax_W</code><span class="sig-paren">(</span><em>arb</em>, <em>profondeur</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#minimax_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.minimax_W" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Recursive algorithm which is supposed to cross a tree previously constructed by create_tree_W.</li>
+<li>Represents the best way to modelize zero sum games such as chess.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arb</strong> (<em>node</em>) – node algorithm is executing on</li>
+<li><strong>profondeur</strong> (<em>int</em>) – height of the node algorithm is executing on</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><ul class="simple">
+<li>tuple (x,k,l,g) - (x,y,k,l) is associated to the future move to do</li>
+</ul>
+<ul class="simple">
+<li>g is the result of the evaluation function of the chessboard configuration</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.mouv_possible_chess_B">
+<code class="descclassname">echecs.</code><code class="descname">mouv_possible_chess_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#mouv_possible_chess_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.mouv_possible_chess_B" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenates the possible moves of black piece to avoid a chess situation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li>list of possible moves (x,y,k,l) to avoid chess situation</li>
+</ul>
+<ul class="simple">
+<li>x,y : initial position of a black piece</li>
+<li>k,l : final position that avoid chess situation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.mouv_possible_chess_W">
+<code class="descclassname">echecs.</code><code class="descname">mouv_possible_chess_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#mouv_possible_chess_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.mouv_possible_chess_W" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenates the possible moves of white pieces to avoid a chess situation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li>list of possible moves (x,y,k,l) to avoid chess situation</li>
+</ul>
+<ul class="simple">
+<li>x,y : initial position of a white piece</li>
+<li>k,l : final position that avoid chess situation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.move">
+<code class="descclassname">echecs.</code><code class="descname">move</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.move" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Moves a piece located on (a,b) to (c,d) if the movement is allowed by changing the values of plateau.</li>
+<li>Updates dico_position_W, dico_position_B, position_W, position_B,wonW,wonB</li>
+<li>Reverses the boolean value of tour_blanc to allow next player to play</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> (<em>int</em>) – X axis of the piece we want to move</li>
+<li><strong>b</strong> (<em>int</em>) – Y axis of the piece we want to move</li>
+<li><strong>c</strong> (<em>int</em>) – X axis of the position we want to move the piece on</li>
+<li><strong>d</strong> (<em>int</em>) – Y axis of the position we want to move the piece on</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.move_IA_black">
+<code class="descclassname">echecs.</code><code class="descname">move_IA_black</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#move_IA_black"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.move_IA_black" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><dl class="first docutils">
+<dt>Complete IA black player game turn simulation</dt>
+<dd><ul class="first last">
+<li>Create black tree ready to be crossed</li>
+<li>Execution of alpha-beta algorithm</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Used by Graphical User Interface</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">best move parameters (x,y,k,l) for black player considering alpha-beta algorithm</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.move_chess">
+<code class="descclassname">echecs.</code><code class="descname">move_chess</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#move_chess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.move_chess" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Special goal of move(a,b,c,d) useful for chess_mate functions which doesn’t take care about taken pieces.</li>
+<li>Doesn’t update wonW,wonB</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.movetest">
+<code class="descclassname">echecs.</code><code class="descname">movetest</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#movetest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.movetest" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Same goal as move(a,b,c,d) but doesn’t take care about rules (moving positions allowed, tour)</li>
+<li>Also updates dico_position_W, dico_position_B, position_W, position_B,wonW,wonB</li>
+<li>Essentially useful for tests</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.opponent">
+<code class="descclassname">echecs.</code><code class="descname">opponent</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#opponent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.opponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells if piece a is an opponent of piece b.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> (<em>int</em>) – piece a (which could be a relative integer between -6 and 6 and couldn’t be 0 , 0=empty piece)</li>
+<li><strong>b</strong> (<em>int</em>) – piece b (which could be a relative integer between -6 and 6 and couldn’t be 0, 0=empty piece)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True -&gt; a is an opponent of b</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">boolean</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.tour_Blanc">
+<code class="descclassname">echecs.</code><code class="descname">tour_Blanc</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#tour_Blanc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.tour_Blanc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="echecs.valeurs_accessibles">
+<code class="descclassname">echecs.</code><code class="descname">valeurs_accessibles</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#valeurs_accessibles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.valeurs_accessibles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the array of accessible chessboard positions of a piece located on (x,y).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>int</em>) – X axis of initial piece’s position</li>
+<li><strong>y</strong> (<em>int</em>) – Y axis of initial piece’s position</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">array of accessible plateau positions of a piece located on (x,y)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="echecs.valeurs_accessibles_test">
+<code class="descclassname">echecs.</code><code class="descname">valeurs_accessibles_test</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#valeurs_accessibles_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.valeurs_accessibles_test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="echecs.valide">
+<code class="descclassname">echecs.</code><code class="descname">valide</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/echecs.html#valide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#echecs.valide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells if a piece is valid, that is to say belongs to the 8*8 square gamezone.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> (<em>int</em>) – exists x,y -&gt; a=plateau[x][y]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True -&gt; piece is valid</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Game engine</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#echecs-py">echecs.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui_IA.html">Graphical User Interface with Artificial Intelligence</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to ChessMate documentation</a></li>
+      <li>Next: <a href="gui.html" title="next chapter">Graphical User Interface without Artificial Intelligence</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/engine.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

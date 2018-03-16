@@ -9,9 +9,6 @@ import numpy as np
 import math
 from anytree import Node,RenderTree
 
-def multiply(a,b):
-    return a*b
-
 #Variable pour savoir à qui est le tour
 
 tour_blanc = True
@@ -157,9 +154,9 @@ dico_position_B[(3,9)]=15
 
 def move(a,b,c,d):
     """
-        Moves a piece located on (a,b) to (c,d) if the movement is allowed by changing the values of plateau.
-        Updates dico_position_W, dico_position_B, position_W, position_B,wonW,wonB
-        Reverses the boolean value of tour_blanc to allow next player to play
+        * Moves a piece located on (a,b) to (c,d) if the movement is allowed by changing the values of plateau.
+        * Updates dico_position_W, dico_position_B, position_W, position_B,wonW,wonB
+        * Reverses the boolean value of tour_blanc to allow next player to play
 
         :param a: X axis of the piece we want to move
         :param b: Y axis of the piece we want to move
@@ -210,9 +207,9 @@ def move(a,b,c,d):
     tour_blanc=not(tour_blanc)
 def movetest(a,b,c,d):
     """
-        Same goal as move(a,b,c,d) but doesn't take care about rules (moving positions allowed, tour)
-        Also updates dico_position_W, dico_position_B, position_W, position_B,wonW,wonB
-        Essentially useful for tests
+        * Same goal as move(a,b,c,d) but doesn't take care about rules (moving positions allowed, tour)
+        * Also updates dico_position_W, dico_position_B, position_W, position_B,wonW,wonB
+        * Essentially useful for tests
     """
     if plateau[a][b] == 0:
         print("On ne peut pas jouer avec une case vide !")
@@ -250,8 +247,8 @@ def movetest(a,b,c,d):
 
 def move_chess(a,b,c,d):
     """
-        Special goal of move(a,b,c,d) useful for chess_mate functions which doesn't take care about taken pieces.
-        Doesn't update wonW,wonB
+        * Special goal of move(a,b,c,d) useful for chess_mate functions which doesn't take care about taken pieces.
+        * Doesn't update wonW,wonB
     """
     l = valeurs_accessibles_test(a,b)
     #if plateau[a][b] == 0:
@@ -335,7 +332,7 @@ def ensemble_move_possible_B():
         Concatenates the possible moves of each black piece
 
         :return: all the possible moves of black pieces
-        :rtype: tuple list
+        :rtype: tuple array
     """
     res=[]
     for (k,l) in dico_position_B.keys():
@@ -349,8 +346,8 @@ def chess_W():
     """
         Tells if the white king is in a chess situation
 
-        :return: True -> Chess situation : the white king belongs to ensemble_move_possible_B
-                 False -> Not a chess situation
+        :return: * True -> Chess situation : the white king belongs to ensemble_move_possible_B
+                 * False -> Not a chess situation
         :rtype: boolean
     """
     return (position_W[4] in (ensemble_valeurs_accessibles_B()))
@@ -359,8 +356,8 @@ def chess_B():
     """
         Tells if the black king is in a chess situation
 
-        :return: True -> Chess situation : the black king belongs to ensemble_move_possible_W
-                 False -> Not a chess situation
+        :return: * True -> Chess situation : the black king belongs to ensemble_move_possible_W
+                 * False -> Not a chess situation
         :rtype: boolean
     """
     return (position_B[4] in (ensemble_valeurs_accessibles_W()))
@@ -405,9 +402,9 @@ def mouv_possible_chess_B():
     """
         Concatenates the possible moves of black piece to avoid a chess situation
 
-        :return: list of possible moves (x,y,k,l) to avoid chess situation
-                 x,y : initial position of a black piece
-                 k,l : final position that avoid chess situation
+        :return: * list of possible moves (x,y,k,l) to avoid chess situation
+                 - x,y : initial position of a black piece
+                 - k,l : final position that avoid chess situation
         :rtype: tuple array
     """
     res=[]
@@ -478,9 +475,9 @@ def mouv_possible_chess_W():
     """
         Concatenates the possible moves of white pieces to avoid a chess situation
 
-        :return: list of possible moves (x,y,k,l) to avoid chess situation
-                 x,y : initial position of a white piece
-                 k,l : final position that avoid chess situation
+        :return: * list of possible moves (x,y,k,l) to avoid chess situation
+                 - x,y : initial position of a white piece
+                 - k,l : final position that avoid chess situation
         :rtype: tuple array
     """
     res=[]
@@ -917,7 +914,7 @@ def eval_denombrement():
         Part of the evaluation function useful for minimax and alpha-beta, that only considers
         taken pieces by each times (stored in wonB and wonW)
 
-        :return: gain of the current plateau configuration
+        :return: gain of the current chessboard configuration
         :rtype: int
 
     """
@@ -1019,9 +1016,9 @@ def create_tree_W_viz():
 
 def create_tree_W(): #arbre non-lisible mais seulement utile pour alpha_beta et min-max
     """
-        If white player has to play, create a 3-height tree of all playing configurations (considering W-B-W)
-        , each one is associated with an evaluation of the chessboard configuration (evaluation function)
-        . This tree will then be crossed by minimax and alpha-beta algorithms.
+        * If white player has to play, create a 3-height tree of all playing configurations (considering W-B-W)
+        * Each one is associated with an evaluation of the chessboard configuration (evaluation function)
+        * This tree will then be crossed by minimax and alpha-beta algorithms.
 
     """
    # t=0
@@ -1091,9 +1088,9 @@ root_tree_B=Node((0,0,0,0,0))
 
 def create_tree_B(): #arbre non-lisible mais seulement utile pour alpha_beta et min-max
     """
-        If black player has to play, create a 3-height tree of all playing configurations (considering B-W-B)
-        , each one is associated with an evaluation of the final chessboard configuration (evaluation function)
-        . This tree will then be crossed by minimax and alpha-beta algorithms.
+        * If black player has to play, create a 3-height tree of all playing configurations (considering B-W-B)
+        * Each one is associated with an evaluation of the final chessboard configuration (evaluation function)
+        * This tree will then be crossed by minimax and alpha-beta algorithms.
     """
    # t=0
     global plateau
@@ -1171,6 +1168,14 @@ def create_tree_B(): #arbre non-lisible mais seulement utile pour alpha_beta et 
 #Algorithme minimax
 
 def is_max_W(arb):
+    """ 
+        * Epecially used by minimax and alpha-beta algorithms
+        * Tells if a node is a "max-node"
+        
+        :param arb: node
+        :type arb: node
+        :rtype: boolean
+    """
     if arb.is_root:
         return True
     else:
@@ -1178,6 +1183,14 @@ def is_max_W(arb):
         return ((n-arb.height)%2==0)
 
 def is_min_B(arb):
+     """ 
+        * Epecially used by minimax and alpha-beta algorithms
+        * Tells if a node is a "max-node"
+        
+        :param arb: node
+        :type arb: node
+        :rtype: boolean
+    """
      if arb.is_root:
         return True
      else:
@@ -1208,9 +1221,13 @@ def minimax_W(arb,profondeur): #Minimax pour les arbres à quintuplet-> 4 premi�
     """
        * Recursive algorithm which is supposed to cross a tree previously constructed by create_tree_W.
        * Represents the best way to modelize zero sum games such as chess.
-       * It returns the tuple (x,y,k,l) that corresponds to the best move for white player considering the minimax algorithm
-
-       :return: tuple (x,y,k,l) to implement in a move function so as to simulate IA
+       
+       :param arb: node algorithm is executing on
+       :param profondeur: height of the node algorithm is executing on
+       :type arb: node
+       :type profondeur: int
+       :return: * tuple (x,k,l,g) - (x,y,k,l) is associated to the future move to do
+                                  - g is the result of the evaluation function of the chessboard configuration
        :rtype: tuple
     """                                                             #-> 5ème : valeur de la fonction d'éval
     if arb.is_leaf:
@@ -1228,12 +1245,24 @@ def minimax_W(arb,profondeur): #Minimax pour les arbres à quintuplet-> 4 premi�
     return valeur_de_la_position
 
 def get_minimax_W():
+    """
+       Returns the tuple (x,y,k,l) that corresponds to the best move for white player considering the minimax algorithm
+
+       :return: tuple (x,y,k,l) to implement in the move function which will finally simulate IA
+       :rtype: tuple
+    """
     return minimax_W(root_tree_W,0)[0:4]
 
 #Pour les noirs
 
 def minimax_B(arb,profondeur): #Minimax pour les arbres à quintuplet-> 4 premières valeurs pour le move
-                                                                 #-> 5ème : valeur de la fonction d'éval
+    """
+       * Recursive algorithm which is supposed to cross a tree previously constructed by create_tree_W.
+       * Represents the best way to modelize zero sum games such as chess.
+       :return: * tuple (x,k,l,g) - (x,y,k,l) is associated with the future move to do
+                                  - g is the result of the evaluation function of the chessboard configuration
+       :rtype: tuple
+    """                                                             #-> 5ème : valeur de la fonction d'éval
     if arb.is_leaf:
         valeur_de_la_position=arb.name #à changer par la valeur de la fonction d'évaluation
         return valeur_de_la_position
@@ -1249,12 +1278,33 @@ def minimax_B(arb,profondeur): #Minimax pour les arbres à quintuplet-> 4 premi�
     return valeur_de_la_position
 
 def get_minimax_B():
+    """
+       Returns the tuple (x,y,k,l) that corresponds to the best move for black player considering the minimax algorithm
+       
+       :return: tuple (x,y,k,l) to implement in the move function which will finally simulate IA
+       :rtype: tuple
+    """
     return minimax_B(root_tree_B,0)[0:4]
 
 #Élagage alpha_beta
 
 #Pour les blancs
 def alpha_beta_W(arb,profondeur,alpha,beta):
+    """
+       Optimized minimax reccursive algorithm which doesn't consider useless branchs thanks to alpha and beta parameters 
+        
+       :param arb: node algorithm is executing on
+       :param profondeur: height of the node algorithm is executing on
+       :param alpha: inferior value of cutting interval (initially negative infinite)
+       :param beta: superior value of cutting interval(initially positive infinite)
+       :type arb: node
+       :type profondeur: int
+       :type alpha: int
+       :type beta: int
+       :return: * tuple (x,k,l,g) - (x,y,k,l) is associated with the future move to do
+                                  - g is the result of the evaluation function of the chessboard configuration
+       :rtype: tuple
+    """
     global m2
     global n2
     global o2
@@ -1286,11 +1336,32 @@ def alpha_beta_W(arb,profondeur,alpha,beta):
     return valeur_de_la_position
 
 def get_alpha_beta_W():
+    """
+       Returns the tuple (x,y,k,l) that corresponds to the best move for white player considering the minimax algorithm optimized with alpha-beta method
+       
+       :return: tuple (x,y,k,l) to implement in the move function which will finally simulate IA
+       :rtype: tuple
+    """
     return alpha_beta_W(root_tree_W,0,-math.inf,math.inf)[0:4]
 
 #Pour les noirs
 
 def alpha_beta_B(arb,profondeur,alpha,beta):
+    """
+       Optimized minimax reccursive algorithm which doesn't consider useless branchs thanks to alpha and beta parameters 
+        
+       :param arb: node algorithm is executing on
+       :param profondeur: height of the node algorithm is executing on
+       :param alpha: inferior value of cutting interval (initially negative infinite)
+       :param beta: superior value of cutting interval(initially positive infinite)
+       :type arb: node
+       :type profondeur: int
+       :type alpha: int
+       :type beta: int
+       :return: * tuple (x,k,l,g) - (x,y,k,l) is associated with the future move to do
+                                  - g is the result of the evaluation function of the chessboard configuration
+       :rtype: tuple
+    """
     global m1
     global n1
     global o1
@@ -1322,6 +1393,12 @@ def alpha_beta_B(arb,profondeur,alpha,beta):
     return valeur_de_la_position
 
 def get_alpha_beta_B():
+    """
+       Returns the tuple (x,y,k,l) that corresponds to the best move for black player considering the minimax algorithm optimized with alpha-beta method
+       
+       :return: tuple (x,y,k,l) to implement in the move function which will finally simulate IA
+       :rtype: tuple
+    """
     return alpha_beta_B(root_tree_B,0,-math.inf,math.inf)[0:4]
 
 #Configuration jeu
@@ -1332,6 +1409,15 @@ def tour_Blanc(x):
 root_tree_B=Node((0,0,0,0,0))
 
 def move_IA_black():
+    """
+        * Complete IA black player game turn simulation
+                                                        - Create black tree ready to be crossed
+                                                        - Execution of alpha-beta algorithm
+        * Used by Graphical User Interface
+        
+        :return: best move parameters (x,y,k,l) for black player considering alpha-beta algorithm
+        :rtype: tuple
+    """
     # del root_tree_B
     root_tree_B=Node((0,0,0,0,0))
     create_tree_B()

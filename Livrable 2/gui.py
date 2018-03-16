@@ -6,6 +6,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import echecs
+import os
+
+os.chdir("resources/")
 
 class Ui_Dialog(object):
     """
