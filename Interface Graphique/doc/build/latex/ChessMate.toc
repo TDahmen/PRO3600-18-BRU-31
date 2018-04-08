@@ -1,0 +1,6 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Game engine}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}echecs.py}{3}{section.1.1}
+\contentsline {chapter}{\numberline {2}Graphical User Interface}{9}{chapter.2}
+\contentsline {section}{\numberline {2.1}gui.py}{9}{section.2.1}
+\contentsline {chapter}{Python Module Index}{11}{section*.43}
