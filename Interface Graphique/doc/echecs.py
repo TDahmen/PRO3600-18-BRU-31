@@ -1423,6 +1423,36 @@ def move_IA_black():
     create_tree_B()
     return get_alpha_beta_B()
 
+def string_converter(a):
+    if (a=='a'):
+        res=2
+    if (a=='b'):
+        res=3
+    if (a=='c'):
+        res=4
+    if (a=='d'):
+        res=5
+    if (a=='e'):
+        res=6
+    if (a=='f'):
+        res=7
+    if (a=='g'):
+        res=8
+    if (a=='h'):
+        res=9
+    return res
+
+def converter(str):
+    a=string_converter(str[0])
+    b=10-int(str[1])
+    c=string_converter(str[2])
+    d=10-int(str[3])
+    return (b,a,d,c)
+
+print(converter('d2d4'))
+print(converter('b8c6'))
+print(converter('c1h6'))
+
 #print(valeurs_accessibles(2,5))
 #print(valeurs_accessibles(3,3))
 #k=0
