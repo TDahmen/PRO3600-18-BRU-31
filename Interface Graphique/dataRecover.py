@@ -21,5 +21,5 @@ with open("convertedGames.txt") as f:
             lBis.append(plateauBis)
         listeJeuxBis.append(lBis)
     # print(listeJeuxBis, file=open("recoveredData.txt", "a"))
-    print(listeJeuxBis)
-    print(k)
+    tableauNumpy = np.array(listeJeuxBis)
+    np.save('gamesData.npy', tableauNumpy)
