@@ -2,8 +2,6 @@ import csv
 import math
 import numpy as np
 
-valeursInterdites = [19, 22, 26, 27]
-
 # max = 12352
 
 def getOneHot():
@@ -13,19 +11,18 @@ def getOneHot():
         liste1=[]
         n=0
         nNeg=0
-        for k in range(51): # ici on limite le nombre de parties (normalement 50 000), + VALEURS INTERDITES
-            if not(k in valeursInterdites):
-                liste2=[]
-                liste2.append(k+1)
-                l = d[k][1].split(' ')
-                for x in l:
-                    if x != 'NA' and x != '':
-                        liste2.append(float(x)/12352)
-                        if float(x)>0:
-                            n += 1
-                        else:
-                            nNeg += 1
-                liste1.append(liste2)
+        for k in range(51):
+            liste2=[]
+            liste2.append(k+1)
+            l = d[k][1].split(' ')
+            for x in l:
+                if x != 'NA' and x != '':
+                    liste2.append(float(x)/12352)
+                    if float(x)>0:
+                        n += 1
+                    else:
+                        nNeg += 1
+            liste1.append(liste2)
 
         cls1=0
         cls2=0
@@ -36,6 +33,8 @@ def getOneHot():
         oneHotTotal=[]
 
         for l in liste1:
+            oneHot=[]
+            oneHot.append(l[0])
             for k in range(1,len(l)):
                 oneHotBis=[0 for k in range(8)]
                 if l[k] > 0 and l[k] < 0.002 :
@@ -58,12 +57,9 @@ def getOneHot():
                     oneHotBis[2]=1
                 if l[k] < -0.0135 and l[k] >= -1:
                     oneHotBis[3]=1
-                oneHotTotal.append(oneHotBis)
+                oneHot.append(oneHotBis)
+            oneHotTotal.append(oneHot)
     return oneHotTotal
 
 oneHotEncoded = getOneHot()
-
-tableauNumpy = np.asarray(oneHotEncoded, np.float32)
-np.save('oneHotEncoded.npy', tableauNumpy)
-
-# print(oneHotEncoded, end=" ", file=open("oneHotEncoded.txt", "a"))
+print(oneHotEncoded, end=" ", file=open("oneHotEncoded.txt", "a"))

@@ -1,6 +1,8 @@
 import numpy as np
 import gamesConverter
 
+valeursInterdites = [19, 22, 26, 27]
+
 def createBoard():
     plateau = np.zeros([8,8])
 
@@ -97,17 +99,20 @@ def move(str,plateau):
 games = gamesConverter.getConvertedGames()
 k=0
 for game in games:
-    plateau = createBoard()
-    for pos in game[1]:
-        move(pos, plateau)
-        for x in plateau:
-            for y in x:
-                print(y, end=" ", file=open("convertedGames.txt", "a"))
-        print("NOUVEAU COUP", file=open("convertedGames.txt", "a"))
-    k += 1
-    if k <= 50:
-        # print("partie ", k)
-        print("NOUVEAU JEU", file=open("convertedGames.txt", "a"))
+    if not(k in valeursInterdites):
+        plateau = createBoard()
+        for pos in game[1]:
+            move(pos, plateau)
+            for x in plateau:
+                for y in x:
+                    print(y, end=" ", file=open("convertedGames.txt", "a"))
+            print("NOUVEAU COUP", file=open("convertedGames.txt", "a"))
+        k += 1
+        if k <= 50:
+            # print("partie ", k)
+            print("NOUVEAU JEU", file=open("convertedGames.txt", "a"))
+        else:
+            print("arret")
+            break;
     else:
-        print("arret")
-        break;
+        k += 1
