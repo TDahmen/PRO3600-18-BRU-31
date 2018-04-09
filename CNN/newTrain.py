@@ -15,10 +15,10 @@ num_filters2 = 64
 
 # Labels and inputs initialization
 
-X_placeholder = tf.placeholder(tf.float32[None, board_size], name="X")
+X_placeholder = tf.placeholder(tf.float32, shape = [None, board_size], name="X")
 # We need a 4-dim tensor for the convolution
 X = tf.reshape(X_placeholder, [-1, length, length, 1])
-y_placeholder = tf.placeholder(tf.float32[None, num_classes], name="y")
+y_placeholder = tf.placeholder(tf.float32, shape = [None, num_classes], name="y")
 learningRate = tf.placeholder(tf.float32)
 
 
@@ -29,7 +29,7 @@ def new_conv_layer(input, num_input_channels, filter_size, num_filters, use_pool
     shape = [filter_size, filter_size, num_input_channels, num_filters]
     # Create associated filters (weights) and biases
     weights = tf.Variable(tf.truncated_normal(shape, stddev=0.05))
-    biases = tf.Variable(tf.constant(0.05, shape=[length]))
+    biases = tf.Variable(tf.constant(0.05, shape=[num_filters]))
 
     layer = tf.nn.conv2d(input=input, filter=weights, strides=[1, 1, 1, 1], padding='SAME')
     layer += biases
@@ -59,14 +59,14 @@ def new_fc_layer(input, num_inputs, num_outputs, use_relu=True):
 # Helper function to split data into batches
 
 def next_batch(features, labels, batch_size):
-    nb_batches = int(len(features) / batch_size)
+    nb_batches = int(lenGamesData / batch_size)
 
     for batch in range(nb_batches):
         start = batch * batch_size
-        if start + batch_size < len(features):
+        if start + batch_size < lenGamesData:
             end = start + batch_size
         else:
-            end = len(features) - 1
+            end = lenGamesData - 1
 
         yield features[start:end], labels[start:end]
 
@@ -103,7 +103,7 @@ optimizer = tf.train.AdamOptimizer(learning_rate=learningRate).minimize(cost)
 
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
-train_batch_size = 100
+train_batch_size = 10
 
 
 def optimize(epochs, features, labels):
@@ -111,5 +111,17 @@ def optimize(epochs, features, labels):
         for (x_batch, y_true_batch) in enumerate(next_batch(features, labels, batch_size=train_batch_size)):
             feed_dict_train = {X: x_batch, y_placeholder: y_true_batch}
             sess.run(optimizer, feed_dict=feed_dict_train)
+
+# gamesDataNumpy = np.load('data/gamesData.npy')
+# lenGamesData = len(gamesDataNumpy)
+# gamesData = tf.convert_to_tensor(gamesDataNumpy, np.float32)
+# oneHotEncoded = tf.convert_to_tensor(np.load('data/oneHotEncoded.npy'), np.float32)
+
+gamesData = np.load('data/gamesData.npy')
+oneHotEncoded = tf.convert_to_tensor(np.load('data/oneHotEncoded.npy'), np.float32)
+lenGamesData = len(gamesData)
+
+optimize(30, gamesData, oneHotEncoded)
+
 
 

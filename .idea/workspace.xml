@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e55ec665-ff52-49ea-9ec0-e4cf72489a55" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/CNN/gamesData.npy" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/CNN/newTrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/newTrain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CNN/oneHotEncoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/oneHotEncoder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interface Graphique/dataRecover.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface Graphique/dataRecover.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interface Graphique/gamesData.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Interface Graphique/gamesData.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN/oneHotEncoded.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interface Graphique/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Interface Graphique/Untitled.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,8 +28,8 @@
       <file leaf-file-name="dataBuilder.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interface Graphique/dataBuilder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+            <state relative-caret-position="72">
+              <caret line="73" column="14" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -40,8 +40,8 @@
       <file leaf-file-name="newTrain.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CNN/newTrain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+            <state relative-caret-position="420">
+              <caret line="119" column="41" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -92,10 +92,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="79" />
-    <option name="y" value="422" />
+    <option name="x" value="384" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="827" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -145,7 +145,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.newTrain">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="PRO3600-18-BRU-31" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -184,8 +184,32 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="newTrain" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="PRO3600-18-BRU-31" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CNN" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CNN/newTrain.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.dataBuilder" />
+      <item itemvalue="Python.newTrain" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.newTrain" />
         <item itemvalue="Python.dataBuilder" />
       </list>
     </recent_temporary>
@@ -204,7 +228,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="79" y="422" width="1440" height="827" extended-state="0" />
+    <frame x="307" y="23" width="1440" height="825" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -213,7 +237,7 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32970026" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.34196186" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.12517007" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -278,8 +302,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Interface Graphique/dataBuilder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+        <state relative-caret-position="72">
+          <caret line="73" column="14" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -288,8 +312,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CNN/newTrain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+        <state relative-caret-position="420">
+          <caret line="119" column="41" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
