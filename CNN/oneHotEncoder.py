@@ -1,16 +1,17 @@
 import csv
 import math
+import numpy as np
 
 # max = 12352
 
 def getOneHot():
-    with open("/data/chess.csv") as f:
+    with open("data/chess.csv") as f:
         reader = csv.reader(f, delimiter=",")
         d = list(reader)
         liste1=[]
         n=0
         nNeg=0
-        for k in range(50000):
+        for k in range(51): # ici on limite le nombre de parties (normalement 50 000)
             liste2=[]
             liste2.append(k+1)
             l = d[k][1].split(' ')
@@ -22,8 +23,6 @@ def getOneHot():
                     else:
                         nNeg += 1
             liste1.append(liste2)
-        print(n)
-        print(nNeg)
 
         cls1=0
         cls2=0
@@ -34,8 +33,6 @@ def getOneHot():
         oneHotTotal=[]
 
         for l in liste1:
-            oneHot=[]
-            oneHot.append(l[0])
             for k in range(1,len(l)):
                 oneHotBis=[0 for k in range(8)]
                 if l[k] > 0 and l[k] < 0.002 :
@@ -58,6 +55,12 @@ def getOneHot():
                     oneHotBis[2]=1
                 if l[k] < -0.0135 and l[k] >= -1:
                     oneHotBis[3]=1
-                oneHot.append(oneHotBis)
-            oneHotTotal.append(oneHot)
+                oneHotTotal.append(oneHotBis)
     return oneHotTotal
+
+oneHotEncoded = getOneHot()
+
+tableauNumpy = np.asarray(oneHotEncoded, np.float32)
+np.save('oneHotEncoded.npy', tableauNumpy)
+
+print(tableauNumpy, end=" ", file=open("oneHotEncoded.txt", "a"))

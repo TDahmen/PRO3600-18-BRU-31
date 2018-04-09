@@ -105,5 +105,9 @@ for game in games:
                 print(y, end=" ", file=open("convertedGames.txt", "a"))
         print("NOUVEAU COUP", file=open("convertedGames.txt", "a"))
     k += 1
-    print("partie ", k)
-    print("NOUVEAU JEU", file=open("convertedGames.txt", "a"))
+    if k <= 50:
+        # print("partie ", k)
+        print("NOUVEAU JEU", file=open("convertedGames.txt", "a"))
+    else:
+        print("arret")
+        break;

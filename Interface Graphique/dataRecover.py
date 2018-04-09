@@ -12,14 +12,12 @@ with open("convertedGames.txt") as f:
         for coup in jeu:
             u = coup.split(' ')
             l.append(u)
-        lBis = []
         for plateau in l:
             plateauBis = []
             for value in plateau:
                 if not('NOUVEAU' in value) and not('COUP' in value):
                     plateauBis.append(float(value))
-            lBis.append(plateauBis)
-        listeJeuxBis.append(lBis)
-    # print(listeJeuxBis, file=open("recoveredData.txt", "a"))
-    tableauNumpy = np.array(listeJeuxBis)
+            listeJeuxBis.append(plateauBis)
+    tableauNumpy = np.asarray(listeJeuxBis, np.float32)
     np.save('gamesData.npy', tableauNumpy)
+    print(listeJeuxBis, end=" ", file=open("gamesData.txt", "a"))

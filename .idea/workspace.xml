@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e55ec665-ff52-49ea-9ec0-e4cf72489a55" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Interface Graphique/dataBuilder.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Interface Graphique/gamesConverter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN/newTrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/newTrain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN/oneHotEncoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/oneHotEncoder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interface Graphique/dataRecover.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface Graphique/dataRecover.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interface Graphique/gamesData.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Interface Graphique/gamesData.npy" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,17 +19,29 @@
       <file leaf-file-name="echecs.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interface Graphique/echecs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
+            <state relative-caret-position="34152">
               <caret line="1425" selection-start-line="1425" selection-end-line="1449" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dataBuilder.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dataBuilder.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interface Graphique/dataBuilder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="72" column="14" selection-start-line="72" selection-start-column="14" selection-end-line="72" selection-end-column="14" />
+            <state relative-caret-position="24">
+              <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="newTrain.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CNN/newTrain.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="229">
+              <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -68,6 +81,7 @@
         <option value="$PROJECT_DIR$/Interface Graphique/echecs.py" />
         <option value="$PROJECT_DIR$/Interface Graphique/gamesConverter.py" />
         <option value="$PROJECT_DIR$/Interface Graphique/dataBuilder.py" />
+        <option value="$PROJECT_DIR$/CNN/newTrain.py" />
       </list>
     </option>
   </component>
@@ -78,16 +92,17 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="14" />
-    <option name="y" value="23" />
+    <option name="x" value="79" />
+    <option name="y" value="422" />
     <option name="width" value="1440" />
-    <option name="height" value="824" />
+    <option name="height" value="827" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -98,13 +113,17 @@
             <path>
               <item name="PRO3600-18-BRU-31" type="b2602c69:ProjectViewProjectNode" />
               <item name="PRO3600-18-BRU-31" type="462c0819:PsiDirectoryNode" />
+              <item name="CNN" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PRO3600-18-BRU-31" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PRO3600-18-BRU-31" type="462c0819:PsiDirectoryNode" />
               <item name="Interface Graphique" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -185,24 +204,24 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="14" y="23" width="1440" height="824" extended-state="0" />
+    <frame x="79" y="422" width="1440" height="827" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" x="0" y="0" width="310" height="624" id="Documentation" side_tool="true" visible="true" weight="0.17708333" />
+      <window_info active="true" anchor="right" x="0" y="0" width="310" height="629" id="Documentation" order="5" side_tool="true" visible="true" weight="0.17708333" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.34196186" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32970026" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.34196186" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="SciView" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -221,7 +240,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Interface Graphique/echecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
+        <state relative-caret-position="34200">
           <caret line="1425" selection-start-line="1425" selection-end-line="1449" selection-end-column="20" />
         </state>
       </provider>
@@ -235,8 +254,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Interface Graphique/dataBuilder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
+        <state relative-caret-position="1728">
           <caret line="72" column="14" selection-start-line="72" selection-start-column="14" selection-end-line="72" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface Graphique/echecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34152">
+          <caret line="1425" selection-start-line="1425" selection-end-line="1449" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface Graphique/gamesConverter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface Graphique/dataBuilder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CNN/newTrain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

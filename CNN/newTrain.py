@@ -5,7 +5,7 @@ import tensorflow as tf
 
 board_size = 64
 length = 8
-num_classes = 3
+num_classes = 8
 num_channels1 = 1
 num_channels2 = 64
 filter_size1 = 4
@@ -90,7 +90,7 @@ layer_conv2 = new_conv_layer(input=layer_conv1,
 layer_flat = tf.reshape(layer_conv2, [-1, board_size * 2 * 2])
 
 layer_fc1 = new_fc_layer(layer_flat, board_size * 2 * 2, 1024, True)
-layer_fc2 = new_fc_layer(layer_fc1, 1024, 3, False)
+layer_fc2 = new_fc_layer(layer_fc1, 1024, 8, False)
 
 # Let's define the cost function and the optimization method
 
