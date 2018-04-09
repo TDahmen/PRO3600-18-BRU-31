@@ -95,14 +95,15 @@ def move(str,plateau):
     plateau[a][b] = 0
 
 games = gamesConverter.getConvertedGames()
-
-listGame =[]
-game = games[0]
-
-l = []
-plateau = createBoard()
-for pos in game[1]:
-    print("nouvelle position")
-    move(pos, plateau)
-    l.append(plateau)
-print(l[0][0])
+k=0
+for game in games:
+    plateau = createBoard()
+    for pos in game[1]:
+        move(pos, plateau)
+        for x in plateau:
+            for y in x:
+                print(y, end=" ", file=open("convertedGames.txt", "a"))
+        print("NOUVEAU COUP", file=open("convertedGames.txt", "a"))
+    k += 1
+    print("partie ", k)
+    print("NOUVEAU JEU", file=open("convertedGames.txt", "a"))
