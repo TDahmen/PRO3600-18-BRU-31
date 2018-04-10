@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e55ec665-ff52-49ea-9ec0-e4cf72489a55" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/CNN/gamesData.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CNN/newTrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/newTrain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CNN/oneHotEncoded.npy" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Interface Graphique/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Interface Graphique/Untitled.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,8 +39,8 @@
       <file leaf-file-name="newTrain.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CNN/newTrain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="119" column="41" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
+            <state relative-caret-position="-1198">
+              <caret line="72" column="34" lean-forward="true" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -228,7 +227,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="307" y="23" width="1440" height="825" extended-state="0" />
+    <frame x="384" y="23" width="1440" height="825" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -312,8 +311,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CNN/newTrain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="119" column="41" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
+        <state relative-caret-position="-1198">
+          <caret line="72" column="34" lean-forward="true" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

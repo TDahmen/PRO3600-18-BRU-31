@@ -67,8 +67,21 @@ def next_batch(features, labels, batch_size):
             end = start + batch_size
         else:
             end = lenGamesData - 1
-
         yield features[start:end], labels[start:end]
+
+# def next_batch(num, data, labels):
+#
+#     '''
+#     Return a total of `num` random samples and labels.
+#     '''
+#     idx = np.arange(0 , lenGamesData)
+#     np.random.shuffle(idx)
+#     idx = idx[:num]
+#     data_shuffle = data[idx]
+#     labels_shuffle = labels[idx]
+#     labels_shuffle = np.asarray(labels_shuffle.values.reshape(len(labels_shuffle), 1))
+#
+#     return data_shuffle, labels_shuffle
 
 
 # Let's build two convolutional layers
@@ -108,20 +121,23 @@ train_batch_size = 10
 
 def optimize(epochs, features, labels):
     for epoch in range(epochs):
-        for (x_batch, y_true_batch) in enumerate(next_batch(features, labels, batch_size=train_batch_size)):
-            feed_dict_train = {X: x_batch, y_placeholder: y_true_batch}
-            sess.run(optimizer, feed_dict=feed_dict_train)
+        for (x_batch, y_true_batch) in next_batch(features, labels, train_batch_size):
+            feed_dict_train = {X: x_batch, y_placeholder: y_true_batch, learningRate: 0.01}
+            _, loss_val = sess.run([optimizer, cross_entropy], feed_dict=feed_dict_train)
+            # print(tf.reduce_mean(loss_val).eval(session=sess))
 
 # gamesDataNumpy = np.load('data/gamesData.npy')
 # lenGamesData = len(gamesDataNumpy)
 # gamesData = tf.convert_to_tensor(gamesDataNumpy, np.float32)
 # oneHotEncoded = tf.convert_to_tensor(np.load('data/oneHotEncoded.npy'), np.float32)
 
-gamesData = np.load('data/gamesData.npy')
-oneHotEncoded = tf.convert_to_tensor(np.load('data/oneHotEncoded.npy'), np.float32)
-lenGamesData = len(gamesData)
+gamesDataImported = np.load('data/gamesData.npy')
+gamesData = np.reshape(gamesDataImported, (-1, 8, 8, 1))
+oneHotEncoded = np.load('data/oneHotEncoded.npy')
+lenGamesData = len(gamesDataImported)
+
+dataset = tf.data.Dataset.from_tensor_slices(X)
+iter = dataset.make_initializable_iterator()
+el = iter.get_next
 
 optimize(30, gamesData, oneHotEncoded)
-
-
-
