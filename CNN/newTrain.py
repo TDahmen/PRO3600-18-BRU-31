@@ -105,6 +105,9 @@ layer_flat = tf.reshape(layer_conv2, [-1, board_size * 2 * 2])
 layer_fc1 = new_fc_layer(layer_flat, board_size * 2 * 2, 1024, True)
 layer_fc2 = new_fc_layer(layer_fc1, 1024, 8, False)
 
+y_pred = tf.nn.softmax(layer_fc2)
+y_pred_cls = tf.argmax(y_pred, axis = 1)
+
 # Let's define the cost function and the optimization method
 
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=layer_fc2, labels=y_placeholder)
@@ -112,19 +115,37 @@ cost = tf.reduce_mean(cross_entropy)
 
 optimizer = tf.train.AdamOptimizer(learning_rate=learningRate).minimize(cost)
 
-# We create a tensorflow session and run it
+correct_prediction = tf.equal(tf.argmax(y_pred, 1), tf.argmax(y_placeholder, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+
+# We create a tensorflow session
 
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
-train_batch_size = 10
+train_batch_size = 50
 
+sum = (0,0)
 
 def optimize(epochs, features, labels):
+    global sum
     for epoch in range(epochs):
         for (x_batch, y_true_batch) in next_batch(features, labels, train_batch_size):
-            feed_dict_train = {X: x_batch, y_placeholder: y_true_batch, learningRate: 0.01}
-            _, loss_val = sess.run([optimizer, cross_entropy], feed_dict=feed_dict_train)
+            # feed_dict_train = {X: x_batch, y_placeholder: y_true_batch, learningRate: 0.0001}
+            feed_dict_train = {X: x_batch, y_placeholder: y_true_batch, learningRate: 0.0001}
+            _, loss_v, acc = sess.run([optimizer, cross_entropy, accuracy], feed_dict=feed_dict_train)
+            if epochs > 35:
+                a, b = sum
+                a += acc
+                b += 1
+                sum = (a, b)
+            # print("Précision : ", acc)
+            # print(acc.eval(val))
+            # print("valeurs prédites : ", tf.shape(y_mine), y_mine)
+            # print("valeurs correctes : ", tf.shape(y_good), y_good)
+            # _, accuracy = tf.metrics.accuracy(y_placeholder, y_pred)
+            # print(accuracy = sess.run(feed_dict=feed_dict_train))
             # print(tf.reduce_mean(loss_val).eval(session=sess))
+
 
 # gamesDataNumpy = np.load('data/gamesData.npy')
 # lenGamesData = len(gamesDataNumpy)
@@ -140,4 +161,6 @@ dataset = tf.data.Dataset.from_tensor_slices(X)
 iter = dataset.make_initializable_iterator()
 el = iter.get_next
 
-optimize(30, gamesData, oneHotEncoded)
+optimize(50, gamesData, oneHotEncoded)
+u, v = sum
+print(u/v)
