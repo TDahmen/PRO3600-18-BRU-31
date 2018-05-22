@@ -1,0 +1,180 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>KNN_Algo &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for KNN_Algo</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="KNN_Method"><a class="viewcode-back" href="../KNN_Algo.html#KNN_Algo.KNN_Method">[docs]</a><span></span><span class="k">def</span> <span class="nf">KNN_Method</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        /!\ The two databases &quot;newGamesData.npy&quot; and &quot;newOneHotEncoded.npy&quot; have to be located in the same directory as the Python script</span>
+<span class="sd">        This learning algorithm KNN (&quot;K Nearest Neighbors&quot;) uses a move&#39;s data base (newGamesData). A move is modelized by a change in the board&#39;s configuration</span>
+<span class="sd">        A grade is given for each move, giving its power. The more powerful a move is, the more it gives advantage for the one who did it. Theses moves have grades</span>
+<span class="sd">        from 1 to 6. However, they have been &quot;one-hot encoded&quot;, this means that the grade is a list of size 8 full of 0 and with a 1 at the place of the grade.</span>
+<span class="sd">        For example: if the move&#39;s grade is 6 then there will be 0 except at position 6 where there will be a 1. These grades are stored in the file newOneHotEncoded.py</span>
+<span class="sd">        and correponds to newGamesData.</span>
+<span class="sd">        This algorithm displays the evolution of the accuracy for each K between a and b+1.</span>
+<span class="sd">        It also displays the most efficient K in the interval with the final precision of the prediction.</span>
+<span class="sd">        This returns the evaluation matrix of the board</span>
+
+<span class="sd">        :param a: minimal value of the interval</span>
+<span class="sd">        :param b: maximal value of the interval</span>
+<span class="sd">        :type a: int</span>
+<span class="sd">        :type b: int</span>
+<span class="sd">        :return: return evaluation matrix of the board</span>
+<span class="sd">        :rtype: tuple array</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">KNeighborsClassifier</span>
+    <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">classification_report</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;newGamesData.npy&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10000</span><span class="p">]</span>  <span class="c1"># Loading the 2 data bases</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;newOneHotEncoded.npy&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10000</span><span class="p">]</span>
+
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Declaration of the labels</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">data</span> <span class="c1"># declaration of data</span>
+
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span> <span class="c1"># Creation of train databases and the test databases</span>
+    <span class="n">bestScore</span><span class="o">=</span><span class="mi">0</span> <span class="c1"># variable that will store the most efficient K</span>
+
+    <span class="n">abscissa</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Creation of the x-axis array</span>
+    <span class="n">ordinate</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Creation of the array which will store the values of the precision for each K</span>
+
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+        <span class="n">abscissa</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">i</span><span class="p">)</span> <span class="c1"># Creation of a KNeighboorsClassifeier&#39;s class, the parameter is the value of K</span>
+        <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span> <span class="c1"># Normalization</span>
+        <span class="n">ordinate</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span><span class="o">&gt;</span><span class="n">bestScore</span><span class="p">):</span> <span class="c1"># Comparison with previous accuracy</span>
+            <span class="n">bestScore</span><span class="o">=</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="c1"># Storage of the accuracy&#39;s value</span>
+            <span class="n">best</span><span class="o">=</span><span class="n">i</span> <span class="c1"># we keep optimal K</span>
+
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="c1"># Prediction</span>
+            <span class="n">best_pred</span> <span class="o">=</span> <span class="n">y_pred</span> <span class="c1"># Storage of the best prediction</span>
+            <span class="n">bestReport</span><span class="o">=</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="c1"># Storage of the final report comparing the prediction with the test base</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evolution of accuracy by K:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">abscissa</span><span class="p">,</span><span class="n">ordinate</span><span class="p">)</span> <span class="c1"># Layout of the precision for each K</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;precision&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;K&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The optimal &#39;K&#39; is:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">best</span><span class="p">)</span> <span class="c1"># Display of the most efficient K</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The accuracy is:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">bestReport</span><span class="p">)</span> <span class="c1"># Display of the final report</span>
+
+    <span class="k">return</span> <span class="n">best_pred</span> <span class="c1"># Return the prediction matrix</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_knn.html">AI with K Nearest-Neighbors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_mcts.html">AI with Monte Carlo Tree Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../moveIAs.html">Handler functions for AI’s moves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trainKeras2.html">Neural Network with Tensorflow and Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KNN_Algo.html">K Nearest Neighbors classification function</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

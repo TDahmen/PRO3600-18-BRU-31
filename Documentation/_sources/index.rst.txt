@@ -1,0 +1,18 @@
+Welcome to ChessMate documentation
+=================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 10
+
+   engine
+   alphabeta
+   gui
+   IA_denombrement
+   IA_knn
+   IA_mcts
+   IA_nn
+   moveIAs
+   trainKeras2
+   KNN_Algo

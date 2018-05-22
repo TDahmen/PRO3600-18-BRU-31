@@ -1,0 +1,14 @@
+************************
+Alpha Beta
+************************
+
+alphabeta.py
+=======
+
+Alpha Beta technique documentation
+
+.. automodule:: alphabeta
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:

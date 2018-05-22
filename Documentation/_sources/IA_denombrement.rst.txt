@@ -1,0 +1,14 @@
+************************
+AI with enumeration technique
+************************
+
+IA_denombrement.py
+=======
+
+AI with enumeration technique documentation
+
+.. automodule:: IA_denombrement
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:

@@ -1,0 +1,330 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>alphabeta &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for alphabeta</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">echecs</span>
+
+<span class="c1">#Algorithme minimax</span>
+
+<div class="viewcode-block" id="is_max_W"><a class="viewcode-back" href="../alphabeta.html#alphabeta.is_max_W">[docs]</a><span class="k">def</span> <span class="nf">is_max_W</span><span class="p">(</span><span class="n">arb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * Epecially used by minimax and alpha-beta algorithms</span>
+<span class="sd">        * Tells if a node is a &quot;max-node&quot;</span>
+
+<span class="sd">        :param arb: node</span>
+<span class="sd">        :type arb: node</span>
+<span class="sd">        :rtype: boolean</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">arb</span><span class="o">.</span><span class="n">is_root</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">n</span><span class="o">=</span><span class="p">(</span><span class="n">arb</span><span class="o">.</span><span class="n">ancestors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">return</span> <span class="p">((</span><span class="n">n</span><span class="o">-</span><span class="n">arb</span><span class="o">.</span><span class="n">height</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="is_min_B"><a class="viewcode-back" href="../alphabeta.html#alphabeta.is_min_B">[docs]</a><span class="k">def</span> <span class="nf">is_min_B</span><span class="p">(</span><span class="n">arb</span><span class="p">):</span>
+     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * Epecially used by minimax and alpha-beta algorithms</span>
+<span class="sd">        * Tells if a node is a &quot;max-node&quot;</span>
+
+<span class="sd">        :param arb: node</span>
+<span class="sd">        :type arb: node</span>
+<span class="sd">        :rtype: boolean</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+     <span class="k">if</span> <span class="n">arb</span><span class="o">.</span><span class="n">is_root</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+     <span class="k">else</span><span class="p">:</span>
+        <span class="n">n</span><span class="o">=</span><span class="p">(</span><span class="n">arb</span><span class="o">.</span><span class="n">ancestors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">return</span> <span class="p">((</span><span class="n">n</span><span class="o">-</span><span class="n">arb</span><span class="o">.</span><span class="n">height</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="minimax_W"><a class="viewcode-back" href="../alphabeta.html#alphabeta.minimax_W">[docs]</a><span class="k">def</span> <span class="nf">minimax_W</span><span class="p">(</span><span class="n">arb</span><span class="p">,</span><span class="n">profondeur</span><span class="p">):</span> <span class="c1">#Minimax pour les arbres à quintuplet-&gt; 4 premières valeurs pour le move</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       * Recursive algorithm which is supposed to cross a tree previously constructed by create_tree_W.</span>
+<span class="sd">       * Represents the best way to modelize zero sum games such as chess.</span>
+
+<span class="sd">       :param arb: node algorithm is executing on</span>
+<span class="sd">       :param profondeur: height of the node algorithm is executing on</span>
+<span class="sd">       :type arb: node</span>
+<span class="sd">       :type profondeur: int</span>
+<span class="sd">       :return: * tuple (x,k,l,g) - (x,y,k,l) is associated to the future move to do</span>
+<span class="sd">                                  - g is the result of the evaluation function of the chessboard configuration</span>
+<span class="sd">       :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>                                                             <span class="c1">#-&gt; 5ème : valeur de la fonction d&#39;éval</span>
+    <span class="k">if</span> <span class="n">arb</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">:</span>
+        <span class="n">valeur_de_la_position</span><span class="o">=</span><span class="n">arb</span><span class="o">.</span><span class="n">name</span> <span class="c1">#à changer par la valeur de la fonction d&#39;évaluation</span>
+        <span class="k">return</span> <span class="n">valeur_de_la_position</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">arb</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">valeur_du_fils_courant</span><span class="o">=</span><span class="n">minimax_W</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="n">profondeur</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_max_W</span><span class="p">(</span><span class="n">arb</span><span class="p">):</span> <span class="c1">#c&#39;est un noeud max</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">arb</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">node</span><span class="o">==</span><span class="n">arb</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">arb</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">valeur_du_fils_courant</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1">#c&#39;est un noeud min</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arb</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">node</span><span class="o">==</span><span class="n">arb</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">arb</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">valeur_du_fils_courant</span>
+    <span class="n">valeur_de_la_position</span><span class="o">=</span><span class="n">arb</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">return</span> <span class="n">valeur_de_la_position</span></div>
+
+<span class="c1">#Pour les blancs</span>
+
+<div class="viewcode-block" id="get_minimax_W"><a class="viewcode-back" href="../alphabeta.html#alphabeta.get_minimax_W">[docs]</a><span class="k">def</span> <span class="nf">get_minimax_W</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Returns the tuple (x,y,k,l) that corresponds to the best move for white player considering the minimax algorithm</span>
+
+<span class="sd">       :return: tuple (x,y,k,l) to implement in the move function which will finally simulate IA</span>
+<span class="sd">       :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">minimax_W</span><span class="p">(</span><span class="n">root_tree_W</span><span class="p">,</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span></div>
+
+<span class="c1">#Pour les noirs</span>
+
+<div class="viewcode-block" id="minimax_B"><a class="viewcode-back" href="../alphabeta.html#alphabeta.minimax_B">[docs]</a><span class="k">def</span> <span class="nf">minimax_B</span><span class="p">(</span><span class="n">arb</span><span class="p">,</span><span class="n">profondeur</span><span class="p">):</span> <span class="c1">#Minimax pour les arbres à quintuplet-&gt; 4 premières valeurs pour le move</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       * Recursive algorithm which is supposed to cross a tree previously constructed by create_tree_W.</span>
+<span class="sd">       * Represents the best way to modelize zero sum games such as chess.</span>
+<span class="sd">       :return: * tuple (x,k,l,g) - (x,y,k,l) is associated with the future move to do</span>
+<span class="sd">                                  - g is the result of the evaluation function of the chessboard configuration</span>
+<span class="sd">       :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>                                                             <span class="c1">#-&gt; 5ème : valeur de la fonction d&#39;éval</span>
+    <span class="k">if</span> <span class="n">arb</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">:</span>
+        <span class="n">valeur_de_la_position</span><span class="o">=</span><span class="n">arb</span><span class="o">.</span><span class="n">name</span> <span class="c1">#à changer par la valeur de la fonction d&#39;évaluation</span>
+        <span class="k">return</span> <span class="n">valeur_de_la_position</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">arb</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">valeur_du_fils_courant</span><span class="o">=</span><span class="n">minimax_B</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="n">profondeur</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="n">is_min_B</span><span class="p">(</span><span class="n">arb</span><span class="p">)):</span> <span class="c1">#c&#39;est un noeud max</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">arb</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">node</span><span class="o">==</span><span class="n">arb</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">arb</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">valeur_du_fils_courant</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1">#c&#39;est un noeud min</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arb</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">node</span><span class="o">==</span><span class="n">arb</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">arb</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">valeur_du_fils_courant</span>
+    <span class="n">valeur_de_la_position</span><span class="o">=</span><span class="n">arb</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">return</span> <span class="n">valeur_de_la_position</span></div>
+
+<div class="viewcode-block" id="get_minimax_B"><a class="viewcode-back" href="../alphabeta.html#alphabeta.get_minimax_B">[docs]</a><span class="k">def</span> <span class="nf">get_minimax_B</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Returns the tuple (x,y,k,l) that corresponds to the best move for black player considering the minimax algorithm</span>
+
+<span class="sd">       :return: tuple (x,y,k,l) to implement in the move function which will finally simulate IA</span>
+<span class="sd">       :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">minimax_B</span><span class="p">(</span><span class="n">root_tree_B</span><span class="p">,</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span></div>
+
+<span class="c1">#Élagage alpha_beta</span>
+
+<span class="c1">#Pour les blancs</span>
+<div class="viewcode-block" id="alpha_beta_W"><a class="viewcode-back" href="../alphabeta.html#alphabeta.alpha_beta_W">[docs]</a><span class="k">def</span> <span class="nf">alpha_beta_W</span><span class="p">(</span><span class="n">arb</span><span class="p">,</span><span class="n">profondeur</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">beta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Optimized minimax reccursive algorithm which doesn&#39;t consider useless branchs thanks to alpha and beta parameters</span>
+
+<span class="sd">       :param arb: node algorithm is executing on</span>
+<span class="sd">       :param profondeur: height of the node algorithm is executing on</span>
+<span class="sd">       :param alpha: inferior value of cutting interval (initially negative infinite)</span>
+<span class="sd">       :param beta: superior value of cutting interval(initially positive infinite)</span>
+<span class="sd">       :type arb: node</span>
+<span class="sd">       :type profondeur: int</span>
+<span class="sd">       :type alpha: int</span>
+<span class="sd">       :type beta: int</span>
+<span class="sd">       :return: * tuple (x,k,l,g) - (x,y,k,l) is associated with the future move to do</span>
+<span class="sd">                                  - g is the result of the evaluation function of the chessboard configuration</span>
+<span class="sd">       :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">m2</span>
+    <span class="k">global</span> <span class="n">n2</span>
+    <span class="k">global</span> <span class="n">o2</span>
+    <span class="k">global</span> <span class="n">p2</span>
+    <span class="k">global</span> <span class="n">mp2</span>
+    <span class="k">global</span> <span class="n">np2</span>
+    <span class="k">global</span> <span class="n">op2</span>
+    <span class="k">global</span> <span class="n">qp2</span>
+    <span class="k">if</span> <span class="n">arb</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">:</span>
+        <span class="n">valeur_de_la_position</span><span class="o">=</span><span class="n">arb</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">return</span> <span class="n">valeur_de_la_position</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">is_max_W</span><span class="p">(</span><span class="n">arb</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">arb</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">alpha</span><span class="o">&lt;</span><span class="n">beta</span><span class="p">:</span>
+                    <span class="n">valeur_du_fils_courant</span><span class="o">=</span><span class="n">alpha_beta_W</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="n">profondeur</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">beta</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                        <span class="n">alpha</span><span class="o">=</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+                        <span class="n">m2</span><span class="p">,</span><span class="n">n2</span><span class="p">,</span><span class="n">o2</span><span class="p">,</span><span class="n">p2</span> <span class="o">=</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">valeur_de_la_position</span><span class="o">=</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">n2</span><span class="p">,</span><span class="n">o2</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">arb</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">alpha</span><span class="o">&lt;</span><span class="n">beta</span><span class="p">:</span>
+                    <span class="n">valeur_du_fils_courant</span><span class="o">=</span><span class="n">alpha_beta_W</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="n">profondeur</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">beta</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">beta</span> <span class="o">&gt;</span> <span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                        <span class="n">beta</span><span class="o">=</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+                        <span class="n">mp2</span><span class="p">,</span><span class="n">np2</span><span class="p">,</span><span class="n">op2</span><span class="p">,</span><span class="n">qp2</span> <span class="o">=</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">valeur_de_la_position</span><span class="o">=</span><span class="p">(</span><span class="n">mp2</span><span class="p">,</span><span class="n">np2</span><span class="p">,</span><span class="n">op2</span><span class="p">,</span><span class="n">qp2</span><span class="p">,</span><span class="n">beta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">valeur_de_la_position</span></div>
+
+<div class="viewcode-block" id="get_alpha_beta_W"><a class="viewcode-back" href="../alphabeta.html#alphabeta.get_alpha_beta_W">[docs]</a><span class="k">def</span> <span class="nf">get_alpha_beta_W</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Returns the tuple (x,y,k,l) that corresponds to the best move for white player considering the minimax algorithm optimized with alpha-beta method</span>
+
+<span class="sd">       :return: tuple (x,y,k,l) to implement in the move function which will finally simulate IA</span>
+<span class="sd">       :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">alpha_beta_W</span><span class="p">(</span><span class="n">root_tree_W</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span></div>
+
+<span class="c1">#Pour les noirs</span>
+
+<div class="viewcode-block" id="alpha_beta_B"><a class="viewcode-back" href="../alphabeta.html#alphabeta.alpha_beta_B">[docs]</a><span class="k">def</span> <span class="nf">alpha_beta_B</span><span class="p">(</span><span class="n">arb</span><span class="p">,</span><span class="n">profondeur</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">beta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Optimized minimax reccursive algorithm which doesn&#39;t consider useless branchs thanks to alpha and beta parameters</span>
+
+<span class="sd">       :param arb: node algorithm is executing on</span>
+<span class="sd">       :param profondeur: height of the node algorithm is executing on</span>
+<span class="sd">       :param alpha: inferior value of cutting interval (initially negative infinite)</span>
+<span class="sd">       :param beta: superior value of cutting interval(initially positive infinite)</span>
+<span class="sd">       :type arb: node</span>
+<span class="sd">       :type profondeur: int</span>
+<span class="sd">       :type alpha: int</span>
+<span class="sd">       :type beta: int</span>
+<span class="sd">       :return: * tuple (x,k,l,g) - (x,y,k,l) is associated with the future move to do</span>
+<span class="sd">                                  - g is the result of the evaluation function of the chessboard configuration</span>
+<span class="sd">       :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">m1</span>
+    <span class="k">global</span> <span class="n">n1</span>
+    <span class="k">global</span> <span class="n">o1</span>
+    <span class="k">global</span> <span class="n">p1</span>
+    <span class="k">global</span> <span class="n">mp1</span>
+    <span class="k">global</span> <span class="n">np1</span>
+    <span class="k">global</span> <span class="n">op1</span>
+    <span class="k">global</span> <span class="n">qp1</span>
+    <span class="k">if</span> <span class="n">arb</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">:</span>
+        <span class="n">valeur_de_la_position</span><span class="o">=</span><span class="n">arb</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">return</span> <span class="n">valeur_de_la_position</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="n">is_min_B</span><span class="p">(</span><span class="n">arb</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">arb</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">alpha</span><span class="o">&lt;</span><span class="n">beta</span><span class="p">:</span>
+                    <span class="n">valeur_du_fils_courant</span><span class="o">=</span><span class="n">alpha_beta_B</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="n">profondeur</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">beta</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                        <span class="n">alpha</span><span class="o">=</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+                        <span class="n">m1</span><span class="p">,</span><span class="n">n1</span><span class="p">,</span><span class="n">o1</span><span class="p">,</span><span class="n">p1</span> <span class="o">=</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">valeur_de_la_position</span><span class="o">=</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">n1</span><span class="p">,</span><span class="n">o1</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">arb</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">alpha</span><span class="o">&lt;</span><span class="n">beta</span><span class="p">:</span>
+                    <span class="n">valeur_du_fils_courant</span><span class="o">=</span><span class="n">alpha_beta_B</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="n">profondeur</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">beta</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">beta</span> <span class="o">&gt;</span> <span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                        <span class="n">beta</span><span class="o">=</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+                        <span class="n">mp1</span><span class="p">,</span><span class="n">np1</span><span class="p">,</span><span class="n">op1</span><span class="p">,</span><span class="n">qp1</span> <span class="o">=</span><span class="n">valeur_du_fils_courant</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">valeur_de_la_position</span><span class="o">=</span><span class="p">(</span><span class="n">mp1</span><span class="p">,</span><span class="n">np1</span><span class="p">,</span><span class="n">op1</span><span class="p">,</span><span class="n">qp1</span><span class="p">,</span><span class="n">beta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">valeur_de_la_position</span></div>
+
+<div class="viewcode-block" id="get_alpha_beta_B"><a class="viewcode-back" href="../alphabeta.html#alphabeta.get_alpha_beta_B">[docs]</a><span class="k">def</span> <span class="nf">get_alpha_beta_B</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Returns the tuple (x,y,k,l) that corresponds to the best move for black player considering the minimax algorithm optimized with alpha-beta method</span>
+
+<span class="sd">       :return: tuple (x,y,k,l) to implement in the move function which will finally simulate IA</span>
+<span class="sd">       :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">alpha_beta_B</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_knn.html">AI with K Nearest-Neighbors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_mcts.html">AI with Monte Carlo Tree Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../moveIAs.html">Handler functions for AI’s moves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trainKeras2.html">Neural Network with Tensorflow and Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KNN_Algo.html">K Nearest Neighbors classification function</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

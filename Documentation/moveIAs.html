@@ -1,0 +1,208 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Handler functions for AI’s moves &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Neural Network with Tensorflow and Keras" href="trainKeras2.html" />
+    <link rel="prev" title="AI with Neural Network" href="IA_nn.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="handler-functions-for-ai-s-moves">
+<h1>Handler functions for AI’s moves<a class="headerlink" href="#handler-functions-for-ai-s-moves" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="moveias-py">
+<h2>moveIAs.py<a class="headerlink" href="#moveias-py" title="Permalink to this headline">¶</a></h2>
+<p>Handler functions for AI’s moves documentation</p>
+<span class="target" id="module-moveIAs"></span><dl class="function">
+<dt id="moveIAs.move_IA_denombrement_black">
+<code class="descclassname">moveIAs.</code><code class="descname">move_IA_denombrement_black</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/moveIAs.html#move_IA_denombrement_black"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moveIAs.move_IA_denombrement_black" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><dl class="first docutils">
+<dt>Complete IA black player game turn simulation</dt>
+<dd><ul class="first last">
+<li>Create black tree ready to be crossed</li>
+<li>Execution of alpha-beta algorithm</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Used by Graphical User Interface</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">best move parameters (x,y,k,l) for black player considering alpha-beta algorithm</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moveIAs.move_IA_knn_black">
+<code class="descclassname">moveIAs.</code><code class="descname">move_IA_knn_black</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/moveIAs.html#move_IA_knn_black"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moveIAs.move_IA_knn_black" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><dl class="first docutils">
+<dt>Complete IA black player game turn simulation</dt>
+<dd><ul class="first last">
+<li>Create black tree ready to be crossed</li>
+<li>Execution of alpha-beta algorithm</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Used by Graphical User Interface</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">best move parameters (x,y,k,l) for black player considering alpha-beta algorithm</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moveIAs.move_IA_mcts_black">
+<code class="descclassname">moveIAs.</code><code class="descname">move_IA_mcts_black</code><span class="sig-paren">(</span><em>tmax</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/moveIAs.html#move_IA_mcts_black"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moveIAs.move_IA_mcts_black" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="moveIAs.move_IA_nn_black">
+<code class="descclassname">moveIAs.</code><code class="descname">move_IA_nn_black</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/moveIAs.html#move_IA_nn_black"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moveIAs.move_IA_nn_black" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><dl class="first docutils">
+<dt>Complete IA black player game turn simulation</dt>
+<dd><ul class="first last">
+<li>Create black tree ready to be crossed</li>
+<li>Execution of alpha-beta algorithm</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Used by Graphical User Interface</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">best move parameters (x,y,k,l) for black player considering alpha-beta algorithm</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_knn.html">AI with K Nearest-Neighbors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_mcts.html">AI with Monte Carlo Tree Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Handler functions for AI’s moves</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#moveias-py">moveIAs.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="trainKeras2.html">Neural Network with Tensorflow and Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KNN_Algo.html">K Nearest Neighbors classification function</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="IA_nn.html" title="previous chapter">AI with Neural Network</a></li>
+      <li>Next: <a href="trainKeras2.html" title="next chapter">Neural Network with Tensorflow and Keras</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/moveIAs.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

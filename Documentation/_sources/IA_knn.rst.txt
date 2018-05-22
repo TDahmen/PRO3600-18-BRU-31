@@ -1,0 +1,14 @@
+************************
+AI with K Nearest-Neighbors
+************************
+
+IA_knn.py
+=======
+
+AI with K Nearest-Neighbors documentation
+
+.. automodule:: IA_knn
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:

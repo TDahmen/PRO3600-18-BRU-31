@@ -1,0 +1,152 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AI with K Nearest-Neighbors &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="AI with Monte Carlo Tree Search" href="IA_mcts.html" />
+    <link rel="prev" title="AI with enumeration technique" href="IA_denombrement.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ai-with-k-nearest-neighbors">
+<h1>AI with K Nearest-Neighbors<a class="headerlink" href="#ai-with-k-nearest-neighbors" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ia-knn-py">
+<h2>IA_knn.py<a class="headerlink" href="#ia-knn-py" title="Permalink to this headline">¶</a></h2>
+<p>AI with K Nearest-Neighbors documentation</p>
+<span class="target" id="module-IA_knn"></span><dl class="function">
+<dt id="IA_knn.adapt">
+<code class="descclassname">IA_knn.</code><code class="descname">adapt</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_knn.html#adapt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_knn.adapt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="IA_knn.create_tree_B">
+<code class="descclassname">IA_knn.</code><code class="descname">create_tree_B</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_knn.html#create_tree_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_knn.create_tree_B" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>If black player has to play, create a 3-height tree of all playing configurations (considering B-W-B)</li>
+<li>Each one is associated with an evaluation of the final chessboard configuration, evaluated thanks to knn model</li>
+<li>This tree will then be crossed by minimax and alpha-beta algorithms.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_knn.create_tree_W">
+<code class="descclassname">IA_knn.</code><code class="descname">create_tree_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_knn.html#create_tree_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_knn.create_tree_W" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>If black player has to play, create a 3-height tree of all playing configurations (considering B-W-B)</li>
+<li>Each one is associated with an evaluation of the final chessboard configuration, evaluated thanks to knn model</li>
+<li>This tree will then be crossed by minimax and alpha-beta algorithms.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_knn.eval_knn">
+<code class="descclassname">IA_knn.</code><code class="descname">eval_knn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_knn.html#eval_knn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_knn.eval_knn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AI with K Nearest-Neighbors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ia-knn-py">IA_knn.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="IA_mcts.html">AI with Monte Carlo Tree Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="moveIAs.html">Handler functions for AI’s moves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainKeras2.html">Neural Network with Tensorflow and Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KNN_Algo.html">K Nearest Neighbors classification function</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="IA_denombrement.html" title="previous chapter">AI with enumeration technique</a></li>
+      <li>Next: <a href="IA_mcts.html" title="next chapter">AI with Monte Carlo Tree Search</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/IA_knn.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

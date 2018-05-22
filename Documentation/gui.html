@@ -1,0 +1,242 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Graphical User Interface without Artificial Intelligence &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="AI with enumeration technique" href="IA_denombrement.html" />
+    <link rel="prev" title="Alpha Beta" href="alphabeta.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="graphical-user-interface-without-artificial-intelligence">
+<h1>Graphical User Interface without Artificial Intelligence<a class="headerlink" href="#graphical-user-interface-without-artificial-intelligence" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="gui-py">
+<h2>gui.py<a class="headerlink" href="#gui-py" title="Permalink to this headline">¶</a></h2>
+<p>GUI without AI Documentation</p>
+<span class="target" id="module-gui"></span><dl class="class">
+<dt id="gui.Ui_Dialog">
+<em class="property">class </em><code class="descclassname">gui.</code><code class="descname">Ui_Dialog</code><a class="reference internal" href="_modules/gui.html#Ui_Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gui.Ui_Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class contains the GUI’s window, in which pieces’ locations are buttons
+Moving a piece is achieved by changing buttons’ images
+The association between a button, the value of its piece and the piece’s position on the chessboard
+is managed with two dictionaries, which are declared in retranslateUi</p>
+<dl class="method">
+<dt id="gui.Ui_Dialog.chk">
+<code class="descname">chk</code><span class="sig-paren">(</span><em>button</em>, <em>dict1</em>, <em>dict2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui.html#Ui_Dialog.chk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gui.Ui_Dialog.chk" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the action function called when a piece is selected. It interacts
+with the game engine echecs.py</p>
+<p>Multiple cases must be managed:</p>
+<p>Let’s assume we play with whites, and it is the first time the player selects
+a piece</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>if we choose a white piece</dt>
+<dd><ul class="first last">
+<li>it is highlighted</li>
+<li>the selected button is stored in pChecked, waiting for the second call
+of the function</li>
+<li>the game engine is called in order to highlight accessible cases</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>if we do anything else (choosing a black piece…), nothing happens</li>
+</ul>
+<p>Let’s now assume a white piece was previously selected (stil playing with whites)</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>if we choose a white piece</dt>
+<dd><ul class="first last">
+<li>the selection changes (new piece highlighted and stored in pChecked,
+waiting for another call of the function)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>if we choose a black piece</dt>
+<dd><ul class="first last">
+<li>if it is not accessible, the selected white piece becomes unselected</li>
+<li>if it is accessible, the selected white piece takes its place and the change
+is sent to the game engine</li>
+<li>a new blank case is created</li>
+<li>the next turn begins: blacks must play</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>if we choose a blank case</dt>
+<dd><ul class="first last">
+<li>if it is not accessible, the selected white piece becomes unselected</li>
+<li>if it is accessible, the selected white piece takes the blank place and the change
+is sent to the game engine</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>button</strong> (<em>QtWidgets.QPushButton</em>) – The sender (user selected button)</li>
+<li><strong>dict1</strong> (<em>dict</em>) – Dictionary button -&gt; position on the chessboard</li>
+<li><strong>dict2</strong> (<em>dict</em>) – Dictionary position on the chessboard -&gt; button</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gui.Ui_Dialog.retranslateUi">
+<code class="descname">retranslateUi</code><span class="sig-paren">(</span><em>Dialog</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui.html#Ui_Dialog.retranslateUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gui.Ui_Dialog.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function connects the GUI to user’s actions. In this specific function,
+we define two dictionaries that are necessary to link the GUI to the game engine:</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>dict1</dt>
+<dd><ul class="first last">
+<li>key: a button of the GUI</li>
+<li>value: the position of the piece in the game engine’s chessboard</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>dict1</dt>
+<dd><ul class="first last">
+<li>key: the position of the piece in the game engine’s chessboard</li>
+<li>value: a button of the GUI</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>This enables the GUI and the game engine to interact with each other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gui.Ui_Dialog.setupUi">
+<code class="descname">setupUi</code><span class="sig-paren">(</span><em>Dialog</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui.html#Ui_Dialog.setupUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gui.Ui_Dialog.setupUi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Graphical User Interface without Artificial Intelligence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gui-py">gui.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_knn.html">AI with K Nearest-Neighbors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_mcts.html">AI with Monte Carlo Tree Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="moveIAs.html">Handler functions for AI’s moves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainKeras2.html">Neural Network with Tensorflow and Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KNN_Algo.html">K Nearest Neighbors classification function</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="alphabeta.html" title="previous chapter">Alpha Beta</a></li>
+      <li>Next: <a href="IA_denombrement.html" title="next chapter">AI with enumeration technique</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/gui.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

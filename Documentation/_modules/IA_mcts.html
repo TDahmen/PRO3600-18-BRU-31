@@ -1,0 +1,409 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>IA_mcts &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for IA_mcts</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">echecs</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">anytree</span> <span class="k">import</span> <span class="n">Node</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1">#changement de stratégie : un noeud n&#39;est plus un move mais une configuration de plateau</span>
+
+<span class="c1">#node = (plateau,visited{0,1},Q,V)</span>
+
+<span class="n">c</span><span class="o">=</span><span class="mf">0.1</span>
+
+<div class="viewcode-block" id="tour_B"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.tour_B">[docs]</a><span class="k">def</span> <span class="nf">tour_B</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">depth</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="terminal"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.terminal">[docs]</a><span class="k">def</span> <span class="nf">terminal</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns if a node is terminal, ie board contained in node is in a chessmate configuration</span>
+
+<span class="sd">        :param node: considered node</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :rtype: boolean</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">echecs</span><span class="o">.</span><span class="n">chess_Mate_B</span><span class="p">()</span> <span class="ow">or</span> <span class="n">echecs</span><span class="o">.</span><span class="n">chess_Mate_W</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="fully_expanded"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.fully_expanded">[docs]</a><span class="k">def</span> <span class="nf">fully_expanded</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns if a node is fully expanded, ie its children have been all visited once</span>
+
+<span class="sd">        :param node: considered node</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :rtype: boolean</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="pick_unvisited_child"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.pick_unvisited_child">[docs]</a><span class="k">def</span> <span class="nf">pick_unvisited_child</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Picks an unvisited child of considered node, and actualizes its visit parameter</span>
+
+<span class="sd">        :param node: considered node</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :return: unvisited node&#39;s child</span>
+<span class="sd">        :rtype: node</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">terminal</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">node</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+            <span class="k">return</span> <span class="n">child</span></div>
+
+<div class="viewcode-block" id="best_uct"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.best_uct">[docs]</a><span class="k">def</span> <span class="nf">best_uct</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns best node child considering uct value</span>
+<span class="sd">        uct grows : * simulations winning ratio grows (Q/V)</span>
+<span class="sd">                    * number of visits decreases</span>
+
+<span class="sd">        :param node: considered node</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :return: best uct node</span>
+<span class="sd">        :rtype: node</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">maxi</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">res</span><span class="o">=</span><span class="n">pick_random_child</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">Q_vi</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">N_vi</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">N_v</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">uct</span> <span class="o">=</span> <span class="p">(</span><span class="n">Q_vi</span><span class="o">/</span><span class="n">N_vi</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">N_v</span><span class="p">)</span><span class="o">/</span><span class="n">N_vi</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">uct</span> <span class="o">&gt;</span> <span class="n">maxi</span><span class="p">:</span>
+            <span class="n">maxi</span> <span class="o">=</span> <span class="n">uct</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">child</span>
+    <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="traverse"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.traverse">[docs]</a><span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * Recursive function which returns an unvisited node&#39;s child if node isn&#39;t fully expanded, else picd the best uct node and</span>
+<span class="sd">        does it again.</span>
+<span class="sd">        * Then, it traverses deep in the tree to pick most promising and not fully expanded node</span>
+
+<span class="sd">        :param node: considered node(always root)</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :return: most promising and not fully expanded node</span>
+<span class="sd">        :rtype: node</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="n">fully_expanded</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">best_uct</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">tour_B</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="n">l</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_B</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">l</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_W</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+            <span class="n">new_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">([</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">parent</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">pick_unvisited_child</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="result"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.result">[docs]</a><span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns result of a terminal node</span>
+
+<span class="sd">        :param node: considered node</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :return: * 1 if black won (white king in chessmate configuration)</span>
+<span class="sd">                 * -1 if white won (black king in chessmate configuration)</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">tour_B</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="pick_random_child"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.pick_random_child">[docs]</a><span class="k">def</span> <span class="nf">pick_random_child</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Picks a random child of considered node for random simulation process</span>
+
+<span class="sd">        :param node: considered node</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :return: random node&#39;s child</span>
+<span class="sd">        :rtype: node</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">l</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)])</span></div>
+
+
+
+<div class="viewcode-block" id="rollout"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.rollout">[docs]</a><span class="k">def</span> <span class="nf">rollout</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * Simulates a random full play game given initial node until terminal node</span>
+<span class="sd">        * If number of plays exceeds tmax, considers the game drawn</span>
+
+<span class="sd">        :param node: initial node of simulation</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :return: result of simulation</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">tmax</span><span class="o">=</span><span class="mi">100</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="n">terminal</span><span class="p">(</span><span class="n">node</span><span class="p">))</span> <span class="ow">and</span> <span class="n">t</span><span class="o">&lt;</span><span class="n">tmax</span><span class="p">:</span>
+        <span class="n">t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">node</span><span class="o">=</span><span class="n">rollout_policy</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmax</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="eval_denombrement_bis"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.eval_denombrement_bis">[docs]</a><span class="k">def</span> <span class="nf">eval_denombrement_bis</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluation function that only considers</span>
+<span class="sd">        taken pieces by each times</span>
+
+<span class="sd">        :return: gain of the current chessboard configuration</span>
+<span class="sd">        :rtype: int</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="n">echecs</span><span class="o">.</span><span class="n">piece_converter</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">l</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="rollout_bis"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.rollout_bis">[docs]</a><span class="k">def</span> <span class="nf">rollout_bis</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * Simulates a random full play game given initial node until terminal node</span>
+<span class="sd">        * If number of plays exceeds tmax, evaluates final board configuration with eval_denombrement to determine whose player is winning the simulation</span>
+
+<span class="sd">        :param node: initial node of simulation</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :return: result of simulation</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">tmax</span><span class="o">=</span><span class="mi">30</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="n">terminal</span><span class="p">(</span><span class="n">node</span><span class="p">))</span> <span class="ow">and</span> <span class="n">t</span><span class="o">&lt;</span><span class="n">tmax</span><span class="p">:</span>
+        <span class="n">t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">node</span><span class="o">=</span><span class="n">rollout_policy</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmax</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">eval_denombrement_bis</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">3</span> <span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">,</span><span class="mi">1</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span>
+    <span class="k">else</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">,</span><span class="n">result</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="rollout_bis_nn"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.rollout_bis_nn">[docs]</a><span class="k">def</span> <span class="nf">rollout_bis_nn</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * Simulates a random full play game given initial node until terminal node</span>
+<span class="sd">        * If number of plays exceeds tmax, evaluates final board configuration with eval_nn to determine whose player is winning the simulation</span>
+
+<span class="sd">        :param node: initial node of simulation</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :return: result of simulation</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">tmax</span><span class="o">=</span><span class="mi">30</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="n">terminal</span><span class="p">(</span><span class="n">node</span><span class="p">))</span> <span class="ow">and</span> <span class="n">t</span><span class="o">&lt;</span><span class="n">tmax</span><span class="p">:</span>
+        <span class="n">t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">node</span><span class="o">=</span><span class="n">rollout_policy</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmax</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">echecs</span><span class="o">.</span><span class="n">eval_nn</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">,</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span>
+    <span class="k">else</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">,</span><span class="n">result</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="rollout_policy"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.rollout_policy">[docs]</a><span class="k">def</span> <span class="nf">rollout_policy</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Builds node&#39;s children to continue simulation and picks one of them randomly</span>
+
+<span class="sd">        :param node: considered node</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :return: random child of node</span>
+<span class="sd">        :rtype: node</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">tour_B</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="n">l</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_B</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">l</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_W</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">,</span><span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">([</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">parent</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">picked</span> <span class="o">=</span> <span class="n">pick_random_child</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">echecs</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">picked</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">picked</span></div>
+
+<div class="viewcode-block" id="best_child"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.best_child">[docs]</a><span class="k">def</span> <span class="nf">best_child</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns most visited child, given many simulations, best_child(root) is the most promising move to do</span>
+
+<span class="sd">        :param node: considered node(always root)</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :return: most visited child</span>
+<span class="sd">        :rtype: node</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">maxi</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">N_vi</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">N_vi</span> <span class="o">&gt;</span> <span class="n">maxi</span><span class="p">:</span>
+            <span class="n">maxi</span> <span class="o">=</span> <span class="n">N_vi</span>
+            <span class="n">res</span><span class="o">=</span> <span class="n">child</span>
+    <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="back_propagate"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.back_propagate">[docs]</a><span class="k">def</span> <span class="nf">back_propagate</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="n">result</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Backpropagate result&#39;s data (number of node visits, result of simulation) to node parents after simulation</span>
+
+<span class="sd">        :param node: considered node</span>
+<span class="sd">        :type node: node</span>
+<span class="sd">        :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_root</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+=</span><span class="n">result</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+=</span><span class="n">result</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">back_propagate</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="monte_carlo_tree_search"><a class="viewcode-back" href="../IA_mcts.html#IA_mcts.monte_carlo_tree_search">[docs]</a><span class="k">def</span> <span class="nf">monte_carlo_tree_search</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="n">tmax</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * Processes the Monte Carlo Tree Search Method during 100 seconds:</span>
+<span class="sd">            - Picks an unfully expanded node (initially root) and picks one of its unvisited child</span>
+<span class="sd">            - Calcul random full play simulation&#39;s result beginning from this node</span>
+<span class="sd">            - Backpropagates result&#39;s data to picked node&#39;s parents</span>
+<span class="sd">        * At the end of the process, returns the most visited root&#39;s child, ie the most promising move to play</span>
+
+<span class="sd">        :param root: tree root (initial board configuration)</span>
+<span class="sd">        :type root: node</span>
+<span class="sd">        :return: most promising node</span>
+<span class="sd">        :rtype: node</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">debut</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">fin</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">fin</span> <span class="o">-</span> <span class="n">debut</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">tmax</span><span class="p">:</span>
+        <span class="n">leaf</span><span class="o">=</span><span class="n">traverse</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">res</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">simulation_result</span><span class="o">=</span><span class="n">rollout_bis</span><span class="p">(</span><span class="n">leaf</span><span class="p">)</span>
+        <span class="n">back_propagate</span><span class="p">(</span><span class="n">leaf</span><span class="p">,</span><span class="n">simulation_result</span><span class="p">)</span>
+        <span class="n">fin</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">leaf</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">best_child</span><span class="p">(</span><span class="n">root</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_knn.html">AI with K Nearest-Neighbors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_mcts.html">AI with Monte Carlo Tree Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../moveIAs.html">Handler functions for AI’s moves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trainKeras2.html">Neural Network with Tensorflow and Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KNN_Algo.html">K Nearest Neighbors classification function</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

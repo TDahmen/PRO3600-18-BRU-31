@@ -1,0 +1,14 @@
+************************
+Graphical User Interface without Artificial Intelligence
+************************
+
+gui.py
+=======
+
+GUI without AI Documentation
+
+.. automodule:: gui
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:
