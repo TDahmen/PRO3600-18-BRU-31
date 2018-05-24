@@ -1,0 +1,14 @@
+************************
+Neural Network with Tensorflow and Keras
+************************
+
+trainKeras2.py
+=======
+
+Convolutional Neural network made with Tensorflow and Keras
+
+.. automodule:: trainKeras2
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:

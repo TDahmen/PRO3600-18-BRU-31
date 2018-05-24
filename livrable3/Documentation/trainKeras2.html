@@ -1,0 +1,148 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Neural Network with Tensorflow and Keras &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="K Nearest Neighbors classification function" href="KNN_Algo.html" />
+    <link rel="prev" title="Handler functions for AI’s moves" href="moveIAs.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="neural-network-with-tensorflow-and-keras">
+<h1>Neural Network with Tensorflow and Keras<a class="headerlink" href="#neural-network-with-tensorflow-and-keras" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="trainkeras2-py">
+<h2>trainKeras2.py<a class="headerlink" href="#trainkeras2-py" title="Permalink to this headline">¶</a></h2>
+<p>Convolutional Neural network made with Tensorflow and Keras</p>
+<span class="target" id="module-trainKeras2"></span><dl class="function">
+<dt id="trainKeras2.trainNN">
+<code class="descclassname">trainKeras2.</code><code class="descname">trainNN</code><span class="sig-paren">(</span><em>nbEpochs</em>, <em>batchSize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainKeras2.html#trainNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trainKeras2.trainNN" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Train the neural network with given parameters</li>
+<li>A power of two batch size is known to be faster with GPU</li>
+<li>Prints epochs and accuracy on training and testing set</li>
+<li>Stores train neural network in the file “model”</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>nbEpochs</strong> (<em>integer</em>) – number of epochs</li>
+<li><strong>batchSize</strong> – size of batch</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">none</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_knn.html">AI with K Nearest-Neighbors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_mcts.html">AI with Monte Carlo Tree Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="moveIAs.html">Handler functions for AI’s moves</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Neural Network with Tensorflow and Keras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#trainkeras2-py">trainKeras2.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="KNN_Algo.html">K Nearest Neighbors classification function</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="moveIAs.html" title="previous chapter">Handler functions for AI’s moves</a></li>
+      <li>Next: <a href="KNN_Algo.html" title="next chapter">K Nearest Neighbors classification function</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/trainKeras2.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,14 @@
+************************
+AI with Neural Network
+************************
+
+IA_nn.py
+=======
+
+AI with Neural Network documentation
+
+.. automodule:: IA_nn
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:

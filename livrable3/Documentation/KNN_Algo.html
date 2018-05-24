@@ -1,0 +1,152 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>K Nearest Neighbors classification function &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Neural Network with Tensorflow and Keras" href="trainKeras2.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="k-nearest-neighbors-classification-function">
+<h1>K Nearest Neighbors classification function<a class="headerlink" href="#k-nearest-neighbors-classification-function" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="knn-algo-py">
+<h2>KNN_Algo.py<a class="headerlink" href="#knn-algo-py" title="Permalink to this headline">¶</a></h2>
+<p>This script provides accuracy of KNN classification on a 10k sample of our dataser</p>
+<span class="target" id="module-KNN_Algo"></span><dl class="function">
+<dt id="KNN_Algo.KNN_Method">
+<code class="descclassname">KNN_Algo.</code><code class="descname">KNN_Method</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/KNN_Algo.html#KNN_Method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#KNN_Algo.KNN_Method" title="Permalink to this definition">¶</a></dt>
+<dd><p>/!The two databases “newGamesData.npy” and “newOneHotEncoded.npy” have to be located in the same directory as the Python script
+This learning algorithm KNN (“K Nearest Neighbors”) uses a move’s data base (newGamesData). A move is modelized by a change in the board’s configuration
+A grade is given for each move, giving its power. The more powerful a move is, the more it gives advantage for the one who did it. Theses moves have grades
+from 1 to 6. However, they have been “one-hot encoded”, this means that the grade is a list of size 8 full of 0 and with a 1 at the place of the grade.
+For example: if the move’s grade is 6 then there will be 0 except at position 6 where there will be a 1. These grades are stored in the file newOneHotEncoded.py
+and correponds to newGamesData.
+This algorithm displays the evolution of the accuracy for each K between a and b+1.
+It also displays the most efficient K in the interval with the final precision of the prediction.
+This returns the evaluation matrix of the board</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> (<em>int</em>) – minimal value of the interval</li>
+<li><strong>b</strong> (<em>int</em>) – maximal value of the interval</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">return evaluation matrix of the board</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_knn.html">AI with K Nearest-Neighbors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_mcts.html">AI with Monte Carlo Tree Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="moveIAs.html">Handler functions for AI’s moves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainKeras2.html">Neural Network with Tensorflow and Keras</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">K Nearest Neighbors classification function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#knn-algo-py">KNN_Algo.py</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="trainKeras2.html" title="previous chapter">Neural Network with Tensorflow and Keras</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/KNN_Algo.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

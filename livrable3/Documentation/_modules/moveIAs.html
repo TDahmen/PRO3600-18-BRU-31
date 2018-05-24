@@ -1,0 +1,180 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>moveIAs &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for moveIAs</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">echecs</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">IA_denombrement</span>
+<span class="kn">import</span> <span class="nn">IA_nn</span>
+<span class="kn">import</span> <span class="nn">IA_knn</span>
+<span class="kn">import</span> <span class="nn">IA_mcts</span>
+<span class="kn">import</span> <span class="nn">alphabeta</span>
+<span class="kn">from</span> <span class="nn">anytree</span> <span class="k">import</span> <span class="n">Node</span><span class="p">,</span><span class="n">RenderTree</span>
+
+<div class="viewcode-block" id="move_IA_denombrement_black"><a class="viewcode-back" href="../moveIAs.html#moveIAs.move_IA_denombrement_black">[docs]</a><span class="k">def</span> <span class="nf">move_IA_denombrement_black</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * Complete IA black player game turn simulation</span>
+<span class="sd">                                                        - Create black tree ready to be crossed</span>
+<span class="sd">                                                        - Execution of alpha-beta algorithm</span>
+<span class="sd">        * Used by Graphical User Interface</span>
+
+<span class="sd">        :return: best move parameters (x,y,k,l) for black player considering alpha-beta algorithm</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">root_tree_B</span>
+    <span class="k">del</span> <span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span>
+    <span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span><span class="o">=</span><span class="n">Node</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">IA_denombrement</span><span class="o">.</span><span class="n">create_tree_B</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">alphabeta</span><span class="o">.</span><span class="n">get_alpha_beta_B</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="move_IA_nn_black"><a class="viewcode-back" href="../moveIAs.html#moveIAs.move_IA_nn_black">[docs]</a><span class="k">def</span> <span class="nf">move_IA_nn_black</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * Complete IA black player game turn simulation</span>
+<span class="sd">                                                        - Create black tree ready to be crossed</span>
+<span class="sd">                                                        - Execution of alpha-beta algorithm</span>
+<span class="sd">        * Used by Graphical User Interface</span>
+
+<span class="sd">        :return: best move parameters (x,y,k,l) for black player considering alpha-beta algorithm</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">root_tree_B</span>
+    <span class="k">del</span> <span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span>
+    <span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span><span class="o">=</span><span class="n">Node</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">IA_nn</span><span class="o">.</span><span class="n">create_tree_B</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">alphabeta</span><span class="o">.</span><span class="n">get_alpha_beta_B</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="move_IA_knn_black"><a class="viewcode-back" href="../moveIAs.html#moveIAs.move_IA_knn_black">[docs]</a><span class="k">def</span> <span class="nf">move_IA_knn_black</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * Complete IA black player game turn simulation</span>
+<span class="sd">                                                        - Create black tree ready to be crossed</span>
+<span class="sd">                                                        - Execution of alpha-beta algorithm</span>
+<span class="sd">        * Used by Graphical User Interface</span>
+
+<span class="sd">        :return: best move parameters (x,y,k,l) for black player considering alpha-beta algorithm</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">root_tree_B</span>
+    <span class="k">del</span> <span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span>
+    <span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span><span class="o">=</span><span class="n">Node</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">IA_knn</span><span class="o">.</span><span class="n">create_tree_B</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">alphabeta</span><span class="o">.</span><span class="n">get_alpha_beta_B</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="move_IA_mcts_black"><a class="viewcode-back" href="../moveIAs.html#moveIAs.move_IA_mcts_black">[docs]</a><span class="k">def</span> <span class="nf">move_IA_mcts_black</span><span class="p">(</span><span class="n">tmax</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">root_tree_B</span>
+    <span class="k">del</span> <span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span>
+    <span class="n">root_plateau</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">)</span>
+    <span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span> <span class="o">=</span> <span class="n">Node</span><span class="p">([</span><span class="n">root_plateau</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_B</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">Node</span><span class="p">([</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">parent</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">plateaufinal</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">IA_mcts</span><span class="o">.</span><span class="n">monte_carlo_tree_search</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span><span class="p">,</span><span class="n">tmax</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">root_plateau</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">echecs</span><span class="o">.</span><span class="n">board_to_move</span><span class="p">(</span><span class="n">plateaufinal</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_knn.html">AI with K Nearest-Neighbors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_mcts.html">AI with Monte Carlo Tree Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../moveIAs.html">Handler functions for AI’s moves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trainKeras2.html">Neural Network with Tensorflow and Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KNN_Algo.html">K Nearest Neighbors classification function</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

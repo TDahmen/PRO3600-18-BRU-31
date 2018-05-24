@@ -1,0 +1,14 @@
+************************
+AI with Monte Carlo Tree Search
+************************
+
+IA_mcts.py
+=======
+
+AI with Monte Carlo Tree Search documentation
+
+.. automodule:: IA_mcts
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:

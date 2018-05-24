@@ -1,0 +1,300 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>IA_denombrement &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for IA_denombrement</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">echecs</span>
+<span class="kn">from</span> <span class="nn">anytree</span> <span class="k">import</span> <span class="n">Node</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">#description fonction d&#39;évaluation dénombrement des pièces</span>
+
+<div class="viewcode-block" id="eval_denombrement"><a class="viewcode-back" href="../IA_denombrement.html#IA_denombrement.eval_denombrement">[docs]</a><span class="k">def</span> <span class="nf">eval_denombrement</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Part of the evaluation function useful for minimax and alpha-beta, that only considers</span>
+<span class="sd">        taken pieces by each times (stored in wonB and wonW)</span>
+
+<span class="sd">        :return: gain of the current chessboard configuration</span>
+<span class="sd">        :rtype: int</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">+=</span><span class="mi">3</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">4</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">+=</span><span class="mi">5</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">5</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">+=</span><span class="mi">9</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">6</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">+=</span><span class="mi">0</span> <span class="c1">#à vérifier, les sources ne sont pas concordantes (0 ou +infini)</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">+=-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">+=-</span><span class="mi">3</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">4</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">+=-</span><span class="mi">5</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">5</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">+=-</span><span class="mi">9</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="mi">6</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">+=</span><span class="mi">0</span> <span class="c1">#à vérifier, les sources ne sont pas concordantes (0 ou +infini)</span>
+    <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="create_tree_B"><a class="viewcode-back" href="../IA_denombrement.html#IA_denombrement.create_tree_B">[docs]</a><span class="k">def</span> <span class="nf">create_tree_B</span><span class="p">():</span> <span class="c1">#arbre non-lisible mais seulement utile pour alpha_beta et min-max</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * If black player has to play, create a 3-height tree of all playing configurations (considering B-W-B)</span>
+<span class="sd">        * Each one is associated with an evaluation of the final chessboard configuration (evaluation function)</span>
+<span class="sd">        * This tree will then be crossed by minimax and alpha-beta algorithms.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">plateau</span>
+    <span class="k">global</span> <span class="n">position_B</span>
+    <span class="k">global</span> <span class="n">dico_position_B</span>
+    <span class="k">global</span> <span class="n">position_W</span>
+    <span class="k">global</span> <span class="n">dico_position_W</span>
+    <span class="k">global</span> <span class="n">wonW</span>
+    <span class="k">global</span> <span class="n">wonB</span>
+    <span class="n">temp1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">)</span>
+    <span class="n">temp2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="p">)</span>
+    <span class="n">temp3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">temp4</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="p">)</span>
+    <span class="n">temp5</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">temp6</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">)</span>
+    <span class="n">temp7</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">)</span>
+    <span class="n">l</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_B</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_B</span><span class="p">()):</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">echecs</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;profondeur : 1&quot;</span> <span class="o">+</span> <span class="n">acc</span><span class="p">)</span>
+        <span class="n">node_i</span><span class="o">=</span> <span class="n">Node</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_B</span><span class="p">)</span>
+        <span class="n">temp1_2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">)</span>
+        <span class="n">temp2_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="p">)</span>
+        <span class="n">temp3_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">temp4_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="p">)</span>
+        <span class="n">temp5_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">temp6_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">)</span>
+        <span class="n">temp7_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_W</span><span class="p">()):</span>
+            <span class="n">acc</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span> <span class="n">move</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;profondeur : 2&quot;</span> <span class="o">+</span> <span class="n">acc</span><span class="p">)</span>
+            <span class="n">node_i_k</span><span class="o">=</span><span class="n">Node</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="o">=</span><span class="n">node_i</span><span class="p">)</span>
+            <span class="n">temp1_3</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">)</span>
+            <span class="n">temp2_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="p">)</span>
+            <span class="n">temp3_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">temp4_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="p">)</span>
+            <span class="n">temp5_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">temp6_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">)</span>
+            <span class="n">temp7_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">p</span> <span class="ow">in</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_B</span><span class="p">()):</span>
+                <span class="n">acc</span> <span class="o">=</span> <span class="n">echecs</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;profondeur : 3&quot;</span> <span class="o">+</span> <span class="n">acc</span><span class="p">)</span>
+               <span class="c1"># print(m,n,o,p)</span>
+                <span class="n">val</span><span class="o">=</span><span class="n">eval_denombrement</span><span class="p">()</span>
+                <span class="n">node_i_k_l</span> <span class="o">=</span> <span class="n">Node</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">val</span><span class="p">),</span><span class="n">parent</span><span class="o">=</span><span class="n">node_i_k</span><span class="p">)</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp1_3</span><span class="p">)</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp2_3</span><span class="p">)</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">=</span><span class="n">temp3_3</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp4_3</span><span class="p">)</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">=</span><span class="n">temp5_3</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp6_3</span><span class="p">)</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp7_3</span><span class="p">)</span>
+                <span class="c1">#t+=1</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp1_2</span><span class="p">)</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp2_2</span><span class="p">)</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">=</span><span class="n">temp3_2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp4_2</span><span class="p">)</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">=</span><span class="n">temp5_2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp6_2</span><span class="p">)</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp7_2</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp1</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp2</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">=</span><span class="n">temp3</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp4</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">=</span><span class="n">temp5</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp6</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp7</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="create_tree_W"><a class="viewcode-back" href="../IA_denombrement.html#IA_denombrement.create_tree_W">[docs]</a><span class="k">def</span> <span class="nf">create_tree_W</span><span class="p">():</span> <span class="c1">#arbre non-lisible mais seulement utile pour alpha_beta et min-max</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        * If black player has to play, create a 3-height tree of all playing configurations (considering B-W-B)</span>
+<span class="sd">        * Each one is associated with an evaluation of the final chessboard configuration (evaluation function)</span>
+<span class="sd">        * This tree will then be crossed by minimax and alpha-beta algorithms.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">plateau</span>
+    <span class="k">global</span> <span class="n">position_B</span>
+    <span class="k">global</span> <span class="n">dico_position_B</span>
+    <span class="k">global</span> <span class="n">position_W</span>
+    <span class="k">global</span> <span class="n">dico_position_W</span>
+    <span class="k">global</span> <span class="n">wonW</span>
+    <span class="k">global</span> <span class="n">wonB</span>
+    <span class="n">temp1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">)</span>
+    <span class="n">temp2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="p">)</span>
+    <span class="n">temp3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">temp4</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="p">)</span>
+    <span class="n">temp5</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">temp6</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">)</span>
+    <span class="n">temp7</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">)</span>
+    <span class="n">l</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_B</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_W</span><span class="p">()):</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">echecs</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;profondeur : 1&quot;</span> <span class="o">+</span> <span class="n">acc</span><span class="p">)</span>
+        <span class="n">node_i</span><span class="o">=</span> <span class="n">Node</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">root_tree_W</span><span class="p">)</span>
+        <span class="n">temp1_2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">)</span>
+        <span class="n">temp2_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="p">)</span>
+        <span class="n">temp3_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">temp4_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="p">)</span>
+        <span class="n">temp5_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">temp6_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">wonW</span><span class="p">)</span>
+        <span class="n">temp7_2</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">wonB</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_B</span><span class="p">()):</span>
+            <span class="n">acc</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span> <span class="n">move</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;profondeur : 2&quot;</span> <span class="o">+</span> <span class="n">acc</span><span class="p">)</span>
+            <span class="n">node_i_k</span><span class="o">=</span><span class="n">Node</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">parent</span><span class="o">=</span><span class="n">node_i</span><span class="p">)</span>
+            <span class="n">temp1_3</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="p">)</span>
+            <span class="n">temp2_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="p">)</span>
+            <span class="n">temp3_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">temp4_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="p">)</span>
+            <span class="n">temp5_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">temp6_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="p">)</span>
+            <span class="n">temp7_3</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">p</span> <span class="ow">in</span> <span class="p">(</span><span class="n">echecs</span><span class="o">.</span><span class="n">ensemble_move_possible_W</span><span class="p">()):</span>
+                <span class="n">acc</span> <span class="o">=</span> <span class="n">echecs</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;profondeur : 3&quot;</span> <span class="o">+</span> <span class="n">acc</span><span class="p">)</span>
+               <span class="c1"># print(m,n,o,p)</span>
+                <span class="n">val</span><span class="o">=</span><span class="n">eval_denombrement</span><span class="p">()</span>
+                <span class="n">node_i_k_l</span> <span class="o">=</span> <span class="n">Node</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">val</span><span class="p">),</span><span class="n">parent</span><span class="o">=</span><span class="n">node_i_k</span><span class="p">)</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp1_3</span><span class="p">)</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp2_3</span><span class="p">)</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">=</span><span class="n">temp3_3</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp4_3</span><span class="p">)</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">=</span><span class="n">temp5_3</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp6_3</span><span class="p">)</span>
+                <span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp7_3</span><span class="p">)</span>
+                <span class="c1">#t+=1</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp1_2</span><span class="p">)</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp2_2</span><span class="p">)</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">=</span><span class="n">temp3_2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp4_2</span><span class="p">)</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">=</span><span class="n">temp5_2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp6_2</span><span class="p">)</span>
+            <span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp7_2</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">plateau</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp1</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">position_W</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp2</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_W</span><span class="o">=</span><span class="n">temp3</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">position_B</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp4</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">dico_position_B</span><span class="o">=</span><span class="n">temp5</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">wonW</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp6</span><span class="p">)</span>
+        <span class="n">echecs</span><span class="o">.</span><span class="n">wonB</span><span class="o">=</span><span class="n">echecs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">temp7</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_knn.html">AI with K Nearest-Neighbors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_mcts.html">AI with Monte Carlo Tree Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../moveIAs.html">Handler functions for AI’s moves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trainKeras2.html">Neural Network with Tensorflow and Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KNN_Algo.html">K Nearest Neighbors classification function</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

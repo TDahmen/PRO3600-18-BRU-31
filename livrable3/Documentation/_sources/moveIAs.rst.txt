@@ -1,0 +1,14 @@
+************************
+Handler functions for AI's moves
+************************
+
+moveIAs.py
+=======
+
+Handler functions for AI's moves documentation
+
+.. automodule:: moveIAs
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:

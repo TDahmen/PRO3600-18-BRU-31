@@ -1,0 +1,14 @@
+************************
+K Nearest Neighbors classification function
+************************
+
+KNN_Algo.py
+=======
+
+This script provides accuracy of KNN classification on a 10k sample of our dataser
+
+.. automodule:: KNN_Algo
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:

@@ -1,0 +1,425 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AI with Monte Carlo Tree Search &#8212; ChessMate 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="AI with Neural Network" href="IA_nn.html" />
+    <link rel="prev" title="AI with K Nearest-Neighbors" href="IA_knn.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ai-with-monte-carlo-tree-search">
+<h1>AI with Monte Carlo Tree Search<a class="headerlink" href="#ai-with-monte-carlo-tree-search" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ia-mcts-py">
+<h2>IA_mcts.py<a class="headerlink" href="#ia-mcts-py" title="Permalink to this headline">¶</a></h2>
+<p>AI with Monte Carlo Tree Search documentation</p>
+<span class="target" id="module-IA_mcts"></span><dl class="function">
+<dt id="IA_mcts.back_propagate">
+<code class="descclassname">IA_mcts.</code><code class="descname">back_propagate</code><span class="sig-paren">(</span><em>node</em>, <em>result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#back_propagate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.back_propagate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backpropagate result’s data (number of node visits, result of simulation) to node parents after simulation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – considered node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.best_child">
+<code class="descclassname">IA_mcts.</code><code class="descname">best_child</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#best_child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.best_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns most visited child, given many simulations, best_child(root) is the most promising move to do</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – considered node(always root)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">most visited child</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">node</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.best_uct">
+<code class="descclassname">IA_mcts.</code><code class="descname">best_uct</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#best_uct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.best_uct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns best node child considering uct value
+uct grows : * simulations winning ratio grows (Q/V)</p>
+<blockquote>
+<div><ul class="simple">
+<li>number of visits decreases</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – considered node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">best uct node</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">node</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.eval_denombrement_bis">
+<code class="descclassname">IA_mcts.</code><code class="descname">eval_denombrement_bis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#eval_denombrement_bis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.eval_denombrement_bis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluation function that only considers
+taken pieces by each times</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">gain of the current chessboard configuration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.fully_expanded">
+<code class="descclassname">IA_mcts.</code><code class="descname">fully_expanded</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#fully_expanded"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.fully_expanded" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns if a node is fully expanded, ie its children have been all visited once</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – considered node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.monte_carlo_tree_search">
+<code class="descclassname">IA_mcts.</code><code class="descname">monte_carlo_tree_search</code><span class="sig-paren">(</span><em>root</em>, <em>tmax</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#monte_carlo_tree_search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.monte_carlo_tree_search" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><dl class="first docutils">
+<dt>Processes the Monte Carlo Tree Search Method during 100 seconds:</dt>
+<dd><ul class="first last">
+<li>Picks an unfully expanded node (initially root) and picks one of its unvisited child</li>
+<li>Calcul random full play simulation’s result beginning from this node</li>
+<li>Backpropagates result’s data to picked node’s parents</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>At the end of the process, returns the most visited root’s child, ie the most promising move to play</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>root</strong> (<em>node</em>) – tree root (initial board configuration)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">most promising node</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">node</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.pick_random_child">
+<code class="descclassname">IA_mcts.</code><code class="descname">pick_random_child</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#pick_random_child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.pick_random_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Picks a random child of considered node for random simulation process</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – considered node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">random node’s child</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">node</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.pick_unvisited_child">
+<code class="descclassname">IA_mcts.</code><code class="descname">pick_unvisited_child</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#pick_unvisited_child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.pick_unvisited_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Picks an unvisited child of considered node, and actualizes its visit parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – considered node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">unvisited node’s child</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">node</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.result">
+<code class="descclassname">IA_mcts.</code><code class="descname">result</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns result of a terminal node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – considered node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li>1 if black won (white king in chessmate configuration)</li>
+<li>-1 if white won (black king in chessmate configuration)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.rollout">
+<code class="descclassname">IA_mcts.</code><code class="descname">rollout</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#rollout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.rollout" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Simulates a random full play game given initial node until terminal node</li>
+<li>If number of plays exceeds tmax, considers the game drawn</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – initial node of simulation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">result of simulation</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.rollout_bis">
+<code class="descclassname">IA_mcts.</code><code class="descname">rollout_bis</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#rollout_bis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.rollout_bis" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Simulates a random full play game given initial node until terminal node</li>
+<li>If number of plays exceeds tmax, evaluates final board configuration with eval_denombrement to determine whose player is winning the simulation</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – initial node of simulation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">result of simulation</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.rollout_bis_nn">
+<code class="descclassname">IA_mcts.</code><code class="descname">rollout_bis_nn</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#rollout_bis_nn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.rollout_bis_nn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Simulates a random full play game given initial node until terminal node</li>
+<li>If number of plays exceeds tmax, evaluates final board configuration with eval_nn to determine whose player is winning the simulation</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – initial node of simulation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">result of simulation</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.rollout_policy">
+<code class="descclassname">IA_mcts.</code><code class="descname">rollout_policy</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#rollout_policy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.rollout_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds node’s children to continue simulation and picks one of them randomly</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – considered node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">random child of node</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">node</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.terminal">
+<code class="descclassname">IA_mcts.</code><code class="descname">terminal</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#terminal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.terminal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns if a node is terminal, ie board contained in node is in a chessmate configuration</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – considered node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.tour_B">
+<code class="descclassname">IA_mcts.</code><code class="descname">tour_B</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#tour_B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.tour_B" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="IA_mcts.traverse">
+<code class="descclassname">IA_mcts.</code><code class="descname">traverse</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/IA_mcts.html#traverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#IA_mcts.traverse" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Recursive function which returns an unvisited node’s child if node isn’t fully expanded, else picd the best uct node and</li>
+</ul>
+<p>does it again.
+* Then, it traverses deep in the tree to pick most promising and not fully expanded node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>node</em>) – considered node(always root)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">most promising and not fully expanded node</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">node</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ChessMate</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="engine.html">Game engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alphabeta.html">Alpha Beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">Graphical User Interface without Artificial Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_denombrement.html">AI with enumeration technique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IA_knn.html">AI with K Nearest-Neighbors</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AI with Monte Carlo Tree Search</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ia-mcts-py">IA_mcts.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="IA_nn.html">AI with Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="moveIAs.html">Handler functions for AI’s moves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainKeras2.html">Neural Network with Tensorflow and Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KNN_Algo.html">K Nearest Neighbors classification function</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="IA_knn.html" title="previous chapter">AI with K Nearest-Neighbors</a></li>
+      <li>Next: <a href="IA_nn.html" title="next chapter">AI with Neural Network</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Thomas Dahmen, Oscar Bouvier, Jean Forissier, Raphael Macquet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/IA_mcts.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
