@@ -1,2 +1,3 @@
-/Interface Graphique/__pycache__/echecs.cpython-36.pyc
-/Interface Graphique/echecs.py
+.DS_Store
+.idea/
+.gitignore
