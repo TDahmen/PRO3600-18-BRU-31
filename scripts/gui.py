@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 
+"""
+@author: Thomas Dahmen
+"""
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 import echecs
+import os
+
+os.chdir("src/")
 
 class Ui_Dialog(object):
     """
@@ -799,7 +806,7 @@ class Ui_Dialog(object):
                     print(coord)
 
                     (x,y) = coord
-                    l = echecs.valeurs_accessibles(x,y)
+                    l = echecs.valeurs_accessibles_gui(x,y)
 
                     for (m,n) in l:
                         butt = dict2[(m,n)]
@@ -819,13 +826,13 @@ class Ui_Dialog(object):
                     pChecked = ""
                 else: # On a sélectionné une autre pièce
                     (u,v) = dict1[pChecked]
-                    if "vide" in name and dict1[button] in echecs.valeurs_accessibles(u,v): # Déplacement d'une pièce sur une case vide
+                    if "vide" in name and dict1[button] in echecs.valeurs_accessibles_gui(u,v): # Déplacement d'une pièce sur une case vide
                         ## Interaction avec echecs.py
                         coord = dict1[button]
                         print(coord)
 
                         (x,y) = coord
-                        l = echecs.valeurs_accessibles(x,y)
+                        l = echecs.valeurs_accessibles_gui(x,y)
 
                         for (m,n) in l:
                             butt = dict2[(m,n)]
@@ -872,7 +879,7 @@ class Ui_Dialog(object):
                             print(coord)
 
                             (x,y) = coord
-                            l = echecs.valeurs_accessibles(x,y)
+                            l = echecs.valeurs_accessibles_gui(x,y)
 
                             for (m,n) in l:
                                 butt = dict2[(m,n)]
@@ -888,7 +895,7 @@ class Ui_Dialog(object):
                             namePChecked = pChecked.objectName()
                             pChecked.setIcon(QtGui.QIcon(namePChecked + "sel.png"))
                             (u,v) = dict1[pChecked]
-                        if not(joueur in name) and dict1[button] in echecs.valeurs_accessibles(u,v): # on a sélectionné une pièce adverse
+                        if not(joueur in name) and dict1[button] in echecs.valeurs_accessibles_gui(u,v): # on a sélectionné une pièce adverse
                             print("Mangeons la pièce adverse !")
                             ## On répercute le mouvement dans le moteur de jeu en appelant "move"
                             (a,b) = dict1[pChecked]
